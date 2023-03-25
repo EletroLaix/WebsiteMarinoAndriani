@@ -1,4 +1,4 @@
-<header>
+<header [ngClass]="{'header-on-top': !SiteUtility.isHome}" >
 	<div class="container">
 		<h1>{{ PersonalData.FullName }}</h1>
 		<h2>{{ PersonalData.MotivationalPhrase }}</h2>
