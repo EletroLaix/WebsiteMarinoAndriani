@@ -12,6 +12,8 @@ $MainColor: rgb(255,110,5)
 	*
 		transition: ease-in-out 0.3s
 
+	.container
+		animation: InitAnimation 3s ease-in-out
 
 	h1
 		font-size: 48px
@@ -138,3 +140,12 @@ $MainColor: rgb(255,110,5)
 
 	a:hover, .active, .active:focus, li:hover>a
 		color: #fff
+
+
+@keyframes InitAnimation
+	0%
+		opacity: 0%
+		transform: translateY(20px)
+	100%
+		opacity: 100%
+		transform: translateY(0px)
