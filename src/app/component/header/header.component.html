@@ -1,10 +1,26 @@
-<header [ngClass]="{ 'header-on-top': !SiteUtility.isHome }">
-	<h1>{{ PersonalData.FullName }}</h1>
-	<h2>{{ PersonalData.MotivationalPhrase }}</h2>
-	<nav class="navbar">
-		<ul>
-			<li class="nav-link" routerLink="">Home</li>
-			<li class="nav-link" routerLink="About">About</li>
-		</ul>
-	</nav>
+<header id="header">
+	<div class="container">
+		<h1>
+			<a routerLink="">{{ PersonalData.FullName }}</a>
+		</h1>
+		<h2>I am <span>programmer</span></h2>
+
+		<nav id="navbar" class="navbar">
+			<ul>
+				<li><a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a></li>
+				<li><a class="nav-link" routerLinkActive="active" routerLink="About">About</a></li>
+				<li><a class="nav-link" routerLinkActive="active" routerLink="Work">Work</a></li>
+				<li><a class="nav-link" routerLinkActive="active" routerLink="Contact">Contact</a></li>
+			</ul>
+			<i class="bi bi-list mobile-nav-toggle"></i>
+		</nav>
+
+		<div class="social-links">
+			<a href="https://twitter.com/andriani_marino" class="twitter"><i class="bi bi-twitter"></i></a>
+			<a href="https://www.facebook.com/marino.andriani95" class="facebook"><i class="bi bi-facebook"></i></a>
+			<a href="https://www.instagram.com/marino.andriani95/" class="instagram"><i class="bi bi-instagram"></i></a>
+			<a href="https://www.linkedin.com/in/marino-andriani-87b35a109" class="linkedin"><i class="bi bi-linkedin"></i></a>
+		</div>
+	</div>
 </header>
+
