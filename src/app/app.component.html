@@ -1,4 +1,14 @@
-<app-header></app-header>
-<div>
-	<router-outlet></router-outlet>
+<div class="divRoot">
+	<div
+		class="divHeader"
+		[ngClass]="{ 'divHeader-On-Top': !SiteUtility.isHome }"
+	>
+		<app-header></app-header>
+	</div>
+	<div
+		class="divSection"
+		[ngClass]="{ 'divSection-Header-On-Top': !SiteUtility.isHome }"
+	>
+		<router-outlet></router-outlet>
+	</div>
 </div>
