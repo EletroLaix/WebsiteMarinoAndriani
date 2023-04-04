@@ -86,62 +86,6 @@ $MainColor: rgb(255,110,5)
 			flex-direction: column
 			align-items: center
 
-// NAV BAR
-
-.navbar
-	padding: 0
-	margin-top: 35px
-
-	ul
-		margin: 0
-		padding: 0
-		display: flex
-		list-style: none
-		align-items: center
-
-	li
-		position: relative
-
-	li+li
-		margin-left: 30px
-
-	a, a:focus
-		display: flex
-		align-items: center
-		justify-content: space-between
-		padding: 0
-		font-family: "Poppins", sans-serif
-		font-size: 16px
-		font-weight: 400
-		color: rgba(255, 255, 255, 0.7)
-		white-space: nowrap
-		transition: 0.3s
-
-	a i, a:focus i
-		font-size: 12px
-		line-height: 0
-		margin-left: 5px
-
-	a:before
-		content: ""
-		position: absolute
-		width: 0
-		height: 2px
-		bottom: -4px
-		left: 0
-		background-color: $MainColor
-		visibility: hidden
-		width: 0px
-		transition: all 0.3s ease-in-out 0s
-
-	a:hover:before, li:hover>a:before, .active:before
-		visibility: visible
-		width: 25px
-
-	a:hover, .active, .active:focus, li:hover>a
-		color: #fff
-
-
 @keyframes InitAnimation
 	0%
 		opacity: 0%
