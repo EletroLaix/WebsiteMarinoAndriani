@@ -1,4 +1,4 @@
-<header id="header">
+<header id="header" [ngClass]="{ 'header-top': !SiteUtility.isHome }">
 	<div class="container">
 		<h1>
 			<a routerLink="">{{ PersonalData.FullName }}</a>
