@@ -5,7 +5,7 @@ import { SiteutilityService } from 'src/app/service/siteutility.service';
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.sass'],
+	styleUrls: ['./header.component.sass', './navbar.component.sass'],
 })
 export class HeaderComponent {
 	constructor(

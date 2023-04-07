@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { EmptyComponent } from './component/empty/empty.component';
 import { HeaderComponent } from './component/header/header.component';
 import { AboutComponent } from './component/about/about.component';
+import { WorkComponent } from './component/work/work.component';
+import { ContactComponent } from './component/contact/contact.component';
 
 @NgModule({
 	declarations: [
@@ -14,6 +16,8 @@ import { AboutComponent } from './component/about/about.component';
 		EmptyComponent,
 		HeaderComponent,
 		AboutComponent,
+		WorkComponent,
+		ContactComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [],
