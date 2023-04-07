@@ -8,8 +8,14 @@ import { SiteutilityService } from 'src/app/service/siteutility.service';
 	styleUrls: ['./header.component.sass', './navbar.component.sass'],
 })
 export class HeaderComponent {
+	IsOpenMobileNavBar: boolean = false;
+
 	constructor(
 		public PersonalData: PersonaldataService,
 		public SiteUtility: SiteutilityService
 	) {}
+
+	ChangeIsOpenMobileNavBar() {
+		this.IsOpenMobileNavBar = !this.IsOpenMobileNavBar;
+	}
 }

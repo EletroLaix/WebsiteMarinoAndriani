@@ -52,3 +52,72 @@ $MainColor: rgb(255,110,5)
 
 	a:hover, .active, .active:focus, li:hover>a
 		color: #fff
+
+// Mobile Navigation
+
+.mobile-nav-toggle
+	color: #fff
+	font-size: 28px
+	cursor: pointer
+	display: none
+	line-height: 0
+	transition: 1s
+	position: fixed
+	right: 15px
+	top: 15px
+
+@media (max-width: 991px)
+	.mobile-nav-toggle
+		animation: InitAnimationMobileNavToggle 3s ease-in-out 3s both
+		display: block
+
+	.navbar
+		margin-top: 0px
+
+		ul
+			display: none
+
+@keyframes InitAnimationMobileNavToggle
+	0%
+		opacity: 0%
+	100%
+		opacity: 100%
+
+.navbar-mobile
+	position: fixed
+	overflow: hidden
+	top: 0
+	right: 0
+	left: 0
+	bottom: 0
+	background: rgba(0, 0, 0, 0.9)
+	transition: 0.3s
+	z-index: 999
+	margin-top: 0
+
+	.mobile-nav-toggle
+		position: absolute
+		top: 15px
+		right: 15px
+
+	ul
+		display: block
+		position: absolute
+		top: 55px
+		right: 15px
+		bottom: 45px
+		left: 15px
+		padding: 10px 0
+		overflow-y: auto
+		transition: 0.3s
+		border: 2px solid rgba(255, 255, 255, 0.2)
+
+	li
+		padding: 12px 20px
+
+	li+li
+		margin: 0
+
+.navbar-mobile a,.navbar-mobile a:focus
+	font-size: 16px
+	position: relative
