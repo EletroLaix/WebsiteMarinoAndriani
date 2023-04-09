@@ -17,7 +17,7 @@
 	li+li
 		margin-left: 30px
 
-	a, a:focus
+	a
 		display: flex
 		align-items: center
 		justify-content: space-between
@@ -48,7 +48,7 @@
 
 	a:hover:before, li:hover>a:before, .active:before
 		visibility: visible
-		width: 25px
+		width: 100%
 
 	a:hover, .active, .active:focus, li:hover>a
 		color: #fff
@@ -72,7 +72,18 @@
 		display: block
 
 	.navbar
+		position: fixed
+		overflow: hidden
+		top: 0
+		right: 0
+		left: 0
+		bottom: 0
 		margin-top: 0px
+		visibility: hidden
+		transition: 0.3s
+
+		i
+			visibility: visible
 
 		ul
 			display: none
@@ -84,14 +95,9 @@
 		opacity: 100%
 
 .navbar-mobile
-	position: fixed
-	overflow: hidden
-	top: 0
-	right: 0
-	left: 0
-	bottom: 0
-	background: rgba(0, 0, 0, 0.9)
-	transition: 0.3s
+	visibility: visible
+	backdrop-filter: blur(5px)
+	background: rgba(0, 0, 0, 0.5)
 	z-index: 999
 	margin-top: 0
 
