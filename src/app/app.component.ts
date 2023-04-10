@@ -7,5 +7,5 @@ import { SiteutilityService } from './service/siteutility.service';
 	styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
-	constructor(public SiteUtility: SiteutilityService) {}
+	constructor() { }
 }

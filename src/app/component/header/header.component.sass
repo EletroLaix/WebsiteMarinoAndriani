@@ -11,13 +11,11 @@
 
 	h1
 		font-size: 5vh
+		margin: 0
 		line-height: 1
 		font-weight: 700
 		font-family: "Poppins", sans-serif
 		display: inline
-
-		&:hover
-			font-size: 5.1vh
 
 		a, a:hover
 			color: $TextColor
@@ -28,16 +26,12 @@
 	h2
 		font-size: 2.5vh
 		margin-top: 3vh
-		color: rgba(255, 255, 255, 0.8)
+		color: $TextColorNotActive
 
 		span
 			color: $TextColor
 			border-bottom: 2px solid $MainColor
 			padding-bottom: 0.5vh
-
-	img
-		padding: 0
-		margin: 0
 
 	.social-links
 		margin-top: 3vh
@@ -51,7 +45,7 @@
 			background: rgba(255, 255, 255, 0.1)
 			color: $TextColor
 			line-height: 1
-			margin-right: 10px
+			margin-right: 1vh
 			border-radius: 50%
 			width: 5vh
 			height: 5vh
@@ -67,8 +61,8 @@
 			align-items: center
 
 #header.header-top
-	height: 80px
 	position: fixed
+	height: 7vh
 	left: 0
 	top: 0
 	right: 0
@@ -78,23 +72,16 @@
 		display: none
 
 	h1
-		margin-right: auto
-		font-size: 36px
+		font-size: 4vh
 
 	.container
 		display: flex
 		align-items: center
-		animation: none
+		flex-direction: row
+		justify-content: space-between
 
 	.navbar
 		margin: 0
-
-@media (max-width: 768px)
-	#header.header-top
-		height: 60px
-
-		h1
-			font-size: 26px
 
 @keyframes InitAnimation
 	0%
