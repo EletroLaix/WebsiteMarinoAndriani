@@ -2,7 +2,7 @@
 
 .navbar
 	padding: 0
-	margin-top: 35px
+	margin-top: 3vh
 
 	ul
 		margin: 0
@@ -27,6 +27,7 @@
 		font-weight: 400
 		color: rgba(255, 255, 255, 0.7)
 		white-space: nowrap
+		text-decoration: none
 
 	a i, a:focus i
 		font-size: 12px
@@ -50,7 +51,7 @@
 		width: 100%
 
 	a:hover, .active, .active:focus, li:hover>a
-		color: #fff
+		color: $TextColor
 
 // Mobile Navigation
 
@@ -93,9 +94,9 @@
 		li+li
 			margin: 0
 
-		a, a:focus
+		a
 			font-size: 5vh
-			position: relative
+			opacity: 0%
 		
 	.navbar-mobile
 		visibility: visible

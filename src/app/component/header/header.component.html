@@ -7,10 +7,10 @@
 
 		<nav id="navbar" class="navbar" [ngClass]="{ 'navbar-mobile': IsOpenMobileNavBar }">
 			<ul>
-				<li><a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a></li>
-				<li><a class="nav-link" routerLinkActive="active" routerLink="About">About</a></li>
-				<li><a class="nav-link" routerLinkActive="active" routerLink="Work">Work</a></li>
-				<li><a class="nav-link" routerLinkActive="active" routerLink="Contact">Contact</a></li>
+				<li><a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a></li>
+				<li><a routerLinkActive="active" routerLink="About">About</a></li>
+				<li><a routerLinkActive="active" routerLink="Work">Work</a></li>
+				<li><a routerLinkActive="active" routerLink="Contact">Contact</a></li>
 			</ul>
 			<i class="bi bi-list mobile-nav-toggle" [ngClass]="{ 'bi-list': !IsOpenMobileNavBar,'bi-x': IsOpenMobileNavBar }" (click)="ChangeIsOpenMobileNavBar()" ></i>
 		</nav>
