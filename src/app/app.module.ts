@@ -9,6 +9,7 @@ import { HeaderComponent } from './component/header/header.component';
 import { AboutComponent } from './component/about/about.component';
 import { WorkComponent } from './component/work/work.component';
 import { ContactComponent } from './component/contact/contact.component';
+import { ComingsoonComponent } from './component/comingsoon/comingsoon.component';
 
 @NgModule({
 	declarations: [
@@ -18,9 +19,10 @@ import { ContactComponent } from './component/contact/contact.component';
 		AboutComponent,
 		WorkComponent,
 		ContactComponent,
+		ComingsoonComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [],
 	bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

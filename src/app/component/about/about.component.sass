@@ -1,5 +1,5 @@
 
-//Sections General
+@import "../../../assets/Sass/variables"
 
 section
 	overflow: hidden
@@ -8,7 +8,6 @@ section
 	top: 140px
 	bottom: 100%
 	opacity: 0
-	transition: ease-in-out 1s
 	z-index: 2
 
 section.section-show
@@ -44,7 +43,7 @@ section .container
 		width: 120px
 		height: 1px
 		display: inline-block
-		background: #4ceb95
+		background: $MainColor
 		margin: 4px 10px
 
 .section-title p
@@ -61,7 +60,7 @@ section .container
 .about-me .content h3
 	font-weight: 700
 	font-size: 26px
-	color: #18d26e
+	color: $MainColor
 
 .about-me .content ul
 	list-style: none
@@ -78,7 +77,7 @@ section .container
 	& i
 		font-size: 16px
 		margin-right: 5px
-		color: #18d26e
+		color: $MainColor
 		line-height: 0
 
 .about-me .content p:last-child
