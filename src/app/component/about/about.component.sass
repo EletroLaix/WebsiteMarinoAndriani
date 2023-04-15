@@ -1,0 +1,83 @@
+
+@import "../../../assets/Sass/variables"
+
+section
+	overflow: hidden
+	position: absolute
+	width: 100%
+	top: 140px
+	bottom: 100%
+	opacity: 0
+
+section.section-show
+	top: 100px
+	bottom: auto
+	opacity: 1
+	padding-bottom: 45px
+
+section .container
+	background: rgba(0, 0, 0, 0.9)
+	padding: 30px
+
+@media (max-width: 768px)
+	section
+		top: 120px
+
+	section.section-show
+		top: 80px
+
+.section-title h2
+	font-size: 14px
+	font-weight: 500
+	padding: 0
+	line-height: 1px
+	margin: 0 0 20px 0
+	letter-spacing: 2px
+	text-transform: uppercase
+	color: #aaaaaa
+	font-family: "Poppins", sans-serif
+
+	&::after
+		content: ""
+		width: 120px
+		height: 1px
+		display: inline-block
+		background: $MainColor
+		margin: 4px 10px
+
+.section-title p
+	margin: 0
+	margin: -15px 0 15px 0
+	font-size: 36px
+	font-weight: 700
+	text-transform: uppercase
+	font-family: "Poppins", sans-serif
+	color: #fff
+
+// About
+
+.about-me .content h3
+	font-weight: 700
+	font-size: 26px
+	color: $MainColor
+
+.about-me .content ul
+	list-style: none
+	padding: 0
+
+	& li
+		margin-bottom: 20px
+		display: flex
+		align-items: center
+
+	& strong
+		margin-right: 10px
+
+	& i
+		font-size: 16px
+		margin-right: 5px
+		color: $MainColor
+		line-height: 0
+
+.about-me .content p:last-child
+	margin-bottom: 0
