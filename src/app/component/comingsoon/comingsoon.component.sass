@@ -1,0 +1,20 @@
+
+@import "../../../assets/Sass/variables"
+
+section
+	position: absolute
+	width: 100vw
+	top: 9vh
+	animation: InitAnimation 3s ease-in-out both
+	
+	.container
+		background: rgba(0, 0, 0, 0.9)
+		padding: 30px
+
+@keyframes InitAnimation
+	0%
+		opacity: 0%
+		transform: translateY(1vh)
+
+	100%
+		opacity: 100%
