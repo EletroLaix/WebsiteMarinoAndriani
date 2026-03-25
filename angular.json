@@ -60,19 +60,19 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "WebsiteMarinoAndriani:build:production"
+            "production": {
+              "buildTarget": "WebsiteMarinoAndriani:build:production"
 						},
-						"development": {
-							"browserTarget": "WebsiteMarinoAndriani:build:development"
+            "development": {
+              "buildTarget": "WebsiteMarinoAndriani:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "WebsiteMarinoAndriani:build"
+          "options": {
+            "buildTarget": "WebsiteMarinoAndriani:build"
 					}
 				},
 				"test": {
