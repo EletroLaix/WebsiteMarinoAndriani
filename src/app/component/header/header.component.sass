@@ -23,6 +23,11 @@
 			line-height: 1
 			display: inline-block
 			text-decoration: none
+			text-shadow: 0 0 10px rgba(255, 255, 255, 0.3)
+			transition: text-shadow 0.3s ease
+		
+		a:hover
+			text-shadow: 0 0 20px rgba(255, 255, 255, 0.8)
 
 	h2
 		font-size: 2.5vh
@@ -63,11 +68,14 @@
 
 #header.header-top
 	position: fixed
-	height: 7vh
+	height: 8vh
 	left: 0
 	top: 0
 	right: 0
-	background: rgba(0, 0, 0, 0.9)
+	background: rgba(0, 0, 0, 0.6)
+	backdrop-filter: blur(15px)
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+	transition: all 0.3s ease
 
 	.social-links,h2
 		display: none

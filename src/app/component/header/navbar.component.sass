@@ -102,11 +102,14 @@
 		visibility: visible
 
 		ul
-			backdrop-filter: blur(5px)
-			background: rgba(0, 0, 0, 0.5)
-			border: 2px solid rgba(255, 255, 255, 0.5)
+			backdrop-filter: blur(15px)
+			background: rgba(0, 0, 0, 0.7)
+			border: 1px solid rgba(255, 255, 255, 0.2)
 			height: 90vh
-			width: calc( 100vw -  10vh)
+			width: calc( 100vw - 10vh)
+			box-shadow: 0 0 30px rgba(0, 0, 0, 0.5)
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
 		
 		a
 			opacity: 100%
+			transition: opacity 0.4s ease 0.2s

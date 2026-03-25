@@ -10,6 +10,7 @@ import { AboutComponent } from './component/about/about.component';
 import { WorkComponent } from './component/work/work.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { ComingsoonComponent } from './component/comingsoon/comingsoon.component';
+import { InteractiveBackgroundComponent } from './component/interactive-background/interactive-background.component';
 
 @NgModule({
 	declarations: [
@@ -20,6 +21,7 @@ import { ComingsoonComponent } from './component/comingsoon/comingsoon.component
 		WorkComponent,
 		ContactComponent,
 		ComingsoonComponent,
+		InteractiveBackgroundComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [],
