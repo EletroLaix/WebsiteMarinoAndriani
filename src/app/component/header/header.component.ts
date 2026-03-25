@@ -3,9 +3,10 @@ import { PersonaldataService } from 'src/app/service/personaldata.service';
 import { SiteutilityService } from 'src/app/service/siteutility.service';
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.sass', './navbar.component.sass'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.sass', './navbar.component.sass'],
+    standalone: false
 })
 export class HeaderComponent {
 	IsOpenMobileNavBar: boolean = false;
