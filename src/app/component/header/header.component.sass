@@ -4,7 +4,7 @@
 	display: flex
 	height: 100vh
 	align-items: center
-	animation: InitAnimation 3s ease-in-out
+	animation: InitAnimation 1s ease-out
 	z-index: 999
 
 	.mobile-nav-toggle
@@ -64,7 +64,7 @@
 
 			@for $i from 1 through 6
 				&:nth-child(#{$i})
-					animation-delay: #{$i * 0.15s + 3s} // Start after InitAnimation
+					animation-delay: #{$i * 0.12s + 0.4s} // Start during InitAnimation
 
 		a:hover
 			background: $MainColor
