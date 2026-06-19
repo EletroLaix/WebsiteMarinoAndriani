@@ -4,7 +4,7 @@
 	display: flex
 	height: 100vh
 	align-items: center
-	animation: InitAnimation 3s ease-in-out
+	animation: InitAnimation 1s ease-out
 	z-index: 999
 
 	.mobile-nav-toggle
@@ -42,22 +42,38 @@
 	.social-links
 		margin-top: 3vh
 		display: flex
+		gap: 1.5vh
 
 		a
-			font-size: 2.5vh
+			font-size: 2.2vh
 			display: flex
 			justify-content: center
 			align-items: center
-			background: rgba(255, 255, 255, 0.1)
+			background: transparent
+			border: 1px solid rgba(255, 255, 255, 0.2)
 			color: $TextColor
 			line-height: 1
-			margin-right: 1vh
 			border-radius: 50%
-			width: 5vh
-			height: 5vh
+			width: 4.5vh
+			height: 4.5vh
+			transition: all 0.3s ease
+			
+			opacity: 0
+			transform: translateY(20px)
+			animation: socialReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards
+
+			@for $i from 1 through 6
+				&:nth-child(#{$i})
+					animation-delay: #{$i * 0.12s + 0.4s} // Start during InitAnimation
 
 		a:hover
 			background: $MainColor
+			border-color: $MainColor
+			transform: translateY(-3px)
+			box-shadow: 0 5px 15px rgba($MainColor, 0.3)
+	
+	.social-links-hide
+		display: none !important
 
 @media (max-width: 900px)
 	#header
@@ -98,3 +114,12 @@
 
 	100%
 		opacity: 100%
+
+@keyframes socialReveal
+	0%
+		opacity: 0
+		transform: translateY(20px) scale(0.8)
+
+	100%
+		opacity: 1
+		transform: translateY(0) scale(1)

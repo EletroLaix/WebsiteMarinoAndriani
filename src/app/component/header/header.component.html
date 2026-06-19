@@ -15,7 +15,7 @@
 			<i class="bi bi-list mobile-nav-toggle" [ngClass]="{ 'bi-list': !IsOpenMobileNavBar,'bi-x': IsOpenMobileNavBar }" (click)="ChangeIsOpenMobileNavBar()" ></i>
 		</nav>
 
-		<div class="social-links">
+		<div class="social-links" [ngClass]="{ 'social-links-hide': IsOpenMobileNavBar }">
 			<a href="https://twitter.com/andriani_marino" class="twitter"><i class="bi bi-twitter-x"></i></a>
 			<a href="https://www.facebook.com/marino.andriani95" class="facebook"><i class="bi bi-facebook"></i></a>
 			<a href="https://www.instagram.com/marino.andriani95/" class="instagram"><i class="bi bi-instagram"></i></a>
