@@ -5,7 +5,6 @@ import { useState } from "react";
 const nav = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Work", to: "/work" },
   { label: "Contact", to: "/contact" },
 ];
 

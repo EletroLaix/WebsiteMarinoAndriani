@@ -4,7 +4,7 @@ const social = [
   { label: "GitHub", href: "https://github.com/EletroLaix", icon: Github },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/marino-andriani/", icon: Linkedin },
   { label: "Twitter", href: "https://twitter.com/andriani_marino", icon: Twitter },
-  { label: "Email", href: "mailto:marino.andriani@outlook.com", icon: Mail },
+  { label: "Email", href: "mailto:Marino-Andriani@live.it", icon: Mail },
 ];
 
 export function Footer() {
@@ -16,7 +16,7 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="text-center md:text-left">
             <p className="text-sm font-semibold text-foreground">Marino Andriani</p>
-            <p className="mt-1 text-sm text-muted-foreground">Software developer passionate about programming.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Software engineer focused on automation and web.</p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border/50 pt-8 text-center">
           <p className="text-xs text-muted-foreground">
-            © {year} Marino Andriani. Built with React & TanStack Start.
+            © {year} Marino Andriani.
           </p>
         </div>
       </div>

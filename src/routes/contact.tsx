@@ -19,7 +19,7 @@ const social = [
   { label: "GitHub", href: "https://github.com/EletroLaix", icon: Github, handle: "EletroLaix" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/marino-andriani/", icon: Linkedin, handle: "marino-andriani" },
   { label: "Twitter", href: "https://twitter.com/andriani_marino", icon: Twitter, handle: "@andriani_marino" },
-  { label: "Email", href: "mailto:marino.andriani@outlook.com", icon: Mail, handle: "marino.andriani@outlook.com" },
+  { label: "Email", href: "mailto:Marino-Andriani@live.it", icon: Mail, handle: "Marino-Andriani@live.it" },
 ];
 
 function ContactPage() {
