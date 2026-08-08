@@ -131,18 +131,16 @@ function InnerRoot() {
   return (
     <>
       <AnimatedBackground />
-      <div className="relative flex min-h-screen flex-col">
+      <div
+        className={cn(
+          "relative flex min-h-screen flex-col transition-opacity duration-300 ease-out",
+          isTransitioning ? "opacity-0" : "opacity-100"
+        )}
+      >
         <Header />
         <main className="flex-1">
-          <div
-            className={cn(
-              "transition-opacity duration-300 ease-out",
-              isTransitioning ? "opacity-0" : "opacity-100"
-            )}
-          >
-            <div key={pathname} className="page-transition">
-              <Outlet />
-            </div>
+          <div key={pathname} className="page-transition">
+            <Outlet />
           </div>
         </main>
         <Footer />
