@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export type Lang = "en" | "it";
 
@@ -258,4 +259,19 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
 export function useI18n() {
   return useContext(I18nContext);
+}
+
+export function LangFade({ children, className }: { children: ReactNode; className?: string }) {
+  const { isTransitioning } = useI18n();
+  return (
+    <span
+      className={cn(
+        "inline-block transition-opacity duration-300 ease-out",
+        isTransitioning ? "opacity-0" : "opacity-100",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
 }

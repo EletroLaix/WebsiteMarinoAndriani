@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Github, Linkedin, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, LangFade } from "@/lib/i18n";
 
 function LangToggle({ className = "" }: { className?: string }) {
   const { lang, toggle, t } = useI18n();
@@ -12,7 +12,7 @@ function LangToggle({ className = "" }: { className?: string }) {
       title={t.lang.switchTo}
       className={`rounded-md border border-border/60 px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:bg-accent hover:text-foreground ${className}`}
     >
-      {lang === "it" ? "IT" : "EN"}
+      <LangFade>{lang === "it" ? "IT" : "EN"}</LangFade>
     </button>
   );
 }
@@ -66,7 +66,7 @@ export function Header() {
               inactiveProps={{ className: "text-muted-foreground" }}
               className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-foreground hover:bg-accent"
             >
-              {item.label}
+              <LangFade>{item.label}</LangFade>
             </Link>
           ))}
         </nav>
@@ -133,7 +133,7 @@ export function Header() {
                 inactiveProps={{ className: "text-foreground" }}
                 className="mobile-menu-item text-5xl font-bold tracking-tight transition-colors hover:text-primary"
               >
-                {item.label}
+                <LangFade>{item.label}</LangFade>
               </Link>
             ))}
           </nav>

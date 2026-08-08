@@ -1,5 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, LangFade } from "@/lib/i18n";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -31,7 +31,9 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="text-center md:text-left">
             <p className="text-sm font-semibold text-foreground">Marino Andriani</p>
-            <p className="mt-1 text-sm text-muted-foreground">{t.footer.tagline}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              <LangFade>{t.footer.tagline}</LangFade>
+            </p>
           </div>
 
           <div className="flex items-center gap-2">
