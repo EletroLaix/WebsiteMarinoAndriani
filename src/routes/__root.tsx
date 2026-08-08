@@ -16,7 +16,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, useI18n } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 function NotFoundComponent() {
   return (
@@ -123,24 +124,41 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function InnerRoot() {
+  const { isTransitioning } = useI18n();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  return (
+    <>
+      <AnimatedBackground />
+      <div className="relative flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <div
+            className={cn(
+              "transition-opacity duration-300 ease-out",
+              isTransitioning ? "opacity-0" : "opacity-100"
+            )}
+          >
+            <div key={pathname} className="page-transition">
+              <Outlet />
+            </div>
+          </div>
+        </main>
+        <Footer />
+        <Toaster />
+      </div>
+    </>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-        <AnimatedBackground />
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">
-            <div key={pathname} className="page-transition">
-              <Outlet />
-            </div>
-          </main>
-          <Footer />
-          <Toaster />
-        </div>
+        <InnerRoot />
       </I18nProvider>
     </QueryClientProvider>
   );

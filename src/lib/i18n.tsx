@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 
 export type Lang = "en" | "it";
 
@@ -176,12 +176,13 @@ const it: Dict = {
 
 const dictionaries: Record<Lang, Dict> = { en, it };
 
-type I18nValue = { lang: Lang; setLang: (l: Lang) => void; toggle: () => void; t: Dict };
+type I18nValue = { lang: Lang; setLang: (l: Lang) => void; toggle: () => void; isTransitioning: boolean; t: Dict };
 
 const I18nContext = createContext<I18nValue>({
   lang: "en",
   setLang: () => {},
   toggle: () => {},
+  isTransitioning: false,
   t: en,
 });
 
@@ -194,40 +195,62 @@ function detectLang(): Lang {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const [visibleLang, setVisibleLang] = useState<Lang>("en");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const fadeOutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fadeInRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const detected = detectLang();
-    setLangState(detected);
+    setVisibleLang(detected);
   }, []);
 
   useEffect(() => {
-    if (typeof document !== "undefined") document.documentElement.lang = lang;
-  }, [lang]);
+    if (typeof document !== "undefined") document.documentElement.lang = visibleLang;
+  }, [visibleLang]);
 
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, l);
-    } catch {
-      /* ignore */
+  const clearTimers = useCallback(() => {
+    if (fadeOutRef.current) {
+      clearTimeout(fadeOutRef.current);
+      fadeOutRef.current = null;
+    }
+    if (fadeInRef.current) {
+      clearTimeout(fadeInRef.current);
+      fadeInRef.current = null;
     }
   }, []);
 
-  const toggle = useCallback(() => {
-    setLangState((prev) => {
-      const next: Lang = prev === "it" ? "en" : "it";
-      try {
-        window.localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        /* ignore */
-      }
-      return next;
-    });
-  }, []);
+  const startTransition = useCallback(
+    (next: Lang) => {
+      if (next === visibleLang) return;
+      clearTimers();
+      setIsTransitioning(true);
+      fadeOutRef.current = setTimeout(() => {
+        setVisibleLang(next);
+        try {
+          window.localStorage.setItem(STORAGE_KEY, next);
+        } catch {
+          /* ignore */
+        }
+        fadeInRef.current = setTimeout(() => {
+          setIsTransitioning(false);
+          fadeInRef.current = null;
+        }, 250);
+        fadeOutRef.current = null;
+      }, 200);
+    },
+    [visibleLang, clearTimers]
+  );
+
+  const setLang = useCallback((l: Lang) => startTransition(l), [startTransition]);
+  const toggle = useCallback(() => startTransition(visibleLang === "it" ? "en" : "it"), [visibleLang, startTransition]);
+
+  useEffect(() => {
+    return () => clearTimers();
+  }, [clearTimers]);
 
   return (
-    <I18nContext.Provider value={{ lang, setLang, toggle, t: dictionaries[lang] }}>
+    <I18nContext.Provider value={{ lang: visibleLang, setLang, toggle, isTransitioning, t: dictionaries[visibleLang] }}>
       {children}
     </I18nContext.Provider>
   );
