@@ -134,45 +134,72 @@
 .bg-fx-glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(90px);
+  filter: blur(160px);
+  opacity: 0.55;
+  will-change: transform;
 }
 
 .bg-fx-glow-1 {
-  width: 52vw;
-  height: 52vw;
-  min-width: 24rem;
-  min-height: 24rem;
+  width: 56vw;
+  height: 56vw;
+  min-width: 26rem;
+  min-height: 26rem;
   top: -14vw;
-  left: -8vw;
-  background: radial-gradient(circle, oklch(0.7 0.19 47 / 0.55), transparent 70%);
+  left: -10vw;
+  background: radial-gradient(circle, oklch(0.68 0.18 47 / 0.45), transparent 72%);
+  animation: float-1 26s ease-in-out infinite;
 }
 
 .bg-fx-glow-2 {
-  width: 44vw;
-  height: 44vw;
-  min-width: 20rem;
-  min-height: 20rem;
-  bottom: -16vw;
-  right: -6vw;
-  background: radial-gradient(circle, oklch(0.78 0.15 62 / 0.42), transparent 70%);
+  width: 48vw;
+  height: 48vw;
+  min-width: 22rem;
+  min-height: 22rem;
+  bottom: -18vw;
+  right: -8vw;
+  background: radial-gradient(circle, oklch(0.76 0.14 62 / 0.38), transparent 72%);
+  animation: float-2 32s ease-in-out infinite;
 }
 
 .bg-fx-glow-3 {
-  width: 34vw;
-  height: 34vw;
+  width: 38vw;
+  height: 38vw;
   min-width: 18rem;
   min-height: 18rem;
   top: 42%;
-  left: 38%;
-  background: radial-gradient(circle, oklch(0.66 0.2 40 / 0.32), transparent 70%);
+  left: 36%;
+  background: radial-gradient(circle, oklch(0.64 0.19 40 / 0.3), transparent 72%);
+  animation: float-3 22s ease-in-out infinite;
 }
 
 .bg-fx-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 40%, transparent 35%, var(--color-background) 100%);
-  opacity: 0.6;
+  background: radial-gradient(ellipse at 50% 40%, transparent 40%, var(--color-background) 100%);
+  opacity: 0.75;
 }
+
+@keyframes float-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  25% { transform: translate3d(12vw, 10vh, 0) scale(1.08); }
+  50% { transform: translate3d(-4vw, 18vh, 0) scale(0.96); }
+  75% { transform: translate3d(10vw, -8vh, 0) scale(1.04); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  30% { transform: translate3d(-10vw, -14vh, 0) scale(1.06); }
+  55% { transform: translate3d(6vw, -6vh, 0) scale(0.98); }
+  80% { transform: translate3d(-8vw, 8vh, 0) scale(1.05); }
+}
+
+@keyframes float-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  20% { transform: translate3d(-8vw, 12vh, 0) scale(1.07); }
+  45% { transform: translate3d(12vw, 4vh, 0) scale(0.95); }
+  70% { transform: translate3d(-4vw, -10vh, 0) scale(1.03); }
+}
+
 
 /* ---- Frosted bars ---- */
 .glass-bar {
@@ -224,16 +251,17 @@
 
 /* ---- Page transition ---- */
 .page-transition {
-  animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; filter: blur(4px); }
+  to { opacity: 1; filter: blur(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .page-transition,
   .mobile-menu-overlay,
-  .mobile-menu-item { animation: none; }
+  .mobile-menu-item,
+  .bg-fx-glow { animation: none; }
 }
