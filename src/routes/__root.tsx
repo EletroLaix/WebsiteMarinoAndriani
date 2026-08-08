@@ -8,7 +8,7 @@ import {
   Scripts,
   useRouterState,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -18,6 +18,16 @@ import { Toaster } from "@/components/ui/sonner";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+
+const GA_MEASUREMENT_ID = "G-J1BV4FVTH5";
+
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+  }
+}
+
 
 function NotFoundComponent() {
   return (
@@ -103,6 +113,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
     ],
+    scripts: [
+      {
+        async: true,
+        src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`,
+      },
+      {
+        type: "text/javascript",
+        dangerouslySetInnerHTML: {
+          __html: `window.dataLayer = window.dataLayer || []; function gtag(){window.dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_MEASUREMENT_ID}');`,
+        },
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -127,6 +149,20 @@ function RootShell({ children }: { children: ReactNode }) {
 function InnerRoot() {
   const { isTransitioning } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const hasTrackedRef = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+    if (!hasTrackedRef.current) {
+      hasTrackedRef.current = true;
+      return;
+    }
+    window.gtag("event", "page_view", {
+      page_path: pathname,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [pathname]);
 
   return (
     <>
