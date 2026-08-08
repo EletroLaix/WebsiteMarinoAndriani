@@ -34,7 +34,7 @@ function Hero() {
           <div className="max-w-3xl lg:col-span-8">
             <p className="text-sm font-medium text-primary">{t.home.role}</p>
             <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              {t.home.greeting} <span className="gradient-text">Marino Andriani</span>
+              {t.home.greeting} <span className="gradient-text name-glow">Marino Andriani</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               {t.home.intro}

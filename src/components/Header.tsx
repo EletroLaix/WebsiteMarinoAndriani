@@ -54,7 +54,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight">
           <span className="gradient-text">MA</span>
-          <span className="hidden font-bold text-foreground sm:inline">Marino Andriani</span>
+          <span className="hidden font-bold text-foreground sm:inline name-glow">Marino Andriani</span>
         </Link>
 
         <nav className="hidden md:flex md:items-center md:gap-1">
