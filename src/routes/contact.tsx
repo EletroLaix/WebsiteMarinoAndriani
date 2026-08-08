@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Github, Linkedin, Mail, Send } from "lucide-react";
 import { toast } from "sonner";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -38,13 +39,14 @@ const social = [
 function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const { t } = useI18n();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      toast.success("Message sent! I'll get back to you soon.");
+      toast.success(t.contact.success);
       setForm({ name: "", email: "", message: "" });
     }, 1000);
   };
@@ -53,12 +55,12 @@ function ContactPage() {
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
-          <p className="text-sm font-medium text-primary">Contact</p>
+          <p className="text-sm font-medium text-primary">{t.contact.kicker}</p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Let's work together
+            {t.contact.title}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Have a project, job opportunity, or just want to say hello? I'd love to hear from you.
+            {t.contact.subtitle}
           </p>
 
           <div className="mt-8 space-y-4">
@@ -86,7 +88,7 @@ function ContactPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-foreground">
-                Name
+                {t.contact.name}
               </label>
               <input
                 id="name"
@@ -95,12 +97,12 @@ function ContactPage() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                placeholder="Your name"
+                placeholder={t.contact.namePlaceholder}
               />
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-foreground">
-                Email
+                {t.contact.email}
               </label>
               <input
                 id="email"
@@ -109,12 +111,12 @@ function ContactPage() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                placeholder="you@example.com"
+                placeholder={t.contact.emailPlaceholder}
               />
             </div>
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-foreground">
-                Message
+                {t.contact.message}
               </label>
               <textarea
                 id="message"
@@ -123,7 +125,7 @@ function ContactPage() {
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="mt-2 w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                placeholder="Tell me about your project..."
+                placeholder={t.contact.messagePlaceholder}
               />
             </div>
             <button
@@ -131,9 +133,9 @@ function ContactPage() {
               disabled={loading}
               className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
             >
-              {loading ? "Sending..." : (
+              {loading ? t.contact.sending : (
                 <>
-                  Send message <Send className="h-4 w-4" />
+                  {t.contact.send} <Send className="h-4 w-4" />
                 </>
               )}
             </button>

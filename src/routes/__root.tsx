@@ -16,6 +16,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { I18nProvider } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -128,17 +129,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AnimatedBackground />
-      <div className="relative flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
-          <div key={pathname} className="page-transition">
-            <Outlet />
-          </div>
-        </main>
-        <Footer />
-        <Toaster />
-      </div>
+      <I18nProvider>
+        <AnimatedBackground />
+        <div className="relative flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            <div key={pathname} className="page-transition">
+              <Outlet />
+            </div>
+          </main>
+          <Footer />
+          <Toaster />
+        </div>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }

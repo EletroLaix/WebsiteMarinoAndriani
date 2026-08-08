@@ -1,17 +1,33 @@
 import { Link } from "@tanstack/react-router";
 import { Github, Linkedin, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { useI18n } from "@/lib/i18n";
 
-const nav = [
-  { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
-];
+function LangToggle({ className = "" }: { className?: string }) {
+  const { lang, toggle, t } = useI18n();
+  return (
+    <button
+      onClick={toggle}
+      aria-label={t.lang.switchTo}
+      title={t.lang.switchTo}
+      className={`rounded-md border border-border/60 px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:bg-accent hover:text-foreground ${className}`}
+    >
+      {lang === "it" ? "IT" : "EN"}
+    </button>
+  );
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [closing, setClosing] = useState(false);
+  const { t } = useI18n();
+
+  const nav = [
+    { label: t.nav.home, to: "/" },
+    { label: t.nav.about, to: "/about" },
+    { label: t.nav.contact, to: "/contact" },
+  ];
 
   const closeMenu = useCallback(() => {
     setOpen(false);
@@ -56,6 +72,7 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
+          <LangToggle />
           <a
             href="https://github.com/EletroLaix"
             target="_blank"
@@ -76,11 +93,13 @@ export function Header() {
           </a>
         </div>
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="relative h-10 w-10 rounded-md p-2 text-muted-foreground transition-colors duration-300 hover:bg-accent hover:text-foreground md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
+        <div className="flex items-center gap-2 md:hidden">
+          <LangToggle />
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="relative h-10 w-10 rounded-md p-2 text-muted-foreground transition-colors duration-300 hover:bg-accent hover:text-foreground"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
           <Menu
             className={`absolute inset-0 m-auto h-6 w-6 transition-all duration-300 ease-out ${
               open ? "rotate-90 scale-75 opacity-0" : "rotate-0 scale-100 opacity-100"
@@ -91,7 +110,8 @@ export function Header() {
               open ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-75 opacity-0"
             }`}
           />
-        </button>
+          </button>
+        </div>
       </div>
 
     </header>

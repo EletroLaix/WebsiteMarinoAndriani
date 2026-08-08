@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -22,6 +23,7 @@ const social = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useI18n();
 
   return (
     <footer className="glass-bar border-t border-border/50">
@@ -29,7 +31,7 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="text-center md:text-left">
             <p className="text-sm font-semibold text-foreground">Marino Andriani</p>
-            <p className="mt-1 text-sm text-muted-foreground">Software engineer focused on automation and web.</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t.footer.tagline}</p>
           </div>
 
           <div className="flex items-center gap-2">
