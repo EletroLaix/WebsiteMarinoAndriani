@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -14,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 function NotFoundComponent() {
   return (
@@ -122,13 +124,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AnimatedBackground />
       <div className="relative flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">
-          <Outlet />
+          <div key={pathname} className="page-transition">
+            <Outlet />
+          </div>
         </main>
         <Footer />
         <Toaster />
