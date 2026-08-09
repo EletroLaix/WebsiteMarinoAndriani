@@ -118,12 +118,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         async: true,
         src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`,
       },
-      {
-        type: "text/javascript",
-        dangerouslySetInnerHTML: {
-          __html: `window.dataLayer = window.dataLayer || []; function gtag(){window.dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_MEASUREMENT_ID}');`,
-        },
-      },
     ],
   }),
   shellComponent: RootShell,
@@ -149,7 +143,27 @@ function RootShell({ children }: { children: ReactNode }) {
 function InnerRoot() {
   const { isTransitioning } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const analyticsInitializedRef = useRef(false);
   const hasTrackedRef = useRef(false);
+
+  useEffect(() => {
+    if (analyticsInitializedRef.current) return;
+
+    window.dataLayer = window.dataLayer || [];
+    // GA requires the raw `arguments` object to be pushed, not a real array.
+    function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments);
+    }
+    window.gtag = gtag as unknown as (...args: unknown[]) => void;
+    window.gtag("js", new Date());
+    window.gtag("config", GA_MEASUREMENT_ID, {
+      page_path: window.location.pathname,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+    analyticsInitializedRef.current = true;
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.gtag !== "function") return;
