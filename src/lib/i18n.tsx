@@ -16,7 +16,7 @@ const en = {
     intro:
       "Italian software engineer focused on industrial automation, embedded systems, and web development. I lead software teams and still love writing code that solves real problems.",
     cta: "Get in touch",
-    about: "About me",
+    about: "More info",
     portraitAlt: "Marino Andriani portrait",
     ctaTitle: "Have a project in mind?",
     ctaText: "I'm always open to discussing new opportunities, interesting ideas, or collaborations.",
@@ -100,7 +100,7 @@ const it: Dict = {
     intro:
       "Software engineer italiano specializzato in automazione industriale, sistemi embedded e sviluppo web. Guido team di sviluppo e continuo a scrivere codice che risolve problemi reali.",
     cta: "Contattami",
-    about: "Chi sono",
+    about: "Maggiori informazioni",
     portraitAlt: "Ritratto di Marino Andriani",
     ctaTitle: "Hai un progetto in mente?",
     ctaText: "Sono sempre disponibile a parlare di nuove opportunità, idee interessanti o collaborazioni.",
