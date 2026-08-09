@@ -282,3 +282,147 @@
   .mobile-menu-item,
   .bg-fx-glow { animation: none; }
 }
+
+/* ---- Jarvis-style boot loader ---- */
+.boot-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  background: radial-gradient(ellipse at center, oklch(0.2 0.03 47) 0%, var(--color-background) 65%);
+  overflow: hidden;
+  animation: boot-fade-in 0.35s ease-out both;
+}
+
+.boot-loader.is-closing {
+  animation: boot-fade-out 0.7s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes boot-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes boot-fade-out {
+  from { opacity: 1; clip-path: inset(0 0 0 0); filter: blur(0); }
+  to { opacity: 0; clip-path: inset(0 0 100% 0); filter: blur(6px); }
+}
+
+.boot-scan {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    oklch(0.7 0.19 47 / 0.12) 48%,
+    oklch(0.7 0.19 47 / 0.28) 50%,
+    oklch(0.7 0.19 47 / 0.12) 52%,
+    transparent 100%
+  );
+  animation: boot-scan 2.2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes boot-scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+.boot-core {
+  position: relative;
+  width: 13rem;
+  height: 13rem;
+  display: grid;
+  place-items: center;
+}
+
+.boot-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid oklch(0.7 0.19 47 / 0.35);
+}
+
+.boot-ring-1 {
+  inset: 0;
+  border-top-color: var(--color-primary);
+  border-right-color: var(--color-primary);
+  box-shadow: 0 0 30px -6px var(--color-glow);
+  animation: boot-spin 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.boot-ring-2 {
+  inset: 1.6rem;
+  border-style: dashed;
+  border-color: oklch(0.78 0.16 62 / 0.55);
+  animation: boot-spin-rev 4s linear infinite;
+}
+
+.boot-ring-3 {
+  inset: 3.2rem;
+  border-color: oklch(0.97 0 0 / 0.18);
+  border-bottom-color: var(--color-accent);
+  animation: boot-spin 1.6s linear infinite;
+}
+
+.boot-ring-ticks {
+  position: absolute;
+  inset: 0.7rem;
+  border-radius: 9999px;
+  background: repeating-conic-gradient(
+    oklch(0.7 0.19 47 / 0.55) 0deg 1.2deg,
+    transparent 1.2deg 12deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 60%, #000 61%, #000 66%, transparent 67%);
+  mask: radial-gradient(circle, transparent 60%, #000 61%, #000 66%, transparent 67%);
+  animation: boot-spin-rev 8s linear infinite;
+}
+
+.boot-monogram {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-foreground);
+  text-shadow: 0 0 22px oklch(0.7 0.19 47 / 0.6), 0 0 50px oklch(0.7 0.19 47 / 0.35);
+  animation: boot-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes boot-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes boot-spin-rev {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes boot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.62; }
+}
+
+.boot-meta {
+  position: relative;
+  width: min(22rem, 80vw);
+  text-align: center;
+}
+
+.boot-title {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  color: var(--color-foreground);
+  text-indent: 0.42em;
+}
+
+.boot-status {
+  margin-top: 0.9rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  color: var(--color-muted-foreground);
+}
+
