@@ -1,59 +1,72 @@
 import { useEffect, useState } from "react";
 
 /**
- * Minimal Jarvis-style boot animation shown once on first load.
- * Uses the site's black / white / orange palette.
+ * Soft boot loader shown once on first load.
+ * Uses the site's favicon at the center of a minimal ring.
+ * Entrance and exit are always fully played, even if the site loads instantly.
  */
 export function BootLoader() {
-  const [closing, setClosing] = useState(false);
-  const [done, setDone] = useState(false);
+  const [phase, setPhase] = useState<"entering" | "holding" | "exiting" | "done">("entering");
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.sessionStorage.getItem("ma-booted") === "1") {
-      setDone(true);
+      setPhase("done");
       return;
     }
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       window.sessionStorage.setItem("ma-booted", "1");
-      setDone(true);
+      setPhase("done");
       return;
     }
 
     document.body.style.overflow = "hidden";
-    const duration = 1800;
 
-    const closeTimer = window.setTimeout(() => {
-      setClosing(true);
+    // Force a real first paint with opacity:0 before revealing the loader.
+    // This guarantees the browser sees the state change and animates smoothly,
+    // even if the site hydrates almost instantly.
+    const showTimer = window.setTimeout(() => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setVisible(true));
+      });
+    }, 400);
+
+    // Keep the loader on screen long enough for the full entrance animation
+    // to play and be seen, even when the site finishes loading very quickly.
+    const holdTimer = window.setTimeout(() => {
+      setPhase("exiting");
       window.setTimeout(() => {
         window.sessionStorage.setItem("ma-booted", "1");
-        setDone(true);
-      }, 700);
-    }, duration);
+        setPhase("done");
+      }, 3000);
+    }, 8000);
 
     return () => {
-      clearTimeout(closeTimer);
+      clearTimeout(showTimer);
+      clearTimeout(holdTimer);
       document.body.style.overflow = "";
     };
   }, []);
 
   useEffect(() => {
-    if (done) document.body.style.overflow = "";
-  }, [done]);
+    if (phase === "done") document.body.style.overflow = "";
+  }, [phase]);
 
-  if (done) return null;
+  if (phase === "done") return null;
+
+  const isExiting = phase === "exiting";
 
   return (
-    <div className={`boot-loader${closing ? " is-closing" : ""}`} aria-hidden>
-      <div className="boot-scan" />
+    <div
+      className={`boot-loader${visible ? " is-visible" : ""}${isExiting ? " is-closing" : ""}`}
+      aria-hidden
+    >
       <div className="boot-core">
-        <span className="boot-ring boot-ring-1" />
-        <span className="boot-ring boot-ring-2" />
-        <span className="boot-ring boot-ring-3" />
-        <span className="boot-ring-ticks" />
-        <span className="boot-monogram">MA</span>
+        <span className="boot-ring" />
+        <img src="/favicon.png" alt="" className="boot-logo" />
       </div>
       <div className="boot-meta">
         <p className="boot-title">MARINO ANDRIANI</p>

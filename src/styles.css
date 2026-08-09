@@ -148,45 +148,51 @@
   background-color: var(--color-background);
 }
 
+.bg-fx-glow-wrap {
+  position: absolute;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
 .bg-fx-glow {
   position: absolute;
   border-radius: 9999px;
   filter: blur(160px);
-  opacity: 0.55;
+  opacity: 0.65;
   will-change: transform;
 }
 
 .bg-fx-glow-1 {
-  width: 56vw;
-  height: 56vw;
-  min-width: 26rem;
-  min-height: 26rem;
+  width: 58vw;
+  height: 58vw;
+  min-width: 28rem;
+  min-height: 28rem;
   top: -14vw;
   left: -10vw;
-  background: radial-gradient(circle, oklch(0.68 0.18 47 / 0.45), transparent 72%);
-  animation: float-1 26s ease-in-out infinite;
+  background: radial-gradient(circle, oklch(0.68 0.18 47 / 0.55), transparent 72%);
+  animation: float-1 18s ease-in-out infinite;
 }
 
 .bg-fx-glow-2 {
-  width: 48vw;
-  height: 48vw;
-  min-width: 22rem;
-  min-height: 22rem;
+  width: 50vw;
+  height: 50vw;
+  min-width: 24rem;
+  min-height: 24rem;
   bottom: -18vw;
   right: -8vw;
-  background: radial-gradient(circle, oklch(0.76 0.14 62 / 0.38), transparent 72%);
-  animation: float-2 32s ease-in-out infinite;
+  background: radial-gradient(circle, oklch(0.76 0.14 62 / 0.48), transparent 72%);
+  animation: float-2 24s ease-in-out infinite;
 }
 
 .bg-fx-glow-3 {
-  width: 38vw;
-  height: 38vw;
-  min-width: 18rem;
-  min-height: 18rem;
+  width: 40vw;
+  height: 40vw;
+  min-width: 20rem;
+  min-height: 20rem;
   top: 42%;
   left: 36%;
-  background: radial-gradient(circle, oklch(0.64 0.19 40 / 0.3), transparent 72%);
-  animation: float-3 22s ease-in-out infinite;
+  background: radial-gradient(circle, oklch(0.64 0.19 40 / 0.38), transparent 72%);
+  animation: float-3 16s ease-in-out infinite;
 }
 
 .bg-fx-vignette {
@@ -198,24 +204,25 @@
 
 @keyframes float-1 {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  25% { transform: translate3d(12vw, 10vh, 0) scale(1.08); }
-  50% { transform: translate3d(-4vw, 18vh, 0) scale(0.96); }
-  75% { transform: translate3d(10vw, -8vh, 0) scale(1.04); }
+  25% { transform: translate3d(14vw, 14vh, 0) scale(1.12); }
+  50% { transform: translate3d(-6vw, 22vh, 0) scale(0.94); }
+  75% { transform: translate3d(12vw, -10vh, 0) scale(1.08); }
 }
 
 @keyframes float-2 {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  30% { transform: translate3d(-10vw, -14vh, 0) scale(1.06); }
-  55% { transform: translate3d(6vw, -6vh, 0) scale(0.98); }
-  80% { transform: translate3d(-8vw, 8vh, 0) scale(1.05); }
+  30% { transform: translate3d(-12vw, -18vh, 0) scale(1.1); }
+  55% { transform: translate3d(8vw, -8vh, 0) scale(0.96); }
+  80% { transform: translate3d(-10vw, 10vh, 0) scale(1.07); }
 }
 
 @keyframes float-3 {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  20% { transform: translate3d(-8vw, 12vh, 0) scale(1.07); }
-  45% { transform: translate3d(12vw, 4vh, 0) scale(0.95); }
-  70% { transform: translate3d(-4vw, -10vh, 0) scale(1.03); }
+  20% { transform: translate3d(-10vw, 16vh, 0) scale(1.12); }
+  45% { transform: translate3d(16vw, 6vh, 0) scale(0.93); }
+  70% { transform: translate3d(-6vw, -12vh, 0) scale(1.06); }
 }
+
 
 
 /* ---- Frosted bars ---- */
@@ -283,7 +290,7 @@
   .bg-fx-glow { animation: none; }
 }
 
-/* ---- Jarvis-style boot loader ---- */
+/* ---- Soft boot loader ---- */
 .boot-loader {
   position: fixed;
   inset: 0;
@@ -292,137 +299,127 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
-  background: radial-gradient(ellipse at center, oklch(0.2 0.03 47) 0%, var(--color-background) 65%);
+  gap: 2.25rem;
+  background: radial-gradient(ellipse at center, oklch(0.18 0.02 47) 0%, var(--color-background) 62%);
   overflow: hidden;
-  animation: boot-fade-in 0.35s ease-out both;
+  opacity: 1;
+  transform: scale(1.03);
+  filter: blur(4px);
+  transition:
+    opacity 3s cubic-bezier(0.7, 0, 0.84, 0),
+    transform 3s cubic-bezier(0.7, 0, 0.84, 0),
+    filter 3s cubic-bezier(0.7, 0, 0.84, 0);
+}
+
+.boot-loader.is-visible {
+  transform: scale(1);
+  filter: blur(0);
+  transition:
+    transform 3s cubic-bezier(0.16, 1, 0.3, 1) 0.4s,
+    filter 3s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
 }
 
 .boot-loader.is-closing {
-  animation: boot-fade-out 0.7s cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-
-@keyframes boot-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes boot-fade-out {
-  from { opacity: 1; clip-path: inset(0 0 0 0); filter: blur(0); }
-  to { opacity: 0; clip-path: inset(0 0 100% 0); filter: blur(6px); }
-}
-
-.boot-scan {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    oklch(0.7 0.19 47 / 0.12) 48%,
-    oklch(0.7 0.19 47 / 0.28) 50%,
-    oklch(0.7 0.19 47 / 0.12) 52%,
-    transparent 100%
-  );
-  animation: boot-scan 2.2s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes boot-scan {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(100%); }
+  opacity: 0;
+  transform: scale(1.02);
+  filter: blur(12px);
 }
 
 .boot-core {
   position: relative;
-  width: 13rem;
-  height: 13rem;
+  width: 10rem;
+  height: 10rem;
   display: grid;
   place-items: center;
+  opacity: 0;
+  transform: translateY(26px) scale(0.96);
+  transition:
+    opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
+    transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+}
+
+.boot-loader.is-visible .boot-core {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.boot-loader.is-closing .boot-core {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.98);
+  transition:
+    opacity 1.8s cubic-bezier(0.7, 0, 0.84, 0) 0.1s,
+    transform 1.8s cubic-bezier(0.7, 0, 0.84, 0) 0.1s;
 }
 
 .boot-ring {
   position: absolute;
-  border-radius: 9999px;
-  border: 1px solid oklch(0.7 0.19 47 / 0.35);
-}
-
-.boot-ring-1 {
   inset: 0;
-  border-top-color: var(--color-primary);
-  border-right-color: var(--color-primary);
-  box-shadow: 0 0 30px -6px var(--color-glow);
-  animation: boot-spin 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-
-.boot-ring-2 {
-  inset: 1.6rem;
-  border-style: dashed;
-  border-color: oklch(0.78 0.16 62 / 0.55);
-  animation: boot-spin-rev 4s linear infinite;
-}
-
-.boot-ring-3 {
-  inset: 3.2rem;
-  border-color: oklch(0.97 0 0 / 0.18);
-  border-bottom-color: var(--color-accent);
-  animation: boot-spin 1.6s linear infinite;
-}
-
-.boot-ring-ticks {
-  position: absolute;
-  inset: 0.7rem;
   border-radius: 9999px;
-  background: repeating-conic-gradient(
-    oklch(0.7 0.19 47 / 0.55) 0deg 1.2deg,
-    transparent 1.2deg 12deg
-  );
-  -webkit-mask: radial-gradient(circle, transparent 60%, #000 61%, #000 66%, transparent 67%);
-  mask: radial-gradient(circle, transparent 60%, #000 61%, #000 66%, transparent 67%);
-  animation: boot-spin-rev 8s linear infinite;
+  border: 1.5px solid oklch(0.7 0.19 47 / 0.2);
+  border-top-color: var(--color-primary);
+  box-shadow: 0 0 36px -12px var(--color-glow);
+  animation: boot-spin 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-.boot-monogram {
-  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--color-foreground);
-  text-shadow: 0 0 22px oklch(0.7 0.19 47 / 0.6), 0 0 50px oklch(0.7 0.19 47 / 0.35);
-  animation: boot-pulse 1.6s ease-in-out infinite;
+.boot-logo {
+  width: 3.4rem;
+  height: 3.4rem;
+  object-fit: contain;
+  border-radius: 9999px;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 18px oklch(0.7 0.19 47 / 0.45));
+  -webkit-mask: radial-gradient(circle, rgba(0,0,0,1) 48%, rgba(0,0,0,0.2) 75%, transparent 100%);
+  mask: radial-gradient(circle, rgba(0,0,0,1) 48%, rgba(0,0,0,0.2) 75%, transparent 100%);
+  animation: logo-breathe 3s ease-in-out infinite;
 }
 
 @keyframes boot-spin {
   to { transform: rotate(360deg); }
 }
 
-@keyframes boot-spin-rev {
-  to { transform: rotate(-360deg); }
-}
-
-@keyframes boot-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.62; }
+@keyframes logo-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
 }
 
 .boot-meta {
   position: relative;
   width: min(22rem, 80vw);
   text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 2s cubic-bezier(0.16, 1, 0.3, 1) 0.75s,
+    transform 2s cubic-bezier(0.16, 1, 0.3, 1) 0.75s;
+}
+
+.boot-loader.is-visible .boot-meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.boot-loader.is-closing .boot-meta {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition:
+    opacity 1.6s cubic-bezier(0.7, 0, 0.84, 0) 0s,
+    transform 1.6s cubic-bezier(0.7, 0, 0.84, 0) 0s;
 }
 
 .boot-title {
   font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.42em;
+  letter-spacing: 0.32em;
   color: var(--color-foreground);
-  text-indent: 0.42em;
 }
 
 .boot-status {
-  margin-top: 0.9rem;
+  margin-top: 0.75rem;
   font-size: 0.68rem;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.2em;
   color: var(--color-muted-foreground);
 }
+
+
 

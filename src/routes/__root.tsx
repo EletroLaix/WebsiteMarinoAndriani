@@ -16,6 +16,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { BootLoader } from "@/components/BootLoader";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -108,7 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
@@ -181,6 +182,7 @@ function InnerRoot() {
   return (
     <>
       <AnimatedBackground />
+      <BootLoader />
       <div className="relative flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">
