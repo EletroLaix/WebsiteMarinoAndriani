@@ -148,81 +148,27 @@
   background-color: var(--color-background);
 }
 
-.bg-fx-glow-wrap {
+/* Plasma / lava canvas: tiny buffer upscaled + blurred by the compositor */
+.bg-fx-canvas {
   position: absolute;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(32px) saturate(104%);
+  transform: scale(1.12);
+  transform-origin: center;
+  opacity: 0.38;
+  will-change: opacity;
 }
 
-.bg-fx-glow {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(160px);
-  opacity: 0.65;
-  will-change: transform;
-  backface-visibility: hidden;
-  animation-fill-mode: both;
-}
-
-.bg-fx-glow-1 {
-  width: 58vw;
-  height: 58vw;
-  min-width: 28rem;
-  min-height: 28rem;
-  top: -14vw;
-  left: -10vw;
-  background: radial-gradient(circle, oklch(0.68 0.18 47 / 0.55), transparent 72%);
-  animation: float-1 18s ease-in-out infinite;
-}
-
-.bg-fx-glow-2 {
-  width: 50vw;
-  height: 50vw;
-  min-width: 24rem;
-  min-height: 24rem;
-  bottom: -18vw;
-  right: -8vw;
-  background: radial-gradient(circle, oklch(0.76 0.14 62 / 0.48), transparent 72%);
-  animation: float-2 24s ease-in-out infinite;
-}
-
-.bg-fx-glow-3 {
-  width: 40vw;
-  height: 40vw;
-  min-width: 20rem;
-  min-height: 20rem;
-  top: 42%;
-  left: 36%;
-  background: radial-gradient(circle, oklch(0.64 0.19 40 / 0.38), transparent 72%);
-  animation: float-3 16s ease-in-out infinite;
-}
-
+/* Readability layer: darkens the plasma so text keeps full contrast */
 .bg-fx-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 40%, transparent 40%, var(--color-background) 100%);
-  opacity: 0.75;
-}
-
-@keyframes float-1 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  25% { transform: translate3d(14vw, 14vh, 0) scale(1.12); }
-  50% { transform: translate3d(-6vw, 22vh, 0) scale(0.94); }
-  75% { transform: translate3d(12vw, -10vh, 0) scale(1.08); }
-}
-
-@keyframes float-2 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  30% { transform: translate3d(-12vw, -18vh, 0) scale(1.1); }
-  55% { transform: translate3d(8vw, -8vh, 0) scale(0.96); }
-  80% { transform: translate3d(-10vw, 10vh, 0) scale(1.07); }
-}
-
-@keyframes float-3 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  20% { transform: translate3d(-10vw, 16vh, 0) scale(1.12); }
-  45% { transform: translate3d(16vw, 6vh, 0) scale(0.93); }
-  70% { transform: translate3d(-6vw, -12vh, 0) scale(1.06); }
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 20%, var(--color-background) 92%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-background) 60%, transparent), color-mix(in oklab, var(--color-background) 50%, transparent));
+  opacity: 0.92;
 }
 
 
@@ -296,7 +242,7 @@ html:not(.app-ready) .page-transition {
   .page-transition,
   .mobile-menu-overlay,
   .mobile-menu-item,
-  .bg-fx-glow { animation: none; }
+  .bg-fx-canvas { animation: none; }
 }
 
 /* ---- Soft boot loader ---- */
