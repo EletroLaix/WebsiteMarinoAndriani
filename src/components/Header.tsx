@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Github, Linkedin, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useI18n, LangFade } from "@/lib/i18n";
+import { trackOutbound } from "@/lib/analytics";
 
 function LangToggle({ className = "" }: { className?: string }) {
   const { lang, toggle, t } = useI18n();
@@ -77,6 +78,7 @@ export function Header() {
             href="https://github.com/EletroLaix"
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackOutbound("GitHub", "header", "https://github.com/EletroLaix")}
             className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             aria-label="GitHub"
           >
@@ -86,6 +88,7 @@ export function Header() {
             href="https://www.linkedin.com/in/marino-andriani/"
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackOutbound("LinkedIn", "header", "https://www.linkedin.com/in/marino-andriani/")}
             className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             aria-label="LinkedIn"
           >
@@ -145,6 +148,7 @@ export function Header() {
               href="https://github.com/EletroLaix"
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackOutbound("GitHub", "mobile_menu", "https://github.com/EletroLaix")}
               className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               aria-label="GitHub"
             >
@@ -154,6 +158,7 @@ export function Header() {
               href="https://www.linkedin.com/in/marino-andriani/"
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackOutbound("LinkedIn", "mobile_menu", "https://www.linkedin.com/in/marino-andriani/")}
               className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               aria-label="LinkedIn"
             >

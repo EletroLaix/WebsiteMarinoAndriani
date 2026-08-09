@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Github, Linkedin, Mail, Send } from "lucide-react";
 import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n";
+import { trackOutbound } from "@/lib/analytics";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -70,6 +71,7 @@ function ContactPage() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackOutbound(item.label, "contact_page", item.href)}
                 className="group flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:ring-glow"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">

@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useI18n, LangFade } from "@/lib/i18n";
+import { trackOutbound } from "@/lib/analytics";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -43,6 +44,7 @@ export function Footer() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackOutbound(item.label, "footer", item.href)}
                 className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 aria-label={item.label}
               >
