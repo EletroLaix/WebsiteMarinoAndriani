@@ -147,6 +147,31 @@ function InnerRoot() {
   const analyticsInitializedRef = useRef(false);
   const hasTrackedRef = useRef(false);
 
+  // Mark the document as hydrated only after the first frames + fonts are
+  // ready, so entry animations never compete with hydration/font swap.
+  useEffect(() => {
+    let cancelled = false;
+    const markReady = () => {
+      if (cancelled) return;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (!cancelled) document.documentElement.classList.add("app-ready");
+        });
+      });
+    };
+    const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
+    if (fonts?.ready) {
+      fonts.ready.then(markReady).catch(markReady);
+    } else {
+      markReady();
+    }
+    const fallback = window.setTimeout(markReady, 1500);
+    return () => {
+      cancelled = true;
+      clearTimeout(fallback);
+    };
+  }, []);
+
   useEffect(() => {
     if (analyticsInitializedRef.current) return;
 

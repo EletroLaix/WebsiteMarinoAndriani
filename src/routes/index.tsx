@@ -32,13 +32,23 @@ function Hero() {
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           <div className="max-w-3xl lg:col-span-8">
-            <p className="text-sm font-medium text-primary">{t.home.role}</p>
-            <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               {t.home.greeting} <span className="gradient-text name-glow">Marino Andriani</span>
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 text-lg font-semibold leading-snug text-foreground sm:text-xl">{t.home.role}</p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
               {t.home.intro}
             </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-xs text-foreground">
+                <span aria-hidden>📍</span>
+                {t.home.badgeRole}
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 font-mono text-xs text-muted-foreground">
+                <span aria-hidden>⚙️</span>
+                {t.home.badgeSpec}
+              </span>
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/contact"

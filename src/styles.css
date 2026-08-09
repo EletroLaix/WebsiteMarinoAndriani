@@ -151,7 +151,7 @@
 .bg-fx-glow-wrap {
   position: absolute;
   will-change: transform;
-  transition: transform 0.1s linear;
+  transform: translate3d(0, 0, 0);
 }
 
 .bg-fx-glow {
@@ -160,6 +160,8 @@
   filter: blur(160px);
   opacity: 0.65;
   will-change: transform;
+  backface-visibility: hidden;
+  animation-fill-mode: both;
 }
 
 .bg-fx-glow-1 {
@@ -276,6 +278,13 @@
 /* ---- Page transition ---- */
 .page-transition {
   animation: page-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, filter;
+}
+
+/* Avoid animating the very first paint while fonts/hydration are still
+   settling: the entry animation only runs once the app is hydrated. */
+html:not(.app-ready) .page-transition {
+  animation: none;
 }
 
 @keyframes page-in {
