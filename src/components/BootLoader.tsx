@@ -32,7 +32,7 @@ export function BootLoader() {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setVisible(true));
       });
-    }, 400);
+    }, 200);
 
     // Keep the loader on screen long enough for the full entrance animation
     // to play and be seen, even when the site finishes loading very quickly.
@@ -41,8 +41,8 @@ export function BootLoader() {
       window.setTimeout(() => {
         window.sessionStorage.setItem("ma-booted", "1");
         setPhase("done");
-      }, 3000);
-    }, 8000);
+      }, 1400);
+    }, 3600);
 
     return () => {
       clearTimeout(showTimer);

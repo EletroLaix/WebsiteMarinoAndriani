@@ -261,17 +261,17 @@ html:not(.app-ready) .page-transition {
   transform: scale(1.03);
   filter: blur(4px);
   transition:
-    opacity 3s cubic-bezier(0.7, 0, 0.84, 0),
-    transform 3s cubic-bezier(0.7, 0, 0.84, 0),
-    filter 3s cubic-bezier(0.7, 0, 0.84, 0);
+    opacity 1.4s cubic-bezier(0.7, 0, 0.84, 0),
+    transform 1.4s cubic-bezier(0.7, 0, 0.84, 0),
+    filter 1.4s cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 .boot-loader.is-visible {
   transform: scale(1);
   filter: blur(0);
   transition:
-    transform 3s cubic-bezier(0.16, 1, 0.3, 1) 0.4s,
-    filter 3s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+    filter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
 }
 
 .boot-loader.is-closing {
@@ -289,8 +289,8 @@ html:not(.app-ready) .page-transition {
   opacity: 0;
   transform: translateY(26px) scale(0.96);
   transition:
-    opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
-    transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
 }
 
 .boot-loader.is-visible .boot-core {
@@ -302,8 +302,8 @@ html:not(.app-ready) .page-transition {
   opacity: 0;
   transform: translateY(-20px) scale(0.98);
   transition:
-    opacity 1.8s cubic-bezier(0.7, 0, 0.84, 0) 0.1s,
-    transform 1.8s cubic-bezier(0.7, 0, 0.84, 0) 0.1s;
+    opacity 0.8s cubic-bezier(0.7, 0, 0.84, 0) 0.05s,
+    transform 0.8s cubic-bezier(0.7, 0, 0.84, 0) 0.05s;
 }
 
 .boot-ring {
@@ -313,7 +313,7 @@ html:not(.app-ready) .page-transition {
   border: 1.5px solid oklch(0.7 0.19 47 / 0.2);
   border-top-color: var(--color-primary);
   box-shadow: 0 0 36px -12px var(--color-glow);
-  animation: boot-spin 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: boot-spin 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 .boot-logo {
@@ -325,7 +325,7 @@ html:not(.app-ready) .page-transition {
   filter: drop-shadow(0 0 18px oklch(0.7 0.19 47 / 0.45));
   -webkit-mask: radial-gradient(circle, rgba(0,0,0,1) 48%, rgba(0,0,0,0.2) 75%, transparent 100%);
   mask: radial-gradient(circle, rgba(0,0,0,1) 48%, rgba(0,0,0,0.2) 75%, transparent 100%);
-  animation: logo-breathe 3s ease-in-out infinite;
+  animation: logo-breathe 1.4s ease-in-out infinite;
 }
 
 @keyframes boot-spin {
@@ -344,8 +344,8 @@ html:not(.app-ready) .page-transition {
   opacity: 0;
   transform: translateY(20px);
   transition:
-    opacity 2s cubic-bezier(0.16, 1, 0.3, 1) 0.75s,
-    transform 2s cubic-bezier(0.16, 1, 0.3, 1) 0.75s;
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
 }
 
 .boot-loader.is-visible .boot-meta {
@@ -357,8 +357,8 @@ html:not(.app-ready) .page-transition {
   opacity: 0;
   transform: translateY(-14px);
   transition:
-    opacity 1.6s cubic-bezier(0.7, 0, 0.84, 0) 0s,
-    transform 1.6s cubic-bezier(0.7, 0, 0.84, 0) 0s;
+    opacity 0.7s cubic-bezier(0.7, 0, 0.84, 0) 0s,
+    transform 0.7s cubic-bezier(0.7, 0, 0.84, 0) 0s;
 }
 
 .boot-title {
