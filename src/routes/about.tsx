@@ -89,10 +89,6 @@ function AboutPage() {
     { title: t.about.certs.brTitle, detail: t.about.certs.brDesc, icon: Award },
   ];
 
-  const education = [
-    { title: "Politecnico di Bari", detail: t.about.education.poliba, icon: GraduationCap },
-    { title: "ITIS Ferraris Molfetta", detail: t.about.education.itis, icon: GraduationCap },
-  ];
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
@@ -211,8 +207,7 @@ function AboutPage() {
               <div className="mt-3 flex flex-wrap gap-2">
                 {group.tags.map((tag) => (
                   <span
-                    key={tag}
-                    className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-xs text-muted-foreground"
+                    key={tag}\n                    className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-xs text-muted-foreground"
                   >
                     {tag}
                   </span>
@@ -239,25 +234,6 @@ function AboutPage() {
                 <h3 className="font-semibold text-foreground">{cert.title}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{cert.detail}</p>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-20">
-        <p className="text-sm font-medium text-primary">{t.about.educationKicker}</p>
-        <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">{t.about.educationTitle}</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {education.map((edu) => (
-            <div
-              key={edu.title}
-              className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/30"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <edu.icon className="h-5 w-5" />
-              </div>
-              <h3 className="mt-4 font-semibold text-foreground">{edu.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{edu.detail}</p>
             </div>
           ))}
         </div>
