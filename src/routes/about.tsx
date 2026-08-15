@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { Award, ChevronDown, Cpu, GraduationCap, Layers, Server, Terminal, Wrench } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Award, ChevronDown, Cpu, GraduationCap, Layers, Network, Server, Terminal, Wrench } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/about")({
@@ -10,13 +10,13 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Head of Software Engineering at Roboze: industrial automation, embedded systems, career timeline, tech stack and certifications.",
+          "Marino Andriani: software engineer specializzato in sistemi embedded, elettronica e automazione industriale. Esperienze, competenze e certificazioni.",
       },
       { property: "og:title", content: "About — Marino Andriani" },
       {
         property: "og:description",
         content:
-          "Head of Software Engineering at Roboze: industrial automation, embedded systems, career timeline, tech stack and certifications.",
+          "Marino Andriani: software engineer specializzato in sistemi embedded, elettronica e automazione industriale. Esperienze, competenze e certificazioni.",
       },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary" },
@@ -36,6 +36,7 @@ function AboutPage() {
       period: t.about.periods.head,
       description: t.about.roles.headDesc,
       icon: Layers,
+      current: true,
     },
     {
       company: "Roboze SPA",
@@ -43,6 +44,7 @@ function AboutPage() {
       period: t.about.periods.automation,
       description: t.about.roles.automationDesc,
       icon: Server,
+      current: true,
     },
     {
       company: "Roboze SPA",
@@ -50,38 +52,73 @@ function AboutPage() {
       period: t.about.periods.embedded,
       description: t.about.roles.embeddedDesc,
       icon: Cpu,
+      current: true,
     },
     {
-      company: "Barimakers · Apulia Makers 3D · Arci",
-      title: t.about.roles.teacher,
-      period: t.about.periods.teacher,
-      description: t.about.roles.teacherDesc,
+      company: "Roboze SPA",
+      title: t.about.roles.it,
+      period: t.about.periods.it,
+      description: t.about.roles.itDesc,
+      icon: Network,
+      current: false,
+    },
+    {
+      company: "Barimakers",
+      title: t.about.roles.barimakers,
+      period: t.about.periods.barimakers,
+      description: t.about.roles.barimakersDesc,
       icon: GraduationCap,
+      current: false,
+    },
+    {
+      company: "Circolo Arci Carlo Cafiero",
+      title: t.about.roles.arci,
+      period: t.about.periods.arci,
+      description: t.about.roles.arciDesc,
+      icon: GraduationCap,
+      current: false,
+    },
+    {
+      company: "Apulia Makers 3D",
+      title: t.about.roles.apulia,
+      period: t.about.periods.apulia,
+      description: t.about.roles.apuliaDesc,
+      icon: GraduationCap,
+      current: false,
     },
   ];
 
   const stack = [
     {
-      label: t.about.stack.leadership,
-      icon: Layers,
-      tags: ["SCRUM / Agile", "DevOps", "Systems Architecture", "IT Management"],
-    },
-    {
       label: t.about.stack.embedded,
       icon: Cpu,
-      tags: ["C / C++", "Atmel ATmega", "Atmel SAM", "Altium Designer", "KiCad"],
+      tags: ["C / C++", "Atmel ATmega", "Atmel SAM", "Altium Designer", "KiCad", "Progettazione elettronica"],
     },
     {
       label: t.about.stack.automation,
       icon: Server,
-      tags: ["B&R Automation Studio", "IEC 61131-3 (ST, LD, FBD)", "Motion Control"],
+      tags: ["B&R Automation Studio", "IEC 61131-3 (LD, ST, FBD)", "Motion control", "Industrial 3D printing"],
     },
     {
-      label: t.about.stack.languages,
+      label: t.about.stack.software,
       icon: Terminal,
-      tags: ["Python", "C#", "JavaScript", "Linux (Debian, Arch, Kali)"],
+      tags: ["Python", "C#", "JavaScript", "HTML / CSS", "XML, Markdown, JSON"],
     },
-    { label: t.about.stack.cad, icon: Wrench, tags: ["SolidWorks", "AutoCAD"] },
+    {
+      label: t.about.stack.it,
+      icon: Network,
+      tags: ["IT & networking", "Windows / Windows Server", "Linux (Debian, Ubuntu, Arch, Kali)", "TrueNAS", "VMware Server"],
+    },
+    {
+      label: t.about.stack.tools,
+      icon: Wrench,
+      tags: ["SolidWorks", "AutoCAD", "Visual Studio", "VS Code", "Atmel Studio"],
+    },
+    {
+      label: t.about.stack.leadership,
+      icon: Layers,
+      tags: ["Software team coordination", "SCRUM / Agile", "DevOps", "Cross-discipline collaboration"],
+    },
   ];
 
   const certifications = [
@@ -111,23 +148,17 @@ function AboutPage() {
             <p>{t.about.p1}</p>
             <p>{t.about.p2}</p>
             <p>{t.about.p3}</p>
+            <p>{t.about.p4}</p>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="https://www.linkedin.com/in/marino-andriani/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02]"
             >
-              {t.about.linkedin}
-            </a>
-            <a
-              href="mailto:Marino-Andriani@live.it"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              {t.about.email}
-            </a>
+              {t.home.cta}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>
@@ -162,7 +193,14 @@ function AboutPage() {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="font-semibold text-foreground">{item.title}</span>
+                        <span className="flex items-center gap-2">
+                          <span className="font-semibold text-foreground">{item.title}</span>
+                          {item.current && (
+                            <span className="rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-primary">
+                              {t.about.current}
+                            </span>
+                          )}
+                        </span>
                         <span className="font-mono text-xs text-muted-foreground">{item.period}</span>
                       </span>
                       <span className="mt-1 block text-sm text-primary">{item.company}</span>
@@ -207,7 +245,8 @@ function AboutPage() {
               <div className="mt-3 flex flex-wrap gap-2">
                 {group.tags.map((tag) => (
                   <span
-                    key={tag}\n                    className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-xs text-muted-foreground"
+                    key={tag}
+                    className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-xs text-muted-foreground"
                   >
                     {tag}
                   </span>
@@ -216,6 +255,7 @@ function AboutPage() {
             </div>
           ))}
         </div>
+        <p className="mt-4 text-sm text-muted-foreground">{t.about.stackNote}</p>
       </section>
 
       <section className="mt-20">
@@ -238,6 +278,7 @@ function AboutPage() {
           ))}
         </div>
       </section>
+
     </div>
   );
 }
