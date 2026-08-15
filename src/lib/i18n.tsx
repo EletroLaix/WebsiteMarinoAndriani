@@ -1,1 +1,304 @@
-aW1wb3J0IHsgY3JlYXRlQ29udGV4dCwgdXNlQ2FsbGJhY2ssIHVzZUNvbnRleHQsIHVzZUVmZmVjdCwgdXNlUmVmLCB1c2VTdGF0ZSwgdHlwZSBSZWFjdE5vZGUgfSBmcm9tICJyZWFjdCI7CmltcG9ydCB7IGNuIH0gZnJvbSAiQC9saWIvdXRpbHMiOwoKZXhwb3J0IHR5cGUgTGFuZyA9ICJlbiIgfCAiaXQiOwoKY29uc3QgU1RPUkFHRV9LRVkgPSAibWEtbGFuZyI7Cgp0eXBlIERpY3QgPSB0eXBlb2YgZW47Cgpjb25zdCBlbiA9IHsKICBuYXY6IHsgaG9tZTogIkhvbWUiLCBhYm91dDogIkFib3V0IiwgY29udGFjdDogIkNvbnRhY3QiIH0sCiAgbGFuZzogeyBzd2l0Y2hUbzogIlBhc3NhIGFsbCdpdGFsaWFubyIsIGxhYmVsOiAiTGFuZ3VhZ2UiIH0sCiAgaG9tZTogewogICAgcm9sZTogIkhlYWQgb2YgU29mdHdhcmUgRW5naW5lZXJpbmcgfCBJbmR1c3RyaWFsIEF1dG9tYXRpb24gJiBFbWJlZGRlZCBTeXN0ZW1zIFNwZWNpYWxpc3QiLAogICAgZ3JlZXRpbmc6ICJIaSwgSSdtIiwKICAgIGludHJvOgogICAgICAiQnJpZGdpbmcgaGFyZHdhcmUsIGZpcm13YXJlLCBhbmQgY2xvdWQgc29mdHdhcmUuIDEwKyB5ZWFycyBkcml2aW5nIGluZHVzdHJpYWwgM0QgcHJpbnRpbmcgYXV0b21hdGlvbiwgZW1iZWRkZWQgTUNVIHN5c3RlbXMsIGFuZCBoaWdoLXBlcmZvcm1hbmNlIGVuZ2luZWVyaW5nIHRlYW1zLiIsCiAgICBiYWRnZVJvbGU6ICJIZWFkIG9mIFNvZnR3YXJlIEVuZ2luZWVyaW5nIEAgUm9ib3plIiwKICAgIGJhZGdlU3BlYzogIkVtYmVkZGVkICYgQXV0b21hdGlvbiBFbmdpbmVlciIsCiAgICBjdGE6ICJHZXQgaW4gdG91Y2giLAogICAgYWJvdXQ6ICJNb3JlIGluZm8iLAogICAgcG9ydHJhaXRBbHQ6ICJNYXJpbm8gQW5kcmlhbmkgcG9ydHJhaXQiLAogICAgY3RhVGl0bGU6ICJIYXZlIGEgcHJvamVjdCBpbiBtaW5kPyIsCiAgICBjdGFUZXh0OiAiSSdtIGFsd2F5cyBvcGVuIHRvIGRpc2N1c3NpbmcgbmV3IG9wcG9ydHVuaXRpZXMsIGludGVyZXN0aW5nIGlkZWFzLCBvciBjb2xsYWJvcmF0aW9ucy4iLAogICAgY3RhQnV0dG9uOiAiTGV0J3MgdGFsayIsCiAgfSwKICBhYm91dDogewogICAga2lja2VyOiAiQWJvdXQgbWUiLAogICAgdGl0bGU6ICJTb2Z0d2FyZSBlbmdpbmVlciwgYnVpbGRlciwgcHJvYmxlbSBzb2x2ZXIiLAogICAgcDE6ICJJJ20gTWFyaW5vIEFuZHJpYW5pLCBhIHNvZnR3YXJlIGVuZ2luZWVyIGJhc2VkIGluIEl0YWx5IHdpdGggYSBkZWVwIHBhc3Npb24gZm9yIHByb2dyYW1taW5nIGFuZCBhdXRvbWF0aW9uLiBJIGVuam95IHR1cm5pbmcgY29tcGxleCBwcm9ibGVtcyBpbnRvIHNpbXBsZSwgcmVsaWFibGUsIGFuZCBlbGVnYW50IHNvZnR3YXJlLiIsCiAgICBwMjogIkN1cnJlbnRseSBIZWFkIG9mIFNvZnR3YXJlIEVuZ2luZWVyaW5nIGF0IFJvYm96ZSBTUEEsIEkgbGVhZCB0aGUgc29mdHdhcmUgdGVhbSB1c2luZyBTQ1JVTSBhbmQgRGV2T3BzIHByYWN0aWNlcyB3aGlsZSBzdGlsbCBjb250cmlidXRpbmcgaGFuZHMtb24gdG8gaW5kdXN0cmlhbCBhdXRvbWF0aW9uLCBlbWJlZGRlZCBzeXN0ZW1zLCBhbmQgd2ViIGRldmVsb3BtZW50LiIsCiAgICBwMzogIk15IGJhY2tncm91bmQgc3BhbnMgUExDIHByb2dyYW1taW5nLCBlbWJlZGRlZCBDL0MrKywgZnVsbC1zdGFjayB3ZWIgdGVjaG5vbG9naWVzLCBhbmQgSVQgaW5mcmFzdHJ1Y3R1cmUuIEkgY2FyZSBhYm91dCBjbGVhbiBjb2RlLCBpbnR1aXRpdmUgaW50ZXJmYWNlcywgYW5kIHByb2R1Y3RzIHRoYXQgYWN0dWFsbHkgaGVscCBwZW9wbGUuIiwKICAgIGxpbmtlZGluOiAiTGlua2VkSW4gcHJvZmlsZSIsCiAgICBlbWFpbDogIkVtYWlsIG1lIiwKICAgIGV4cGVyaWVuY2VLaWNrZXI6ICJFeHBlcmllbmNlIiwKICAgIGV4cGVyaWVuY2VUaXRsZTogIkNhcmVlciB0aW1lbGluZSIsCiAgICBzdGFja0tpY2tlcjogIlRlY2ggc3RhY2siLAogICAgc3RhY2tUaXRsZTogIldoYXQgSSB3b3JrIHdpdGgiLAogICAgY2VydEtpY2tlcjogIkNlcnRpZmljYXRpb25zIiwKICAgIGNlcnRUaXRsZTogIkRpcGxvbWFzICYgY2VydGlmaWVkIHNraWxscyIsCiAgICBzdGFjazogewogICAgICBsZWFkZXJzaGlwOiAiTGVhZGVyc2hpcCAmIERldk9wcyIsCiAgICAgIGVtYmVkZGVkOiAiRW1iZWRkZWQgJiBFbGVjdHJvbmljcyIsCiAgICAgIGF1dG9tYXRpb246ICJJbmR1c3RyaWFsIEF1dG9tYXRpb24iLAogICAgICBsYW5ndWFnZXM6ICJMYW5ndWFnZXMgJiBFbnZpcm9ubWVudHMiLAogICAgICBjYWQ6ICJDQUQgJiBQcm90b3R5cGluZyIsCiAgICB9LAogICAgY2VydHM6IHsKICAgICAgc3dUaXRsZTogIlNvbGlkV29ya3MgQ2VydGlmaWVkIiwKICAgICAgc3dEZXNjOiAiUHJvZmVzc2lvbmFsIEFkdmFuY2VkIChEcmF3aW5nIFRvb2xzKSAmIEFzc29jaWF0ZSAoTWVjaGFuaWNhbCBEZXNpZ24pIiwKICAgICAgYnJUaXRsZTogIkImUiBBdXRvbWF0aW9uIERpcGxvbWFzIiwKICAgICAgYnJEZXNjOiAiSUVDIFByb2dyYW1taW5nICYgTW90aW9uIENvbnRyb2wiLAogICAgfSwKICAgIHJvbGVzOiB7CiAgICAgIGhlYWQ6ICJIZWFkIG9mIFNvZnR3YXJlIEVuZ2luZWVyaW5nIiwKICAgICAgaGVhZERlc2M6CiAgICAgICAgIkxlYWRpbmcgdGhlIHNvZnR3YXJlIGVuZ2luZWVyaW5nIHRlYW0gd2l0aCBTQ1JVTSBtZXRob2RvbG9neSBvbiBEZXZPcHMgcGxhdGZvcm1zLiBPcHRpbWl6aW5nIHRoZSBzb2Z0d2FyZSBkZXZlbG9wbWVudCBsaWZlY3ljbGUgYW5kIHN5c3RlbSBhcmNoaXRlY3R1cmVzLiIsCiAgICAgIGF1dG9tYXRpb246ICJBdXRvbWF0aW9uIEVuZ2luZWVyIiwKICAgICAgYXV0b21hdGlvbkRlc2M6CiAgICAgICAgIkRldmVsb3BpbmcgY29udHJvbCBzb2Z0d2FyZSBmb3IgaW5kdXN0cmlhbCBoaWdoLXBlcmZvcm1hbmNlIDNEIHByaW50ZXJzIHVzaW5nIEImUiBQTENzIGFuZCBJRUMgNjExMzEtMyBsYW5ndWFnZXMgKFNULCBMRCwgRkJEKS4iLAogICAgICBlbWJlZGRlZDogIkVtYmVkZGVkIFByb2dyYW1tZXIgJiBJVCBNYW5hZ2VyIiwKICAgICAgZW1iZWRkZWREZXNjOgogICAgICAgICJGaXJtd2FyZSBkZXZlbG9wbWVudCBmb3IgQXRtZWwgQVRtZWdhL1NBTSBNQ1VzIGluIEMvQysrLiBGdWxsIG1hbmFnZW1lbnQgb2YgY29ycG9yYXRlIElUIGluZnJhc3RydWN0dXJlIGFuZCBuZXR3b3JraW5nLiIsCiAgICAgIHRlYWNoZXI6ICJMZWN0dXJlciAmIFZvbHVudGVlciIsCiAgICAgIHRlYWNoZXJEZXNjOgogICAgICAgICJCYXJpbWFrZXJzLCBBcHVsaWEgTWFrZXJzIDNEIGFuZCBBcmNpOiB0YXVnaHQgZWxlY3Ryb25pY3MsIFBDQiBkZXNpZ24gKEFsdGl1bS9LaUNhZCkgYW5kIEFyZHVpbm8gcHJvZ3JhbW1pbmcuIiwKICAgIH0sCiAgICBwZXJpb2RzOiB7CiAgICAgIGhlYWQ6ICIwNy8yMDIzIOKAlCBwcmVzZW50IiwKICAgICAgYXV0b21hdGlvbjogIjEyLzIwMjAg4oCUIHByZXNlbnQiLAogICAgICBlbWJlZGRlZDogIjA2LzIwMTYg4oCUIDA2LzIwMjIiLAogICAgICB0ZWFjaGVyOiAiMjAxNCDigJQgMjAxOCIsCiAgICB9LAogIH0sCiAgY29udGFjdDogewogICAga2lja2VyOiAiQ29udGFjdCIsCiAgICB0aXRsZTogIkxldCdzIHdvcmsgdG9nZXRoZXIiLAogICAgc3VidGl0bGU6ICJIYXZlIGEgcHJvamVjdCwgam9iIG9wcG9ydHVuaXR5LCBvciBqdXN0IHdhbnQgdG8gc2F5IGhlbGxvPyBJJ2QgbG92ZSB0byBoZWFyIGZyb20geW91LiIsCiAgICBuYW1lOiAiTmFtZSIsCiAgICBuYW1lUGxhY2Vob2xkZXI6ICJZb3VyIG5hbWUiLAogICAgZW1haWw6ICJFbWFpbCIsCiAgICBlbWFpbFBsYWNlaG9sZGVyOiAieW91QGV4YW1wbGUuY29tIiwKICAgIG1lc3NhZ2U6ICJNZXNzYWdlIiwKICAgIG1lc3NhZ2VQbGFjZWhvbGRlcjogIlRlbGwgbWUgYWJvdXQgeW91ciBwcm9qZWN0Li4uIiwKICAgIHNlbmQ6ICJTZW5kIG1lc3NhZ2UiLAogICAgc2VuZGluZzogIlNlbmRpbmcuLi4iLAogICAgc3VjY2VzczogIk1lc3NhZ2Ugc2VudCEgSSdsbCBnZXQgYmFjayB0byB5b3Ugc29vbi4iLAogIH0sCiAgZm9vdGVyOiB7CiAgICB0YWdsaW5lOiAiU29mdHdhcmUgZW5naW5lZXIgZm9jdXNlZCBvbiBhdXRvbWF0aW9uIGFuZCB3ZWIuIiwKICB9LAp9OwoKY29uc3QgaXQ6IERpY3QgPSB7CiAgbmF2OiB7IGhvbWU6ICJIb21lIiwgYWJvdXQ6ICJDaGkgc29ubyIsIGNvbnRhY3Q6ICJDb250YXR0aSIgfSwKICBsYW5nOiB7IHN3aXRjaFRvOiAiU3dpdGNoIHRvIEVuZ2xpc2giLCBsYWJlbDogIkxpbmd1YSIgfSwKICBob21lOiB7CiAgICByb2xlOiAiSGVhZCBvZiBTb2Z0d2FyZSBFbmdpbmVlcmluZyB8IEF1dG9tYXppb25lIEluZHVzdHJpYWxlICYgU2lzdGVtaSBFbWJlZGRlZCIsCiAgICBncmVldGluZzogIkNpYW8sIHNvbm8iLAogICAgaW50cm86CiAgICAgICJVbiBwb250ZSB0cmEgaGFyZHdhcmUsIGZpcm13YXJlIGUgc29mdHdhcmUgY2xvdWQuIE9sdHJlIDEwIGFubmkgdHJhIGF1dG9tYXppb25lIGRlbGxhIHN0YW1wYSAzRCBpbmR1c3RyaWFsZSwgc2lzdGVtaSBlbWJlZGRlZCBhIG1pY3JvY29udHJvbGxvcmUgZSB0ZWFtIGRpIGluZ2VnbmVyaWEgYWQgYWx0ZSBwcmVzdGF6aW9uaS4iLAogICAgYmFkZ2VSb2xlOiAiSGVhZCBvZiBTb2Z0d2FyZSBFbmdpbmVlcmluZyBAIFJvYm96ZSIsCiAgICBiYWRnZVNwZWM6ICJFbWJlZGRlZCAmIEF1dG9tYXRpb24gRW5naW5lZXIiLAogICAgY3RhOiAiQ29udGF0dGFtaSIsCiAgICBhYm91dDogIk1hZ2dpb3JpIGluZm9ybWF6aW9uaSIsCiAgICBwb3J0cmFpdEFsdDogIlJpdHJhdHRvIGRpIE1hcmlubyBBbmRyaWFuaSIsCiAgICBjdGFUaXRsZTogIkhhaSB1biBwcm9nZXR0byBpbiBtZW50ZT8iLAogICAgY3RhVGV4dDogIlNvbm8gc2VtcHJlIGRpc3BvbmliaWxlIGEgcGFybGFyZSBkaSBudW92ZSBvcHBvcnR1bml0w6AsIGlkZWUgaW50ZXJlc3NhbnRpIG8gY29sbGFib3JhemlvbmkuIiwKICAgIGN0YUJ1dHRvbjogIlBhcmxpYW1vbmUiLAogIH0sCiAgYWJvdXQ6IHsKICAgIGtpY2tlcjogIkNoaSBzb25vIiwKICAgIHRpdGxlOiAiU29mdHdhcmUgZW5naW5lZXIsIGNyZWF0b3JlLCBwcm9ibGVtIHNvbHZlciIsCiAgICBwMTogIlNvbm8gTWFyaW5vIEFuZHJpYW5pLCBzb2Z0d2FyZSBlbmdpbmVlciBpdGFsaWFubyBjb24gdW5hIGdyYW5kZSBwYXNzaW9uZSBwZXIgbGEgcHJvZ3JhbW1hemlvbmUgZSBsJ2F1dG9tYXppb25lLiBNaSBwaWFjZSB0cmFzZm9ybWFyZSBwcm9ibGVtaSBjb21wbGVzc2kgaW4gc29mdHdhcmUgc2VtcGxpY2UsIGFmZmlkYWJpbGUgZWQgZWxlZ2FudGUuIiwKICAgIHAyOiAiQXR0dWFsbWVudGUgSGVhZCBvZiBTb2Z0d2FyZSBFbmdpbmVlcmluZyBpbiBSb2JvemUgU1BBLCBndWlkbyBpbCB0ZWFtIHNvZnR3YXJlIGNvbiBwcmF0aWNoZSBTQ1JVTSBlIERldk9wcywgY29udGludWFuZG8gYSBsYXZvcmFyZSBpbiBwcmltYSBwZXJzb25hIHN1IGF1dG9tYXppb25lIGluZHVzdHJpYWxlLCBzaXN0ZW1pIGVtYmVkZGVkIGUgc3ZpbHVwcG8gd2ViLiIsCiAgICBwMzogIkxhIG1pYSBlc3BlcmllbnphIHNwYXppYSBkYWxsYSBwcm9ncmFtbWF6aW9uZSBQTEMgYWxsJ2VtYmVkZGVkIEMvQysrLCBkYWxsZSB0ZWNub2xvZ2llIHdlYiBmdWxsLXN0YWNrIGFsbCdpbmZyYXN0cnV0dHVyYSBJVC4gVGVuZ28gYWwgY29kaWNlIHB1bGl0bywgYWxsZSBpbnRlcmZhY2NlIGludHVpdGl2ZSBlIGEgcHJvZG90dGkgY2hlIGFpdXRhbm8gZGF2dmVybyBsZSBwZXJzb25lLiIsCiAgICBsaW5rZWRpbjogIlByb2ZpbG8gTGlua2VkSW4iLAogICAgZW1haWw6ICJTY3JpdmltaSIsCiAgICBleHBlcmllbmNlS2lja2VyOiAiRXNwZXJpZW56YSIsCiAgICBleHBlcmllbmNlVGl0bGU6ICJQZXJjb3JzbyBwcm9mZXNzaW9uYWxlIiwKICAgIHN0YWNrS2lja2VyOiAiVGVjaCBzdGFjayIsCiAgICBzdGFja1RpdGxlOiAiQ29uIGNvc2EgbGF2b3JvIiwKICAgIGNlcnRLaWNrZXI6ICJDZXJ0aWZpY2F6aW9uaSIsCiAgICBjZXJ0VGl0bGU6ICJEaXBsb21pIGUgY29tcGV0ZW56ZSBjZXJ0aWZpY2F0ZSIsCiAgICBzdGFjazogewogICAgICBsZWFkZXJzaGlwOiAiTGVhZGVyc2hpcCAmIERldk9wcyIsCiAgICAgIGVtYmVkZGVkOiAiRW1iZWRkZWQgJiBFbGV0dHJvbmljYSIsCiAgICAgIGF1dG9tYXRpb246ICJBdXRvbWF6aW9uZSBpbmR1c3RyaWFsZSIsCiAgICAgIGxhbmd1YWdlczogIkxpbmd1YWdnaSAmIEFtYmllbnRpIiwKICAgICAgY2FkOiAiQ0FEICYgUHJvdG90aXBhemlvbmUiLAogICAgfSwKICAgIGNlcnRzOiB7CiAgICAgIHN3VGl0bGU6ICJTb2xpZFdvcmtzIENlcnRpZmllZCIsCiAgICAgIHN3RGVzYzogIlByb2Zlc3Npb25hbCBBZHZhbmNlZCAoRHJhd2luZyBUb29scykgZSBBc3NvY2lhdGUgKE1lY2hhbmljYWwgRGVzaWduKSIsCiAgICAgIGJyVGl0bGU6ICJEaXBsb21pIEImUiBBdXRvbWF0aW9uIiwKICAgICAgYnJEZXNjOiAiSUVDIFByb2dyYW1taW5nIGUgTW90aW9uIENvbnRyb2wiLAogICAgfSwKICAgIHJvbGVzOiB7CiAgICAgIGhlYWQ6ICJIZWFkIG9mIFNvZnR3YXJlIEVuZ2luZWVyaW5nIiwKICAgICAgaGVhZERlc2M6CiAgICAgICAgIkd1aWRvIGlsIHRlYW0gZGkgc29mdHdhcmUgZW5naW5lZXJpbmcgY29uIG1ldG9kb2xvZ2lhIFNDUlVNIHN1IHBpYXR0YWZvcm1lIERldk9wcywgb3R0aW1penphbmRvIGNpY2xvIGRpIHN2aWx1cHBvIGUgYXJjaGl0ZXR0dXJlIGRpIHNpc3RlbWEuIiwKICAgICAgYXV0b21hdGlvbjogIkF1dG9tYXRpb24gRW5naW5lZXIiLAogICAgICBhdXRvbWF0aW9uRGVzYzoKICAgICAgICAiU3ZpbHVwcG8gZGVsIHNvZnR3YXJlIGRpIGNvbnRyb2xsbyBwZXIgc3RhbXBhbnRpIDNEIGluZHVzdHJpYWxpIGFkIGFsdGUgcHJlc3RhemlvbmkgY29uIFBMQyBCJlIgZSBsaW5ndWFnZ2kgSUVDIDYxMTMxLTMgKFNULCBMRCwgRkJEKS4iLAogICAgICBlbWJlZGRlZDogIlByb2dyYW1tYXRvcmUgRW1iZWRkZWQgJiBJVCBNYW5hZ2VyIiwKICAgICAgZW1iZWRkZWREZXNjOgogICAgICAgICJTdmlsdXBwbyBmaXJtd2FyZSBwZXIgbWljcm9jb250cm9sbG9yaSBBdG1lbCBBVG1lZ2EvU0FNIGluIEMvQysrLiBHZXN0aW9uZSBjb21wbGV0YSBkZWxsJ2luZnJhc3RydXR0dXJhIElUIGUgZGkgcmV0ZSBhemllbmRhbGUuIiwKICAgICAgdGVhY2hlcjogIkRvY2VudGUgJiBWb2xvbnRhcmlvIiwKICAgICAgdGVhY2hlckRlc2M6CiAgICAgICAgIkJhcmltYWtlcnMsIEFwdWxpYSBNYWtlcnMgM0QgZSBBcmNpOiBjb3JzaSBkaSBlbGV0dHJvbmljYSwgcHJvZ2V0dGF6aW9uZSBQQ0IgKEFsdGl1bS9LaUNhZCkgZSBwcm9ncmFtbWF6aW9uZSBBcmR1aW5vLiIsCiAgICB9LAogICAgcGVyaW9kczogewogICAgICBoZWFkOiAiMDcvMjAyMyDigJQgb2dnaSIsCiAgICAgIGF1dG9tYXRpb246ICIxMi8yMDIwIOKAlCBvZ2dpIiwKICAgICAgZW1iZWRkZWQ6ICIwNi8yMDE2IOKAlCAwNi8yMDIyIiwKICAgICAgdGVhY2hlcjogIjIwMTQg4oCUIDIwMTgiLAogICAgfSwKICB9LAogIGNvbnRhY3Q6IHsKICAgIGtpY2tlcjogIkNvbnRhdHRpIiwKICAgIHRpdGxlOiAiTGF2b3JpYW1vIGluc2llbWUiLAogICAgc3VidGl0bGU6ICJIYWkgdW4gcHJvZ2V0dG8sIHVuJ29wcG9ydHVuaXTDoCBkaSBsYXZvcm8gbyB2dW9pIHNvbG8gc2FsdXRhcmU/IFNjcml2aW1pIHB1cmUuIiwKICAgIG5hbWU6ICJOb21lIiwKICAgIG5hbWVQbGFjZWhvbGRlcjogIklsIHR1byBub21lIiwKICAgIGVtYWlsOiAiRW1haWwiLAogICAgZW1haWxQbGFjZWhvbGRlcjogInR1QGVzZW1waW8uaXQiLAogICAgbWVzc2FnZTogIk1lc3NhZ2dpbyIsCiAgICBtZXNzYWdlUGxhY2Vob2xkZXI6ICJSYWNjb250YW1pIGRlbCB0dW8gcHJvZ2V0dG8uLi4iLAogICAgc2VuZDogIkludmlhIG1lc3NhZ2dpbyIsCiAgICBzZW5kaW5nOiAiSW52aW8uLi4iLAogICAgc3VjY2VzczogIk1lc3NhZ2dpbyBpbnZpYXRvISBUaSByaXNwb25kZXLDsiBhbCBwacO5IHByZXN0by4iLAogIH0sCiAgZm9vdGVyOiB7CiAgICB0YWdsaW5lOiAiU29mdHdhcmUgZW5naW5lZXIgc3BlY2lhbGl6emF0byBpbiBhdXRvbWF6aW9uZSBlIHdlYi4iLAogIH0sCn07Cgpjb25zdCBkaWN0aW9uYXJpZXM6IFJlY29yZDxMYW5nLCBEaWN0PiA9IHsgZW4sIGl0IH07Cgp0eXBlIEkxOG5WYWx1ZSA9IHsgbGFuZzogTGFuZzsgc2V0TGFuZzogKGw6IExhbmcpID0+IHZvaWQ7IHRvZ2dsZTogKCkgPT4gdm9pZDsgaXNUcmFuc2l0aW9uaW5nOiBib29sZWFuOyB0OiBEaWN0IH07Cgpjb25zdCBJMThuQ29udGV4dCA9IGNyZWF0ZUNvbnRleHQ8STE4blZhbHVlPih7CiAgbGFuZzogImVuIiwKICBzZXRMYW5nOiAoKSA9PiB7fSwKICB0b2dnbGU6ICgpID0+IHt9LAogIGlzVHJhbnNpdGlvbmluZzogZmFsc2UsCiAgdDogZW4sCn0pOwoKZnVuY3Rpb24gZGV0ZWN0TGFuZygpOiBMYW5nIHsKICBpZiAodHlwZW9mIHdpbmRvdyA9PT0gInVuZGVmaW5lZCIpIHJldHVybiAiZW4iOwogIGNvbnN0IHN0b3JlZCA9IHdpbmRvdy5sb2NhbFN0b3JhZ2UuZ2V0SXRlbShTVE9SQUdFX0tFWSk7CiAgaWYgKHN0b3JlZCA9PT0gImVuIiB8fCBzdG9yZWQgPT09ICJpdCIpIHJldHVybiBzdG9yZWQ7CiAgY29uc3QgbGFuZ3MgPSBuYXZpZ2F0b3IubGFuZ3VhZ2VzPy5sZW5ndGggPyBuYXZpZ2F0b3IubGFuZ3VhZ2VzIDogW25hdmlnYXRvci5sYW5ndWFnZV07CiAgcmV0dXJuIGxhbmdzLnNvbWUoKGwpID0+IGw/LnRvTG93ZXJDYXNlKCkuc3RhcnRzV2l0aCgiaXQiKSkgPyAiaXQiIDogImVuIjsKfQoKZXhwb3J0IGZ1bmN0aW9uIEkxOG5Qcm92aWRlcih7IGNoaWxkcmVuIH06IHsgY2hpbGRyZW46IFJlYWN0Tm9kZSB9KSB7CiAgY29uc3QgW3Zpc2libGVMYW5nLCBzZXRWaXNpYmxlTGFuZ10gPSB1c2VTdGF0ZTxMYW5nPigiZW4iKTsKICBjb25zdCBbaXNUcmFuc2l0aW9uaW5nLCBzZXRJc1RyYW5zaXRpb25pbmddID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IGZhZGVPdXRSZWYgPSB1c2VSZWY8UmV0dXJuVHlwZTx0eXBlb2Ygc2V0VGltZW91dD4gfCBudWxsPihudWxsKTsKICBjb25zdCBmYWRlSW5SZWYgPSB1c2VSZWY8UmV0dXJuVHlwZTx0eXBlb2Ygc2V0VGltZW91dD4gfCBudWxsPihudWxsKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIGNvbnN0IGRldGVjdGVkID0gZGV0ZWN0TGFuZygpOwogICAgc2V0VmlzaWJsZUxhbmcoZGV0ZWN0ZWQpOwogIH0sIFtdKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIGlmICh0eXBlb2YgZG9jdW1lbnQgIT09ICJ1bmRlZmluZWQiKSBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQubGFuZyA9IHZpc2libGVMYW5nOwogIH0sIFt2aXNpYmxlTGFuZ10pOwoKICBjb25zdCBjbGVhclRpbWVycyA9IHVzZUNhbGxiYWNrKCgpID0+IHsKICAgIGlmIChmYWRlT3V0UmVmLmN1cnJlbnQpIHsKICAgICAgY2xlYXJUaW1lb3V0KGZhZGVPdXRSZWYuY3VycmVudCk7CiAgICAgIGZhZGVPdXRSZWYuY3VycmVudCA9IG51bGw7CiAgICB9CiAgICBpZiAoZmFkZUluUmVmLmN1cnJlbnQpIHsKICAgICAgY2xlYXJUaW1lb3V0KGZhZGVJblJlZi5jdXJyZW50KTsKICAgICAgZmFkZUluUmVmLmN1cnJlbnQgPSBudWxsOwogICAgfQogIH0sIFtdKTsKCiAgY29uc3Qgc3RhcnRUcmFuc2l0aW9uID0gdXNlQ2FsbGJhY2soCiAgICAobmV4dDogTGFuZykgPT4gewogICAgICBpZiAobmV4dCA9PT0gdmlzaWJsZUxhbmcpIHJldHVybjsKICAgICAgY2xlYXJUaW1lcnMoKTsKICAgICAgc2V0SXNUcmFuc2l0aW9uaW5nKHRydWUpOwogICAgICBmYWRlT3V0UmVmLmN1cnJlbnQgPSBzZXRUaW1lb3V0KCgpID0+IHsKICAgICAgICBzZXRWaXNpYmxlTGFuZyhuZXh0KTsKICAgICAgICB0cnkgewogICAgICAgICAgd2luZG93LmxvY2FsU3RvcmFnZS5zZXRJdGVtKFNUT1JBR0VfS0VZLCBuZXh0KTsKICAgICAgICB9IGNhdGNoIHsKICAgICAgICAgIC8qIGlnbm9yZSAqLwogICAgICAgIH0KICAgICAgICBmYWRlSW5SZWYuY3VycmVudCA9IHNldFRpbWVvdXQoKCkgPT4gewogICAgICAgICAgc2V0SXNUcmFuc2l0aW9uaW5nKGZhbHNlKTsKICAgICAgICAgIGZhZGVJblJlZi5jdXJyZW50ID0gbnVsbDsKICAgICAgICB9LCAyNTApOwogICAgICAgIGZhZGVPdXRSZWYuY3VycmVudCA9IG51bGw7CiAgICAgIH0sIDIwMCk7CiAgICB9LAogICAgW3Zpc2libGVMYW5nLCBjbGVhclRpbWVyc10KICApOwoKICBjb25zdCBzZXRMYW5nID0gdXNlQ2FsbGJhY2soKGw6IExhbmcpID0+IHN0YXJ0VHJhbnNpdGlvbihsKSwgW3N0YXJ0VHJhbnNpdGlvbl0pOwogIGNvbnN0IHRvZ2dsZSA9IHVzZUNhbGxiYWNrKCgpID0+IHN0YXJ0VHJhbnNpdGlvbih2aXNpYmxlTGFuZyA9PT0gIml0IiA/ICJlbiIgOiAiaXQiKSwgW3Zpc2libGVMYW5nLCBzdGFydFRyYW5zaXRpb25dKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIHJldHVybiAoKSA9PiBjbGVhclRpbWVycygpOwogIH0sIFtjbGVhclRpbWVyc10pOwoKICByZXR1cm4gKAogICAgPEkxOG5Db250ZXh0LlByb3ZpZGVyIHZhbHVlPXt7IGxhbmc6IHZpc2libGVMYW5nLCBzZXRMYW5nLCB0b2dnbGUsIGlzVHJhbnNpdGlvbmluZywgdDogZGljdGlvbmFyaWVzW3Zpc2libGVMYW5nXSB9fT4KICAgICAge2NoaWxkcmVufQogICAgPC9JMThuQ29udGV4dC5Qcm92aWRlcj4KICApOwp9CgpleHBvcnQgZnVuY3Rpb24gdXNlSTE4bigpIHsKICByZXR1cm4gdXNlQ29udGV4dChJMThuQ29udGV4dCk7Cn0KCmV4cG9ydCBmdW5jdGlvbiBMYW5nRmFkZSh7IGNoaWxkcmVuLCBjbGFzc05hbWUgfTogeyBjaGlsZHJlbjogUmVhY3ROb2RlOyBjbGFzc05hbWU/OiBzdHJpbmcgfSkgewogIGNvbnN0IHsgaXNUcmFuc2l0aW9uaW5nIH0gPSB1c2VJMThuKCk7CiAgcmV0dXJuICgKICAgIDxzcGFuCiAgICAgIGNsYXNzTmFtZT17Y24oCiAgICAgICAgImlubGluZS1ibG9jayB0cmFuc2l0aW9uLW9wYWNpdHkgZHVyYXRpb24tMzAwIGVhc2Utb3V0IiwKICAgICAgICBpc1RyYW5zaXRpb25pbmcgPyAib3BhY2l0eS0wIiA6ICJvcGFjaXR5LTEwMCIsCiAgICAgICAgY2xhc3NOYW1lCiAgICAgICl9CiAgICA+CiAgICAgIHtjaGlsZHJlbn0KICAgIDwvc3Bhbj4KICApOwp9Cg==
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
+
+export type Lang = "en" | "it";
+
+const STORAGE_KEY = "ma-lang";
+
+type Dict = typeof en;
+
+const en = {
+  nav: { home: "Home", about: "About", contact: "Contact" },
+  lang: { switchTo: "Passa all'italiano", label: "Language" },
+  home: {
+    role: "Software Engineer | Embedded Systems & Industrial Automation",
+    greeting: "Hi, I'm",
+    intro:
+      "I build software that connects electronics, microcontrollers, and industrial automation. For more than ten years, I have developed my experience in programming and electronics through professional work, personal projects, teaching, and community activities. Today I lead the software team at Roboze while continuing to work hands-on with embedded systems and automation software.",
+    badgeRole: "Head of Software Engineering @ Roboze",
+    badgeSpec: "Embedded & Automation Engineer",
+    cta: "Get in touch",
+    about: "More info",
+    portraitAlt: "Marino Andriani portrait",
+  },
+  about: {
+    kicker: "About me",
+    title: "Software engineer working across embedded systems, automation, and technology",
+    p1: "I'm Marino Andriani, a software engineer with a strong passion for programming, electronics, and automation. I enjoy understanding systems as a whole and turning real-world problems into reliable, understandable software solutions.",
+    p2: "I have been Head of Software Engineering at Roboze since July 2023. I coordinate the software team using SCRUM and DevOps platforms, focusing on development processes and their continuous improvement. At the same time, I remain hands-on with automation software for industrial 3D printers and embedded programming.",
+    p3: "Embedded programming is still an active part of my work: I develop C/C++ software for Atmel ATmega and SAM microcontrollers and work on electronic design. I also gained professional experience managing and expanding corporate IT infrastructure and networks as IT Manager from 2018 to 2022. IT remains one of my strongest personal interests and an area I continue to explore.",
+    p4: "I also work with Python, C#, JavaScript, and common markup technologies. I use them as complementary tools for automation, utilities, prototypes, and personal projects.",
+    experienceKicker: "Experience",
+    experienceTitle: "Main experiences",
+    current: "Current",
+    stackKicker: "Skills",
+    stackTitle: "What I work with",
+    certKicker: "Certifications",
+    certTitle: "Certified skills",
+    stack: {
+      embedded: "Embedded & Electronics",
+      automation: "Industrial Automation",
+      software: "Software & Scripting",
+      it: "IT & Systems",
+      tools: "Design Tools",
+      leadership: "Leadership & Processes",
+    },
+    stackNote: "IT infrastructure is past professional experience and a current personal interest, not my present role.",
+    certs: {
+      swTitle: "SOLIDWORKS — 2021",
+      swDesc:
+        "Certified SOLIDWORKS Associate (CSWA) — Mechanical Design; Certified SOLIDWORKS Professional Advanced (CSWPA-DT) — Drawing Tools",
+      brTitle: "B&R Academy — 2020",
+      brDesc: "Automation Diploma: IEC Programming (15/01/2020); Automation Diploma: Motion (22/01/2020)",
+    },
+    roles: {
+      head: "Head of Software Engineering",
+      headDesc:
+        "Coordinating the software team with SCRUM methodology on a DevOps platform and improving development processes.",
+      automation: "Automation Engineer",
+      automationDesc:
+        "Developing control software for industrial 3D printers with B&R PLCs and IEC 61131-3 languages: LD, ST and FBD.",
+      embedded: "Embedded Programmer",
+      embeddedDesc:
+        "Developing C/C++ software for Atmel ATmega and SAM microcontrollers, along with electronic design work.",
+      it: "IT Manager",
+      itDesc: "Management and expansion of the corporate IT infrastructure and network.",
+      barimakers: "Barimakers — Volunteer",
+      barimakersDesc:
+        "Programming and electronics courses, open source projects, video tutorials and support for the Makers' Meeting 2014 and 2015.",
+      arci: "Circolo Arci Carlo Cafiero — Lecturer",
+      arciDesc:
+        "Basic electronics courses, PCB design with open source tools and Atmel/Arduino microcontroller programming.",
+      apulia: "Apulia Makers 3D — Lecturer",
+      apuliaDesc: "Hands-on introduction to programming and electronics for beginners.",
+    },
+    periods: {
+      head: "07/2023 — present",
+      automation: "12/2020 — present",
+      embedded: "06/2016 — present",
+      it: "06/2018 — 06/2022",
+      barimakers: "01/2014 — 01/2018",
+      arci: "03/2017 — 05/2017",
+      apulia: "04/2016",
+    },
+  },
+  contact: {
+    kicker: "Contact",
+    title: "Let's work together",
+    subtitle: "Have a project, job opportunity, or just want to say hello? I'd love to hear from you.",
+    directTitle: "Write me directly",
+    directText:
+      "The quickest way to reach me is email. I usually reply within a few days.",
+    directButton: "Send an email",
+    name: "Name",
+    namePlaceholder: "Your name",
+    email: "Email",
+    emailPlaceholder: "you@example.com",
+    message: "Message",
+    messagePlaceholder: "Tell me about your project...",
+    send: "Send message",
+    sending: "Sending...",
+    success: "Message sent! I'll get back to you soon.",
+  },
+  footer: {
+    tagline: "Software engineer focused on embedded systems and industrial automation, with a strong passion for IT.",
+  },
+};
+
+const it: Dict = {
+  nav: { home: "Home", about: "Chi sono", contact: "Contatti" },
+  lang: { switchTo: "Switch to English", label: "Lingua" },
+  home: {
+    role: "Software Engineer | Embedded Systems & Industrial Automation",
+    greeting: "Ciao, sono",
+    intro:
+      "Progetto software che mette in comunicazione elettronica, microcontrollori e automazione industriale. Da oltre dieci anni coltivo programmazione ed elettronica attraverso esperienza professionale, progetti personali, docenza e attività nella community. Oggi guido il team software di Roboze e continuo a lavorare direttamente su sistemi embedded e software di automazione.",
+    badgeRole: "Head of Software Engineering @ Roboze",
+    badgeSpec: "Embedded & Automation Engineer",
+    cta: "Contattami",
+    about: "Maggiori informazioni",
+    portraitAlt: "Ritratto di Marino Andriani",
+  },
+  about: {
+    kicker: "Chi sono",
+    title: "Software engineer tra embedded, automazione e tecnologia",
+    p1: "Sono Marino Andriani, software engineer con una forte passione per la programmazione, l'elettronica e l'automazione. Mi interessa capire come funzionano i sistemi nel loro insieme e trasformare problemi concreti in soluzioni software affidabili e comprensibili.",
+    p2: "In Roboze ricopro il ruolo di Head of Software Engineering da luglio 2023. Coordino il team software con metodologia SCRUM e piattaforme DevOps, lavorando sull'organizzazione e sull'ottimizzazione dei processi di sviluppo. Continuo allo stesso tempo a contribuire direttamente al software di automazione per stampanti 3D industriali e alla programmazione embedded.",
+    p3: "La programmazione embedded è una parte tuttora attiva del mio lavoro: sviluppo software in C/C++ per microcontrollori Atmel ATmega e SAM e mi occupo di progettazione elettronica. Ho inoltre maturato esperienza nella gestione e nell'ampliamento di infrastrutture IT e reti aziendali come IT Manager dal 2018 al 2022. L'IT continua a essere una delle mie principali passioni personali e un ambito che approfondisco costantemente.",
+    p4: "Conosco anche Python, C#, JavaScript e le principali tecnologie di markup. Le utilizzo come strumenti complementari per automazione, utility, prototipi e progetti personali.",
+    experienceKicker: "Esperienza",
+    experienceTitle: "Esperienze principali",
+    current: "Attuale",
+    stackKicker: "Competenze",
+    stackTitle: "Con cosa lavoro",
+    certKicker: "Certificazioni",
+    certTitle: "Competenze certificate",
+    stack: {
+      embedded: "Embedded ed elettronica",
+      automation: "Automazione industriale",
+      software: "Software e scripting",
+      it: "IT e sistemi",
+      tools: "Strumenti di progettazione",
+      leadership: "Leadership e processi",
+    },
+    stackNote: "L'area IT è esperienza professionale pregressa e interesse personale attuale, non il mio ruolo odierno.",
+    certs: {
+      swTitle: "SOLIDWORKS — 2021",
+      swDesc:
+        "Certified SOLIDWORKS Associate (CSWA) — Mechanical Design; Certified SOLIDWORKS Professional Advanced (CSWPA-DT) — Drawing Tools",
+      brTitle: "B&R Academy — 2020",
+      brDesc: "Automation Diploma: IEC Programming (15/01/2020); Automation Diploma: Motion (22/01/2020)",
+    },
+    roles: {
+      head: "Head of Software Engineering",
+      headDesc:
+        "Coordinamento del team software con metodologia SCRUM su piattaforma DevOps e ottimizzazione dei processi di sviluppo.",
+      automation: "Automation Engineer",
+      automationDesc:
+        "Sviluppo del software di controllo per stampanti 3D industriali con PLC B&R e linguaggi IEC 61131-3: LD, ST e FBD.",
+      embedded: "Embedded Programmer",
+      embeddedDesc:
+        "Sviluppo software in C/C++ per microcontrollori Atmel ATmega e SAM e attività di progettazione elettronica.",
+      it: "IT Manager",
+      itDesc: "Gestione e ampliamento dell'infrastruttura IT e della rete aziendale.",
+      barimakers: "Barimakers — Volontariato",
+      barimakersDesc:
+        "Corsi di programmazione ed elettronica, progetti open source, video tutorial e supporto all'organizzazione dei Makers' Meeting 2014 e 2015.",
+      arci: "Circolo Arci Carlo Cafiero — Docente",
+      arciDesc:
+        "Corsi di elettronica di base, progettazione PCB con strumenti open source e programmazione di microcontrollori Atmel e Arduino.",
+      apulia: "Apulia Makers 3D — Docente",
+      apuliaDesc: "Introduzione pratica alla programmazione e all'elettronica per principianti.",
+    },
+    periods: {
+      head: "07/2023 — oggi",
+      automation: "12/2020 — oggi",
+      embedded: "06/2016 — oggi",
+      it: "06/2018 — 06/2022",
+      barimakers: "01/2014 — 01/2018",
+      arci: "03/2017 — 05/2017",
+      apulia: "04/2016",
+    },
+  },
+  contact: {
+    kicker: "Contatti",
+    title: "Lavoriamo insieme",
+    subtitle: "Hai un progetto, un'opportunità di lavoro o vuoi solo salutare? Scrivimi pure.",
+    directTitle: "Scrivimi direttamente",
+    directText: "Il modo più rapido per contattarmi è l'email. Di solito rispondo entro pochi giorni.",
+    directButton: "Invia una email",
+    name: "Nome",
+    namePlaceholder: "Il tuo nome",
+    email: "Email",
+    emailPlaceholder: "tu@esempio.it",
+    message: "Messaggio",
+    messagePlaceholder: "Raccontami del tuo progetto...",
+    send: "Invia messaggio",
+    sending: "Invio...",
+    success: "Messaggio inviato! Ti risponderò al più presto.",
+  },
+  footer: {
+    tagline: "Software engineer specializzato in sistemi embedded e automazione industriale, con una forte passione per l'IT.",
+  },
+};
+
+const dictionaries: Record<Lang, Dict> = { en, it };
+
+type I18nValue = { lang: Lang; setLang: (l: Lang) => void; toggle: () => void; isTransitioning: boolean; t: Dict };
+
+const I18nContext = createContext<I18nValue>({
+  lang: "en",
+  setLang: () => {},
+  toggle: () => {},
+  isTransitioning: false,
+  t: en,
+});
+
+function detectLang(): Lang {
+  if (typeof window === "undefined") return "en";
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  if (stored === "en" || stored === "it") return stored;
+  const langs = navigator.languages?.length ? navigator.languages : [navigator.language];
+  return langs.some((l) => l?.toLowerCase().startsWith("it")) ? "it" : "en";
+}
+
+export function I18nProvider({ children }: { children: ReactNode }) {
+  const [visibleLang, setVisibleLang] = useState<Lang>("en");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const fadeOutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fadeInRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const detected = detectLang();
+    setVisibleLang(detected);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") document.documentElement.lang = visibleLang;
+  }, [visibleLang]);
+
+  const clearTimers = useCallback(() => {
+    if (fadeOutRef.current) {
+      clearTimeout(fadeOutRef.current);
+      fadeOutRef.current = null;
+    }
+    if (fadeInRef.current) {
+      clearTimeout(fadeInRef.current);
+      fadeInRef.current = null;
+    }
+  }, []);
+
+  const startTransition = useCallback(
+    (next: Lang) => {
+      if (next === visibleLang) return;
+      clearTimers();
+      setIsTransitioning(true);
+      fadeOutRef.current = setTimeout(() => {
+        setVisibleLang(next);
+        try {
+          window.localStorage.setItem(STORAGE_KEY, next);
+        } catch {
+          /* ignore */
+        }
+        fadeInRef.current = setTimeout(() => {
+          setIsTransitioning(false);
+          fadeInRef.current = null;
+        }, 250);
+        fadeOutRef.current = null;
+      }, 200);
+    },
+    [visibleLang, clearTimers]
+  );
+
+  const setLang = useCallback((l: Lang) => startTransition(l), [startTransition]);
+  const toggle = useCallback(() => startTransition(visibleLang === "it" ? "en" : "it"), [visibleLang, startTransition]);
+
+  useEffect(() => {
+    return () => clearTimers();
+  }, [clearTimers]);
+
+  return (
+    <I18nContext.Provider value={{ lang: visibleLang, setLang, toggle, isTransitioning, t: dictionaries[visibleLang] }}>
+      {children}
+    </I18nContext.Provider>
+  );
+}
+
+export function useI18n() {
+  return useContext(I18nContext);
+}
+
+export function LangFade({ children, className }: { children: ReactNode; className?: string }) {
+  const { isTransitioning } = useI18n();
+  return (
+    <span
+      className={cn(
+        "inline-block transition-opacity duration-300 ease-out",
+        isTransitioning ? "opacity-0" : "opacity-100",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
+}
