@@ -43,7 +43,6 @@ const en = {
       tools: "Design Tools",
       leadership: "Leadership & Processes",
     },
-    stackNote: "IT infrastructure is past professional experience and a current personal interest, not my present role.",
     certs: {
       swTitle: "SOLIDWORKS — 2021",
       swDesc:
@@ -141,7 +140,6 @@ const it: Dict = {
       tools: "Strumenti di progettazione",
       leadership: "Leadership e processi",
     },
-    stackNote: "L'area IT è esperienza professionale pregressa e interesse personale attuale, non il mio ruolo odierno.",
     certs: {
       swTitle: "SOLIDWORKS — 2021",
       swDesc:
