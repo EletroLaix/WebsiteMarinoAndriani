@@ -255,7 +255,6 @@ function AboutPage() {
             </div>
           ))}
         </div>
-        <p className="mt-4 text-sm text-muted-foreground">{t.about.stackNote}</p>
       </section>
 
       <section className="mt-20">
