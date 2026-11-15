@@ -27,6 +27,10 @@ const en = {
 		cta: "Get in touch",
 		about: "More info",
 		portraitAlt: "Marino Andriani portrait",
+		ctaTitle: "Have a project in mind?",
+		ctaText:
+			"I'm always open to discussing new opportunities, interesting ideas, or collaborations.",
+		ctaButton: "Let's talk",
 	},
 	about: {
 		kicker: "About me",
@@ -123,6 +127,10 @@ const it: Dict = {
 		cta: "Contattami",
 		about: "Maggiori informazioni",
 		portraitAlt: "Ritratto di Marino Andriani",
+		ctaTitle: "Hai un progetto in mente?",
+		ctaText:
+			"Sono sempre disponibile a parlare di nuove opportunità, idee interessanti o collaborazioni.",
+		ctaButton: "Parliamone",
 	},
 	about: {
 		kicker: "Chi sono",
