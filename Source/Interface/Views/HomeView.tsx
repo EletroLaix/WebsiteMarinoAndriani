@@ -20,7 +20,8 @@ export function HomeView({ lang }: { lang: Lang }) {
 
 	return (
 		<>
-			<section className="mx-auto grid max-w-6xl items-center gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:py-32">
+			{/* The hero fills the first screen; the rest of the page is revealed by scrolling. */}
+			<section className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-6xl content-center items-center gap-14 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px]">
 				<div className="min-w-0">
 					<p className="rise font-mono text-sm tracking-wide text-accent">
 						{Profile.location.label[lang]}
