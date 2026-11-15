@@ -1,18 +1,13 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# Project instructions
 
 ## Branch workflow
 
 - Use `Develop` for development; it is the default branch.
 - Use `Deploy` for releases to GitHub Pages, which publishes its `/docs` directory.
-- Merge `Develop` into `Deploy` only for an explicitly requested release, then regenerate `docs` with `STATIC_EXPORT=1` using the committed Bun lockfile.
+- Merge `Develop` into `Deploy` and create a version tag only when the user explicitly requests a release.
+- Keep one merge commit per release on the first-parent history of `Deploy`: use `git merge --no-ff --no-commit Develop`, generate the static site with `bun run build:pages`, replace `docs` with `dist/client`, include `CNAME` and `.nojekyll`, and stage it with `git add -f docs` before committing the merge. Do not add a separate build commit on `Deploy`.
+- Create an annotated tag matching the requested version on that release merge commit; the initial release is `1.0.0`.
 - Keep application source changes on `Develop`; do not edit generated files in `docs` manually.
-- Preserve published history. After release work, return the local checkout to `Develop`.
+- Generated `docs` belongs only on `Deploy` and is ignored on `Develop`. Do not merge releases back into `Develop` during normal development.
+- Preserve published history unless the user explicitly requests otherwise. After release work, return the local checkout to `Develop`.
+- Use Bun and the committed `bun.lock` for dependency installation. Validate both server and static builds when changing build configuration.

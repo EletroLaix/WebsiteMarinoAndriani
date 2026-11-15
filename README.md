@@ -1,55 +1,58 @@
-# Welcome to your Lovable project
+# Website Marino Andriani
 
-This project was built with [Lovable](https://lovable.dev).
+Portfolio personale di Marino Andriani, realizzato con React, TanStack Start,
+TypeScript, Tailwind CSS e Vite. Il progetto viene gestito direttamente da
+questo repository.
 
-## Build with Lovable
+## Sviluppo locale
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and Bun — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Sono necessari Node.js compatibile con Vite 8 e Bun.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
 git switch Develop
 bun install --frozen-lockfile
 bun run dev
 ```
 
-## Branch e rilasci
+Il lockfile di riferimento è `bun.lock`: non aggiungere lockfile di altri
+package manager.
 
-Il repository mantiene due branch: `Develop` per i sorgenti e lo sviluppo
-(branch predefinito), `Deploy` per i rilasci. GitHub Pages pubblica da
-`Deploy:/docs`, con dominio `marinoandriani.me`.
+## Build
 
-Le modifiche quotidiane restano su `Develop`. Solo quando si decide di
-rilasciare, integrare `Develop` in `Deploy`, installare le dipendenze con
-`bun install --frozen-lockfile` e generare il sito statico:
-
-```powershell
-$env:STATIC_EXPORT = '1'
+```sh
 bun run build
-Remove-Item Env:STATIC_EXPORT
+bun run build:pages
 ```
 
-Sostituire il contenuto di `docs` con l'output statico in `dist/client`,
-includendo `CNAME` e un file `.nojekyll`; verificare home, About e Contact,
-quindi committare e pubblicare `Deploy`. Tornare infine su `Develop`.
-Non modificare manualmente i bundle generati e non integrare `Deploy` in
-`Develop`: le correzioni ai sorgenti partono sempre da `Develop`.
+`build` genera il server Node in `.output`; si può avviare con
+`node .output/server/index.mjs`. `build:pages` genera il sito statico in
+`dist/client`, con prerendering di Home, About e Contact. La variabile
+`STATIC_EXPORT=1` resta supportata per le build statiche.
 
-Il progetto usa Bun e il lockfile `bun.lock`; evitare di aggiungere lockfile
-di altri package manager.
+## Branch e versioni
 
-## Built with
+- `Develop` è il branch predefinito. Tutto lo sviluppo e i commit ordinari
+  avvengono qui; le modifiche non vengono pubblicate automaticamente.
+- `Deploy` contiene i rilasci definitivi. La sua storia principale
+  (`git log --first-parent Deploy`) contiene il primo commit del repository
+  e un commit di merge per ogni versione. La storia dei sorgenti rimane
+  raggiungibile attraverso i merge.
+- Il tag annotato `1.0.0` identifica il primo rilascio di questo flusso.
+  Ogni versione successiva riceve il proprio tag sul merge di rilascio.
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Si pubblica una nuova versione solo su richiesta esplicita. Dopo aver
+aggiornato entrambi i branch dal remoto e verificato che il lavoro sia
+committato, passare a `Deploy` e integrare `Develop` con
+`git merge --no-ff --no-commit Develop`. Con il merge ancora aperto,
+installare le dipendenze con `bun install --frozen-lockfile`, eseguire
+`bun run build:pages` e sostituire interamente `docs` con `dist/client`.
+Includere `CNAME` e un file vuoto `.nojekyll`, verificare pagine e asset e
+aggiungere l'output con `git add -f docs`.
+
+Concludere con un unico commit di merge `release: <versione>`, creare il tag
+annotato della stessa versione e pubblicare branch e tag insieme. Non creare
+commit di build separati su `Deploy`. Tornare infine su `Develop`, senza
+integrare di nuovo il branch di rilascio.
+
+GitHub Pages pubblica esclusivamente da `Deploy:/docs`, sul dominio
+`marinoandriani.me`. Gli artefatti generati non sono versionati su `Develop`.
