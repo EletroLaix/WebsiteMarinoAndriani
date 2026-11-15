@@ -1,38 +1,31 @@
-import { Link } from "@tanstack/react-router";
-import { Github, Linkedin, Menu, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import { useI18n, LangFade } from "@/Resources/Translations";
-import { trackOutbound } from "@/Application/Analytics";
-
-function LangToggle({ className = "" }: { className?: string }) {
-	const { lang, toggle, t } = useI18n();
-	return (
-		<button
-			onClick={toggle}
-			aria-label={t.lang.switchTo}
-			title={t.lang.switchTo}
-			className={`rounded-md border border-border/60 px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:bg-accent hover:text-foreground ${className}`}
-		>
-			<LangFade>{lang === "it" ? "IT" : "EN"}</LangFade>
-		</button>
-	);
-}
+import { useRouterState } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { alternatePath, isPagePublished, normalizePath, pagePath } from "@/Application/Site";
+import { cn } from "@/Application/Utilities";
+import { Profile } from "@/Resources/Content/Profile";
+import { useDictionary, useLang } from "@/Interface/Hooks/UseLanguage";
+import { TransitionLink } from "@/Interface/Components/PageTransition";
 
 export function Header() {
+	const lang = useLang();
+	const t = useDictionary();
+	const pathname = useRouterState({ select: (s) => s.location.pathname });
+	const current = normalizePath(pathname);
 	const [open, setOpen] = useState(false);
 	const [mounted, setMounted] = useState(false);
 	const [closing, setClosing] = useState(false);
-	const { t } = useI18n();
 
 	const nav = [
-		{ label: t.nav.home, to: "/" },
-		{ label: t.nav.about, to: "/about" },
-		{ label: t.nav.contact, to: "/contact" },
+		{ label: t.nav.home, href: pagePath("home", lang) },
+		{ label: t.nav.about, href: pagePath("about", lang) },
+		...(isPagePublished("passions")
+			? [{ label: t.nav.passions, href: pagePath("passions", lang) }]
+			: []),
+		{ label: t.nav.contact, href: pagePath("contact", lang) },
 	];
-
-	const closeMenu = useCallback(() => {
-		setOpen(false);
-	}, []);
+	const isActive = (href: string) =>
+		href === pagePath("home", lang) ? current === href : current.startsWith(href);
 
 	useEffect(() => {
 		if (open) {
@@ -42,93 +35,89 @@ export function Header() {
 		}
 		if (!mounted) return;
 		setClosing(true);
-		const t = setTimeout(() => {
+		const timer = setTimeout(() => {
 			setMounted(false);
 			setClosing(false);
 		}, 380);
-		return () => clearTimeout(t);
+		return () => clearTimeout(timer);
 	}, [open, mounted]);
+
+	const otherLang = lang === "it" ? "en" : "it";
+	const languageSwitch = (
+		<TransitionLink
+			href={alternatePath(pathname, otherLang)}
+			hrefLang={otherLang}
+			aria-label={t.nav.switchLanguage}
+			title={t.nav.switchLanguage}
+			onClick={() => setOpen(false)}
+			className="inline-flex min-h-10 items-center rounded-md px-2 font-mono text-xs text-faint hover:text-foreground"
+		>
+			<span className={cn(lang === "it" && "text-foreground")}>IT</span>
+			<span className="px-1">/</span>
+			<span className={cn(lang === "en" && "text-foreground")}>EN</span>
+		</TransitionLink>
+	);
 
 	return (
 		<>
-			<header className="glass-bar sticky top-0 z-50 border-b border-border/50">
-				<div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-					<Link
-						to="/"
-						className="flex items-center gap-2 text-lg font-semibold tracking-tight"
+			<header className="glass-bar sticky top-0 z-50 border-b border-border/60">
+				<div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+					<TransitionLink
+						href={pagePath("home", lang)}
+						className="brand flex items-center gap-3 text-foreground"
 					>
-						<span className="gradient-text">MA</span>
-						<span className="hidden font-bold text-foreground sm:inline name-glow">
-							Marino Andriani
+						<img
+							src={Profile.icon.path}
+							alt=""
+							width={40}
+							height={40}
+							className="brand-eye h-10 w-10"
+						/>
+						<span className="font-display text-[17px] font-semibold tracking-tight">
+							{Profile.name}
 						</span>
-					</Link>
+					</TransitionLink>
 
-					<nav className="hidden md:flex md:items-center md:gap-1">
+					<nav aria-label={t.nav.label} className="hidden items-center gap-1 md:flex">
 						{nav.map((item) => (
-							<Link
-								key={item.to}
-								to={item.to}
-								activeProps={{ className: "text-foreground" }}
-								inactiveProps={{ className: "text-muted-foreground" }}
-								className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-foreground hover:bg-accent"
+							<TransitionLink
+								key={item.href}
+								href={item.href}
+								aria-current={isActive(item.href) ? "page" : undefined}
+								className={cn(
+									"border-b-2 px-3.5 py-2 text-sm font-medium",
+									isActive(item.href)
+										? "border-primary text-foreground"
+										: "border-transparent text-muted-foreground hover:text-foreground",
+								)}
 							>
-								<LangFade>{item.label}</LangFade>
-							</Link>
+								{item.label}
+							</TransitionLink>
 						))}
+						<span className="mx-2 h-5 w-px bg-border" aria-hidden="true" />
+						{languageSwitch}
 					</nav>
 
-					<div className="hidden items-center gap-3 md:flex">
-						<LangToggle />
-						<a
-							href="https://github.com/EletroLaix"
-							target="_blank"
-							rel="noreferrer"
-							onClick={() =>
-								trackOutbound("GitHub", "header", "https://github.com/EletroLaix")
-							}
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-							aria-label="GitHub"
-						>
-							<Github className="h-5 w-5" />
-						</a>
-						<a
-							href="https://www.linkedin.com/in/marino-andriani/"
-							target="_blank"
-							rel="noreferrer"
-							onClick={() =>
-								trackOutbound(
-									"LinkedIn",
-									"header",
-									"https://www.linkedin.com/in/marino-andriani/",
-								)
-							}
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-							aria-label="LinkedIn"
-						>
-							<Linkedin className="h-5 w-5" />
-						</a>
-					</div>
-
-					<div className="flex items-center gap-2 md:hidden">
-						<LangToggle />
+					<div className="flex items-center gap-1 md:hidden">
+						{languageSwitch}
 						<button
-							onClick={() => setOpen((v) => !v)}
-							className="relative h-10 w-10 rounded-md p-2 text-muted-foreground transition-colors duration-300 hover:bg-accent hover:text-foreground"
-							aria-label={open ? "Close menu" : "Open menu"}
+							type="button"
+							onClick={() => setOpen((value) => !value)}
+							aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+							aria-expanded={open}
+							className="relative h-11 w-11 rounded-md text-muted-foreground hover:text-foreground"
 						>
 							<Menu
-								className={`absolute inset-0 m-auto h-6 w-6 transition-all duration-300 ease-out ${
-									open
-										? "rotate-90 scale-75 opacity-0"
-										: "rotate-0 scale-100 opacity-100"
-								}`}
+								className={cn(
+									"absolute inset-0 m-auto h-6 w-6 transition-all duration-300",
+									open ? "rotate-90 scale-75 opacity-0" : "opacity-100",
+								)}
 							/>
 							<X
-								className={`absolute inset-0 m-auto h-6 w-6 transition-all duration-300 ease-out ${
-									open
-										? "rotate-0 scale-100 opacity-100"
-										: "-rotate-90 scale-75 opacity-0"
-								}`}
+								className={cn(
+									"absolute inset-0 m-auto h-6 w-6 transition-all duration-300",
+									open ? "opacity-100" : "-rotate-90 scale-75 opacity-0",
+								)}
 							/>
 						</button>
 					</div>
@@ -137,64 +126,37 @@ export function Header() {
 
 			{mounted && (
 				<div
-					className={`mobile-menu-overlay ${
-						closing ? "is-closing" : "is-opening"
-					} fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col md:hidden`}
+					className={cn(
+						"mobile-menu-overlay fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col md:hidden",
+						closing ? "is-closing" : "is-opening",
+					)}
 				>
-					<nav className="flex flex-1 flex-col justify-center gap-2 px-8">
-						{nav.map((item, i) => (
-							<Link
-								key={item.to}
-								to={item.to}
-								onClick={closeMenu}
+					<nav
+						aria-label={t.nav.label}
+						className="flex flex-1 flex-col justify-center gap-2 px-8"
+					>
+						{nav.map((item, index) => (
+							<TransitionLink
+								key={item.href}
+								href={item.href}
+								onClick={() => setOpen(false)}
 								style={{
-									animationDelay: closing ? `${i * 40}ms` : `${60 + i * 70}ms`,
+									animationDelay: closing
+										? `${index * 40}ms`
+										: `${60 + index * 70}ms`,
 								}}
-								activeProps={{ className: "text-primary" }}
-								inactiveProps={{ className: "text-foreground" }}
-								className="mobile-menu-item text-5xl font-bold tracking-tight transition-colors hover:text-primary"
+								className={cn(
+									"mobile-menu-item font-display text-5xl font-bold tracking-tight",
+									isActive(item.href) ? "text-primary" : "text-foreground",
+								)}
 							>
-								<LangFade>{item.label}</LangFade>
-							</Link>
+								{item.label}
+							</TransitionLink>
 						))}
 					</nav>
-					<div
-						className="mobile-menu-item flex items-center gap-3 border-t border-border/50 px-8 py-6"
-						style={{ animationDelay: closing ? "0ms" : "300ms" }}
-					>
-						<a
-							href="https://github.com/EletroLaix"
-							target="_blank"
-							rel="noreferrer"
-							onClick={() =>
-								trackOutbound(
-									"GitHub",
-									"mobile_menu",
-									"https://github.com/EletroLaix",
-								)
-							}
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-							aria-label="GitHub"
-						>
-							<Github className="h-5 w-5" />
-						</a>
-						<a
-							href="https://www.linkedin.com/in/marino-andriani/"
-							target="_blank"
-							rel="noreferrer"
-							onClick={() =>
-								trackOutbound(
-									"LinkedIn",
-									"mobile_menu",
-									"https://www.linkedin.com/in/marino-andriani/",
-								)
-							}
-							className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-							aria-label="LinkedIn"
-						>
-							<Linkedin className="h-5 w-5" />
-						</a>
-					</div>
+					<p className="mobile-menu-item border-t border-border/60 px-8 py-6 font-mono text-xs text-faint">
+						{Profile.location.label[lang]} · {Profile.email}
+					</p>
 				</div>
 			)}
 		</>

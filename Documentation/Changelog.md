@@ -1,5 +1,33 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Redesigned the site around the fiery eye: a first-load loader and eyelid transitions between pages.
+- The home hero fills the first screen, and a dimmer lava background heats up around the mouse or finger.
+- Added Italian pages at the root and English pages under `/en`, with a language switch for every page.
+- Rebuilt Home, About, and Contact with shorter copy, a tilting profile card, pointer spotlights, and skills that highlight the roles where they were used.
+- Prepared the Passions area with Lab, Quotes, and Trekking sub-sections, unpublished until they have content.
+- Added per-page titles, descriptions, canonical URLs, hreflang alternates, social cards, and JSON-LD structured data.
+
+### BugFix
+
+- Replaced the contact form that reported messages as sent without sending them with email and copy actions.
+- Google Analytics now loads only after the visitor accepts the analytics banner.
+- Search engines now receive the Italian content, which was previously applied only in the browser.
+
+### Resources
+
+- Added the high-resolution eye icon and content files for profile, experience, and passions.
+- Generated `sitemap.xml`, `404.html`, and a `robots.txt` that references the sitemap.
+- Removed the old boot loader and the client-side translation provider.
+
+### Known issues
+
+- Role problem and solution texts are drafts and role results are still missing.
+- Social previews use the square portrait; a dedicated 1200×630 image is not available yet.
+
 ## 1.0.1
 
 ### Features
