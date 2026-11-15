@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
  * Rendered on a small offscreen buffer (~1/10 of the viewport) and upscaled by
  * the browser: organic movement at 60fps-friendly cost, no WebGL required.
  * Palette is strictly warm: bordeaux -> crimson -> orange -> amber -> yellow.
+ * The layer is kept dim by CSS (.lava-*) and heats up around the pointer.
  */
 
 const PALETTE: Array<[number, number, number]> = [
@@ -35,7 +36,7 @@ function buildLut() {
 	return lut;
 }
 
-export function AnimatedBackground() {
+export function LavaBackground() {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	useEffect(() => {
@@ -55,7 +56,7 @@ export function AnimatedBackground() {
 		let last = 0;
 		let t = 0;
 
-		// Pointer heat trail (desktop only)
+		// Heat that follows the pointer (mouse, or finger while dragging on touch screens)
 		const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, energy: 0 };
 
 		const resize = () => {
@@ -82,7 +83,7 @@ export function AnimatedBackground() {
 			const my = mouse.y * h;
 			const radius = Math.max(w, h) * 0.34;
 			const invR2 = 1 / (radius * radius);
-			const heat = coarse ? 0 : 0.35 + mouse.energy * 0.45;
+			const heat = 0.3 + mouse.energy * 0.5;
 
 			let p = 0;
 			for (let y = 0; y < h; y++) {
@@ -108,11 +109,9 @@ export function AnimatedBackground() {
 					// rising heat: gentle ember source
 					v += 0.18 * (1 - fy) * 0.4 + 0.14 * (1 - fx) * 0.3;
 
-					if (heat > 0) {
-						const dx = x - mx;
-						const dy = y - my;
-						v += heat * Math.exp(-(dx * dx + dy * dy) * invR2 * 2.4);
-					}
+					const dx = x - mx;
+					const dy = y - my;
+					v += heat * Math.exp(-(dx * dx + dy * dy) * invR2 * 2.4);
 
 					let n = (v + 1) * 0.5;
 					if (n < 0) n = 0;
@@ -137,7 +136,7 @@ export function AnimatedBackground() {
 			draw(Math.min(elapsed, 100) / 1000);
 		};
 
-		const onMove = (e: MouseEvent) => {
+		const onMove = (e: PointerEvent) => {
 			mouse.tx = e.clientX / window.innerWidth;
 			mouse.ty = e.clientY / window.innerHeight;
 			mouse.energy = Math.min(0.7, mouse.energy + 0.06);
@@ -154,7 +153,7 @@ export function AnimatedBackground() {
 		resize();
 		window.addEventListener("resize", resize, { passive: true });
 		document.addEventListener("visibilitychange", onVisibility);
-		if (!coarse) window.addEventListener("mousemove", onMove, { passive: true });
+		window.addEventListener("pointermove", onMove, { passive: true });
 		if (!reduced) {
 			last = performance.now();
 			raf = requestAnimationFrame(loop);
@@ -164,14 +163,14 @@ export function AnimatedBackground() {
 			cancelAnimationFrame(raf);
 			window.removeEventListener("resize", resize);
 			document.removeEventListener("visibilitychange", onVisibility);
-			window.removeEventListener("mousemove", onMove);
+			window.removeEventListener("pointermove", onMove);
 		};
 	}, []);
 
 	return (
-		<div aria-hidden className="bg-fx">
-			<canvas ref={canvasRef} className="bg-fx-canvas" />
-			<div className="bg-fx-vignette" />
+		<div aria-hidden className="lava">
+			<canvas ref={canvasRef} className="lava-canvas" />
+			<div className="lava-veil" />
 		</div>
 	);
 }

@@ -1,8 +1,89 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
+import { absoluteUrl, LegacyRedirects, publishedPages } from "./Source/Application/Site";
+
+type StaticPage = {
+	path: string;
+	sitemap: {
+		exclude?: boolean;
+		alternateRefs?: { hreflang: string; href: string }[];
+	};
+	prerender?: { outputPath: string };
+};
+
+/** Paths with a trailing slash, the form GitHub Pages serves without redirecting. */
+function servedPath(path: string): string {
+	return path === "/" ? path : `${path}/`;
+}
+
+/**
+ * The exact list of pages to generate: published pages go into the sitemap with
+ * their language alternates; redirects and the 404 page are generated but not listed.
+ */
+function staticPages(): StaticPage[] {
+	const pages: StaticPage[] = publishedPages().map((page) => ({
+		path: servedPath(page.path),
+		sitemap: {
+			alternateRefs: [
+				...page.alternates.map((alternate) => ({
+					hreflang: alternate.lang,
+					href: absoluteUrl(alternate.path),
+				})),
+				{ hreflang: "x-default", href: absoluteUrl(page.alternates[0]?.path ?? "/") },
+			],
+		},
+	}));
+	const legacy: StaticPage[] = Object.keys(LegacyRedirects).map((path) => ({
+		path: servedPath(path),
+		sitemap: { exclude: true },
+	}));
+	const notFound: StaticPage = {
+		path: "/404",
+		sitemap: { exclude: true },
+		prerender: { outputPath: "/404.html" },
+	};
+	return [...pages, ...legacy, notFound];
+}
+
+function escapeXml(value: string): string {
+	return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/** Writes sitemap.xml with hreflang alternates into the static client output. */
+function sitemapPlugin(): Plugin {
+	return {
+		name: "website-sitemap",
+		apply: "build",
+		generateBundle() {
+			if (this.environment.name !== "client") return;
+			const urls = staticPages()
+				.filter((page) => !page.sitemap.exclude)
+				.map((page) => {
+					const links = (page.sitemap.alternateRefs ?? [])
+						.map(
+							(ref) =>
+								`\t\t<xhtml:link rel="alternate" hreflang="${ref.hreflang}" href="${escapeXml(ref.href)}" />`,
+						)
+						.join("\n");
+					return `\t<url>\n\t\t<loc>${escapeXml(absoluteUrl(page.path))}</loc>\n${links}\n\t</url>`;
+				});
+			this.emitFile({
+				type: "asset",
+				fileName: "sitemap.xml",
+				source: [
+					'<?xml version="1.0" encoding="UTF-8"?>',
+					'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+					...urls,
+					"</urlset>",
+					"",
+				].join("\n"),
+			});
+		},
+	};
+}
 
 export default defineConfig(({ command, mode }) => {
 	const staticExport = mode === "pages" || process.env["STATIC_EXPORT"] === "1";
@@ -27,10 +108,12 @@ export default defineConfig(({ command, mode }) => {
 				},
 				...(staticExport
 					? {
+							pages: staticPages(),
 							prerender: {
 								enabled: true,
-								autoStaticPathsDiscovery: true,
-								crawlLinks: true,
+								// Only the listed pages are generated, so unpublished sections stay out.
+								autoStaticPathsDiscovery: false,
+								crawlLinks: false,
 							},
 						}
 					: {}),
@@ -39,6 +122,7 @@ export default defineConfig(({ command, mode }) => {
 				? [nitro({ preset: "node-server", output: { dir: "Output/Server" } })]
 				: []),
 			react(),
+			...(staticExport ? [sitemapPlugin()] : []),
 		],
 	};
 });

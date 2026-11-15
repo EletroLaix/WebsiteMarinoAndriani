@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+	<url>
+		<loc>https://marinoandriani.me/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/en/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/chi-sono/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/chi-sono/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/about/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/chi-sono/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/en/about/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/chi-sono/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/about/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/chi-sono/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/contatti/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/contatti/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/contact/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/contatti/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/en/contact/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/contatti/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/contact/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/contatti/" />
+	</url>
+</urlset>
