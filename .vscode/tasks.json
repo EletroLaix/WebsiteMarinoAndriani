@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install locked dependencies",
+			"type": "process",
+			"command": "npm",
+			"windows": { "command": "npm.cmd" },
+			"args": [
+				"exec",
+				"--yes",
+				"--package=bun@1.4.4",
+				"--",
+				"bun",
+				"install",
+				"--frozen-lockfile"
+			],
+			"options": { "cwd": "${workspaceFolder}" },
+			"problemMatcher": [],
+			"presentation": { "reveal": "always", "panel": "shared" }
+		}
+	]
+}

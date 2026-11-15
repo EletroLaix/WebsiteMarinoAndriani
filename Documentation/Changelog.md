@@ -4,6 +4,7 @@
 
 ### Features
 
+- Added VS Code launch and debug configurations with automatic dependency setup.
 - Organized the project source and release workflow for ongoing development.
 
 ### BugFix
