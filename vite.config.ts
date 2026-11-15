@@ -3,6 +3,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
+import { isUnpublishedPath } from "./Source/Application/Site";
 
 export default defineConfig(({ command, mode }) => {
 	const staticExport = mode === "pages" || process.env["STATIC_EXPORT"] === "1";
@@ -31,6 +32,8 @@ export default defineConfig(({ command, mode }) => {
 								enabled: true,
 								autoStaticPathsDiscovery: true,
 								crawlLinks: true,
+								// Sections without content exist as routes but are not generated.
+								filter: (page: { path: string }) => !isUnpublishedPath(page.path),
 							},
 						}
 					: {}),

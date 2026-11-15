@@ -10,12 +10,25 @@
 
 import { Route as rootRouteImport } from './Interface/Routes/__root'
 import { Route as IndexRouteImport } from './Interface/Routes/index'
+import { Route as R404RouteImport } from './Interface/Routes/404'
 import { Route as AboutRouteImport } from './Interface/Routes/about'
+import { Route as ChiSonoRouteImport } from './Interface/Routes/chi-sono'
 import { Route as ContactRouteImport } from './Interface/Routes/contact'
+import { Route as ContattiRouteImport } from './Interface/Routes/contatti'
+import { Route as EnIndexRouteImport } from './Interface/Routes/en/index'
+import { Route as EnAboutRouteImport } from './Interface/Routes/en/about'
+import { Route as EnContactRouteImport } from './Interface/Routes/en/contact'
+import { Route as PassioniIndexRouteImport } from './Interface/Routes/passioni/index'
+import { Route as EnPassionsIndexRouteImport } from './Interface/Routes/en/passions/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -23,40 +36,141 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChiSonoRoute = ChiSonoRouteImport.update({
+  id: '/chi-sono',
+  path: '/chi-sono',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContattiRoute = ContattiRouteImport.update({
+  id: '/contatti',
+  path: '/contatti',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/en/',
+  path: '/en/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/en/about',
+  path: '/en/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnContactRoute = EnContactRouteImport.update({
+  id: '/en/contact',
+  path: '/en/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PassioniIndexRoute = PassioniIndexRouteImport.update({
+  id: '/passioni/',
+  path: '/passioni/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPassionsIndexRoute = EnPassionsIndexRouteImport.update({
+  id: '/en/passions/',
+  path: '/en/passions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/chi-sono': typeof ChiSonoRoute
   '/contact': typeof ContactRoute
+  '/contatti': typeof ContattiRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/': typeof EnIndexRoute
+  '/passioni/': typeof PassioniIndexRoute
+  '/en/passions/': typeof EnPassionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/chi-sono': typeof ChiSonoRoute
   '/contact': typeof ContactRoute
+  '/contatti': typeof ContattiRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/contact': typeof EnContactRoute
+  '/en': typeof EnIndexRoute
+  '/passioni': typeof PassioniIndexRoute
+  '/en/passions': typeof EnPassionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/chi-sono': typeof ChiSonoRoute
   '/contact': typeof ContactRoute
+  '/contatti': typeof ContattiRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/': typeof EnIndexRoute
+  '/passioni/': typeof PassioniIndexRoute
+  '/en/passions/': typeof EnPassionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact'
+  fullPaths:
+    | '/'
+    | '/404'
+    | '/about'
+    | '/chi-sono'
+    | '/contact'
+    | '/contatti'
+    | '/en/about'
+    | '/en/contact'
+    | '/en/'
+    | '/passioni/'
+    | '/en/passions/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact'
-  id: '__root__' | '/' | '/about' | '/contact'
+  to:
+    | '/'
+    | '/404'
+    | '/about'
+    | '/chi-sono'
+    | '/contact'
+    | '/contatti'
+    | '/en/about'
+    | '/en/contact'
+    | '/en'
+    | '/passioni'
+    | '/en/passions'
+  id:
+    | '__root__'
+    | '/'
+    | '/404'
+    | '/about'
+    | '/chi-sono'
+    | '/contact'
+    | '/contatti'
+    | '/en/about'
+    | '/en/contact'
+    | '/en/'
+    | '/passioni/'
+    | '/en/passions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
+  ChiSonoRoute: typeof ChiSonoRoute
   ContactRoute: typeof ContactRoute
+  ContattiRoute: typeof ContattiRoute
+  EnAboutRoute: typeof EnAboutRoute
+  EnContactRoute: typeof EnContactRoute
+  EnIndexRoute: typeof EnIndexRoute
+  PassioniIndexRoute: typeof PassioniIndexRoute
+  EnPassionsIndexRoute: typeof EnPassionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +182,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chi-sono': {
+      id: '/chi-sono'
+      path: '/chi-sono'
+      fullPath: '/chi-sono'
+      preLoaderRoute: typeof ChiSonoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -82,13 +210,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contatti': {
+      id: '/contatti'
+      path: '/contatti'
+      fullPath: '/contatti'
+      preLoaderRoute: typeof ContattiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/en'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/en/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/contact': {
+      id: '/en/contact'
+      path: '/en/contact'
+      fullPath: '/en/contact'
+      preLoaderRoute: typeof EnContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/passioni/': {
+      id: '/passioni/'
+      path: '/passioni'
+      fullPath: '/passioni/'
+      preLoaderRoute: typeof PassioniIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/passions/': {
+      id: '/en/passions/'
+      path: '/en/passions'
+      fullPath: '/en/passions/'
+      preLoaderRoute: typeof EnPassionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R404Route: R404Route,
   AboutRoute: AboutRoute,
+  ChiSonoRoute: ChiSonoRoute,
   ContactRoute: ContactRoute,
+  ContattiRoute: ContattiRoute,
+  EnAboutRoute: EnAboutRoute,
+  EnContactRoute: EnContactRoute,
+  EnIndexRoute: EnIndexRoute,
+  PassioniIndexRoute: PassioniIndexRoute,
+  EnPassionsIndexRoute: EnPassionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
