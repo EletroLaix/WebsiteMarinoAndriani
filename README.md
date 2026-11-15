@@ -12,7 +12,9 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-`Source/Application` contains application services; `Source/Interface` contains routes, components, and hooks; `Source/Resources` contains translations and public assets. Tool-defined file names are retained where required.
+`Source/Application` contains application services, including the page map (`Site.ts`), search metadata (`Seo.ts`), and consent-based analytics; `Source/Interface` contains routes, views, components, and hooks; `Source/Resources` contains the interface dictionary, the content files under `Content`, and public assets. Tool-defined file names are retained where required.
+
+Italian pages live at the root and English pages under `/en`. Profile, experience, and passion sections are edited in `Source/Resources/Content`; a passion sub-section appears in navigation, the sitemap, and the static build only once its `published` flag is set.
 
 ## Builds and releases
 
