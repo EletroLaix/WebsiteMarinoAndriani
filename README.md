@@ -1,55 +1,25 @@
-# Welcome to your Lovable project
+# Marino Andriani's Website
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+Personal portfolio built with React, TanStack Start, TypeScript, Tailwind CSS, and Vite.
 
 ## Development
 
-Prefer working locally? You need Node.js and Bun — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Use a compatible Node.js version and Bun:
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
 git switch Develop
 bun install --frozen-lockfile
 bun run dev
 ```
 
-## Branch e rilasci
+`Source/Application` contains application services; `Source/Interface` contains routes, components, and hooks; `Source/Resources` contains translations and public assets. Tool-defined file names are retained where required.
 
-Il repository mantiene due branch: `Develop` per i sorgenti e lo sviluppo
-(branch predefinito), `Deploy` per i rilasci. GitHub Pages pubblica da
-`Deploy:/docs`, con dominio `marinoandriani.me`.
+## Builds and releases
 
-Le modifiche quotidiane restano su `Develop`. Solo quando si decide di
-rilasciare, integrare `Develop` in `Deploy`, installare le dipendenze con
-`bun install --frozen-lockfile` e generare il sito statico:
+For VS Code, install Node.js 22.12 or newer (including npm), open this folder, and press F5. The **Website: Run and Debug** configuration installs the locked dependencies automatically using a pinned Bun version, starts the development server, and opens Chrome with browser debugging. An internet connection is required for the initial installation. Stop debugging to stop the server. To run without debugging, use **Run > Run Without Debugging** (Ctrl+F5).
 
-```powershell
-$env:STATIC_EXPORT = '1'
-bun run build
-Remove-Item Env:STATIC_EXPORT
-```
+`bun run build` produces the Node server under `Output/Server`. `bun run build:pages` generates the static site under `Output/Static/client`. Build artifacts and caches belong in the ignored `Output` directory.
 
-Sostituire il contenuto di `docs` con l'output statico in `dist/client`,
-includendo `CNAME` e un file `.nojekyll`; verificare home, About e Contact,
-quindi committare e pubblicare `Deploy`. Tornare infine su `Develop`.
-Non modificare manualmente i bundle generati e non integrare `Deploy` in
-`Develop`: le correzioni ai sorgenti partono sempre da `Develop`.
+Develop exclusively on `Develop`. `Deploy` is the default branch and is reserved for explicitly requested releases. To release, merge `Develop` into `Deploy` using `git merge --no-ff --no-commit Develop`, build the static site, replace `docs` with the static client output, add `.nojekyll`, and stage it with `git add -f docs`. Commit the merge as `release: <version>`, create an annotated version tag on that commit, and push the branch and tag together. Return to `Develop` afterwards.
 
-Il progetto usa Bun e il lockfile `bun.lock`; evitare di aggiungere lockfile
-di altri package manager.
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+GitHub Pages publishes `Deploy:/docs` at `marinoandriani.me`. Release history is recorded in `Documentation/Changelog.md`.
