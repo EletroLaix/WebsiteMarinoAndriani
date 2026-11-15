@@ -9,7 +9,7 @@
 
 ### BugFix
 
-- No changes.
+- Fixed automatic Chrome opening during VS Code debugging.
 
 ### Resources
 
