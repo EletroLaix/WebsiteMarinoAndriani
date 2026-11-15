@@ -1,0 +1,380 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system: black & white with orange as the signature accent.
+ * All colors are defined in oklch format.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-glow: var(--glow);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Black / white / orange dark palette (no light toggle) */
+  --background: oklch(0.13 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.17 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.7 0.19 47);
+  --primary-foreground: oklch(0.14 0.01 47);
+  --secondary: oklch(0.22 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.8 0 0);
+  --accent: oklch(0.78 0.16 62);
+  --accent-foreground: oklch(0.14 0.01 62);
+  --destructive: oklch(0.58 0.21 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.3 0 0 / 0.6);
+  --input: oklch(0.24 0 0 / 0.7);
+  --ring: oklch(0.7 0.19 47);
+  --surface: oklch(0.18 0 0);
+  --surface-foreground: oklch(0.97 0 0);
+  --glow: oklch(0.7 0.19 47 / 0.28);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    caret-color: transparent;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"] {
+    caret-color: auto;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+
+  a,
+  button,
+  [role="button"] {
+    transition-property: color, background-color, border-color, opacity, transform, box-shadow, filter;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@utility gradient-text {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility name-glow {
+  transition: text-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:hover {
+    text-shadow: 0 0 24px oklch(0.7 0.19 47 / 0.55), 0 0 48px oklch(0.7 0.19 47 / 0.35), 0 0 80px oklch(0.7 0.19 47 / 0.2);
+    filter: brightness(1.08);
+  }
+}
+
+
+@utility glow {
+  box-shadow: 0 0 40px -12px var(--color-glow);
+}
+
+@utility ring-glow {
+  box-shadow: 0 0 0 1px var(--color-border), 0 0 40px -12px var(--color-glow);
+}
+
+@utility surface {
+  background-color: var(--color-surface);
+  color: var(--color-surface-foreground);
+}
+
+/* ---- Background glow ---- */
+.bg-fx {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--color-background);
+}
+
+/* Plasma / lava canvas: tiny buffer upscaled + blurred by the compositor */
+.bg-fx-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(32px) saturate(104%);
+  transform: scale(1.12);
+  transform-origin: center;
+  opacity: 0.38;
+  will-change: opacity;
+}
+
+/* Readability layer: darkens the plasma so text keeps full contrast */
+.bg-fx-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 20%, var(--color-background) 92%),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-background) 60%, transparent), color-mix(in oklab, var(--color-background) 50%, transparent));
+  opacity: 0.92;
+}
+
+
+
+/* ---- Frosted bars ---- */
+.glass-bar {
+  background-color: color-mix(in oklab, var(--background) 65%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+/* ---- Mobile fullscreen menu ---- */
+.mobile-menu-overlay {
+  background-color: color-mix(in oklab, var(--background) 65%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.mobile-menu-overlay.is-opening {
+  animation: menu-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile-menu-overlay.is-closing {
+  animation: menu-out 0.36s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes menu-out {
+  from { opacity: 1; clip-path: inset(0 0 0 0); }
+  to { opacity: 0; clip-path: inset(0 0 100% 0); }
+}
+
+.is-opening .mobile-menu-item {
+  animation: menu-item-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.is-closing .mobile-menu-item {
+  animation: menu-item-out 0.24s ease-in both;
+}
+
+@keyframes menu-item-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes menu-item-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+
+/* ---- Page transition ---- */
+.page-transition {
+  animation: page-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, filter;
+}
+
+/* Avoid animating the very first paint while fonts/hydration are still
+   settling: the entry animation only runs once the app is hydrated. */
+html:not(.app-ready) .page-transition {
+  animation: none;
+}
+
+@keyframes page-in {
+  from { opacity: 0; filter: blur(4px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .mobile-menu-overlay,
+  .mobile-menu-item,
+  .bg-fx-canvas { animation: none; }
+}
+
+/* ---- Soft boot loader ---- */
+.boot-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.25rem;
+  background: radial-gradient(ellipse at center, oklch(0.18 0.02 47) 0%, var(--color-background) 62%);
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1.03);
+  filter: blur(4px);
+  transition:
+    opacity 1.4s cubic-bezier(0.7, 0, 0.84, 0),
+    transform 1.4s cubic-bezier(0.7, 0, 0.84, 0),
+    filter 1.4s cubic-bezier(0.7, 0, 0.84, 0);
+}
+
+.boot-loader.is-visible {
+  transform: scale(1);
+  filter: blur(0);
+  transition:
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+    filter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+
+.boot-loader.is-closing {
+  opacity: 0;
+  transform: scale(1.02);
+  filter: blur(12px);
+}
+
+.boot-core {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(26px) scale(0.96);
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+
+.boot-loader.is-visible .boot-core {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.boot-loader.is-closing .boot-core {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.98);
+  transition:
+    opacity 0.8s cubic-bezier(0.7, 0, 0.84, 0) 0.05s,
+    transform 0.8s cubic-bezier(0.7, 0, 0.84, 0) 0.05s;
+}
+
+.boot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid oklch(0.7 0.19 47 / 0.2);
+  border-top-color: var(--color-primary);
+  box-shadow: 0 0 36px -12px var(--color-glow);
+  animation: boot-spin 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.boot-logo {
+  width: 3.4rem;
+  height: 3.4rem;
+  object-fit: contain;
+  border-radius: 9999px;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 18px oklch(0.7 0.19 47 / 0.45));
+  -webkit-mask: radial-gradient(circle, rgba(0,0,0,1) 48%, rgba(0,0,0,0.2) 75%, transparent 100%);
+  mask: radial-gradient(circle, rgba(0,0,0,1) 48%, rgba(0,0,0,0.2) 75%, transparent 100%);
+  animation: logo-breathe 1.4s ease-in-out infinite;
+}
+
+@keyframes boot-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logo-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+.boot-meta {
+  position: relative;
+  width: min(22rem, 80vw);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+
+.boot-loader.is-visible .boot-meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.boot-loader.is-closing .boot-meta {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition:
+    opacity 0.7s cubic-bezier(0.7, 0, 0.84, 0) 0s,
+    transform 0.7s cubic-bezier(0.7, 0, 0.84, 0) 0s;
+}
+
+.boot-title {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--color-foreground);
+}
+
+.boot-status {
+  margin-top: 0.75rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--color-muted-foreground);
+}
+
+
+
