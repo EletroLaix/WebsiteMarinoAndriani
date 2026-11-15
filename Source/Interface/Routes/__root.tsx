@@ -8,7 +8,7 @@ import {
 	Scripts,
 	useRouterState,
 } from "@tanstack/react-router";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import appCss from "../../styles.css?url";
 import { Header } from "@/Interface/Components/Header";
@@ -18,15 +18,8 @@ import { AnimatedBackground } from "@/Interface/Components/AnimatedBackground";
 import { BootLoader } from "@/Interface/Components/BootLoader";
 import { I18nProvider, useI18n } from "@/Resources/Translations";
 import { cn } from "@/Application/Utilities";
-
-const GA_MEASUREMENT_ID = "G-J1BV4FVTH5";
-
-declare global {
-	interface Window {
-		dataLayer: unknown[];
-		gtag: (...args: unknown[]) => void;
-	}
-}
+import { trackPageView } from "@/Application/Analytics";
+import { ConsentBanner } from "@/Interface/Components/ConsentBanner";
 
 function NotFoundComponent() {
 	return (
@@ -120,12 +113,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 				href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
 			},
 		],
-		scripts: [
-			{
-				async: true,
-				src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`,
-			},
-		],
 	}),
 	shellComponent: RootShell,
 	component: RootComponent,
@@ -150,8 +137,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function InnerRoot() {
 	const { isTransitioning } = useI18n();
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
-	const analyticsInitializedRef = useRef(false);
-	const hasTrackedRef = useRef(false);
 
 	// Mark the document as hydrated only after the first frames + fonts are
 	// ready, so entry animations never compete with hydration/font swap.
@@ -179,35 +164,7 @@ function InnerRoot() {
 	}, []);
 
 	useEffect(() => {
-		if (analyticsInitializedRef.current) return;
-
-		window.dataLayer = window.dataLayer || [];
-		// GA requires the raw `arguments` object to be pushed, not a real array.
-		function gtag() {
-			// eslint-disable-next-line prefer-rest-params
-			window.dataLayer.push(arguments);
-		}
-		window.gtag = gtag as unknown as (...args: unknown[]) => void;
-		window.gtag("js", new Date());
-		window.gtag("config", GA_MEASUREMENT_ID, {
-			page_path: window.location.pathname,
-			page_location: window.location.href,
-			page_title: document.title,
-		});
-		analyticsInitializedRef.current = true;
-	}, []);
-
-	useEffect(() => {
-		if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-		if (!hasTrackedRef.current) {
-			hasTrackedRef.current = true;
-			return;
-		}
-		window.gtag("event", "page_view", {
-			page_path: pathname,
-			page_location: window.location.href,
-			page_title: document.title,
-		});
+		trackPageView(pathname);
 	}, [pathname]);
 
 	return (
@@ -229,6 +186,7 @@ function InnerRoot() {
 					</div>
 				</main>
 				<Footer />
+				<ConsentBanner />
 				<Toaster />
 			</div>
 		</>
