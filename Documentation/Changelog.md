@@ -1,11 +1,11 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
 
 ### Features
 
 - Redesigned the site around the fiery eye: a first-load loader and eyelid transitions between pages.
-- The home hero fills the first screen, and a dimmer lava background heats up around the mouse or finger.
+- The home hero fills the first screen, and a lava background heats up around the mouse or finger.
 - Added Italian pages at the root and English pages under `/en`, with a language switch for every page.
 - Rebuilt Home, About, and Contact with shorter copy, a tilting profile card, pointer spotlights, and skills that highlight the roles where they were used.
 - Prepared the Passions area with Lab, Quotes, and Trekking sub-sections, unpublished until they have content.
