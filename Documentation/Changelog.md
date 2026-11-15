@@ -5,6 +5,7 @@
 ### Features
 
 - Redesigned the site around the fiery eye: a first-load loader and eyelid transitions between pages.
+- The home hero fills the first screen, and a dimmer lava background heats up around the mouse or finger.
 - Added Italian pages at the root and English pages under `/en`, with a language switch for every page.
 - Rebuilt Home, About, and Contact with shorter copy, a tilting profile card, pointer spotlights, and skills that highlight the roles where they were used.
 - Prepared the Passions area with Lab, Quotes, and Trekking sub-sections, unpublished until they have content.
@@ -20,7 +21,7 @@
 
 - Added the high-resolution eye icon and content files for profile, experience, and passions.
 - Generated `sitemap.xml`, `404.html`, and a `robots.txt` that references the sitemap.
-- Removed the animated lava background, the old boot loader, and the client-side translation provider.
+- Removed the old boot loader and the client-side translation provider.
 
 ### Known issues
 

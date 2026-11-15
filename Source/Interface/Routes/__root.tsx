@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../../styles.css?url";
 import { Header } from "@/Interface/Components/Header";
 import { Footer } from "@/Interface/Components/Footer";
+import { LavaBackground } from "@/Interface/Components/LavaBackground";
 import { PageTransitionProvider } from "@/Interface/Components/PageTransition";
 import { trackPageView } from "@/Application/Analytics";
 import { langFromPath } from "@/Application/Site";
@@ -110,6 +111,7 @@ function InnerRoot() {
 
 	return (
 		<PageTransitionProvider>
+			<LavaBackground />
 			<div className="relative flex min-h-screen flex-col">
 				<Header />
 				<main className="flex-1">
