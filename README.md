@@ -31,9 +31,9 @@ bun run build:pages
 
 ## Branch e versioni
 
-- `Develop` è il branch predefinito. Tutto lo sviluppo e i commit ordinari
+- `Develop` è il branch di sviluppo. Tutto lo sviluppo e i commit ordinari
   avvengono qui; le modifiche non vengono pubblicate automaticamente.
-- `Deploy` contiene i rilasci definitivi. La sua storia principale
+- `Deploy` è il branch predefinito e contiene i rilasci definitivi. La sua storia principale
   (`git log --first-parent Deploy`) contiene il primo commit del repository
   e un commit di merge per ogni versione. La storia dei sorgenti rimane
   raggiungibile attraverso i merge.

@@ -2,8 +2,8 @@
 
 ## Branch workflow
 
-- Use `Develop` for development; it is the default branch.
-- Use `Deploy` for releases to GitHub Pages, which publishes its `/docs` directory.
+- Use `Develop` for development.
+- Use `Deploy` as the default branch for releases to GitHub Pages, which publishes its `/docs` directory.
 - Merge `Develop` into `Deploy` and create a version tag only when the user explicitly requests a release.
 - Keep one merge commit per release on the first-parent history of `Deploy`: use `git merge --no-ff --no-commit Develop`, generate the static site with `bun run build:pages`, replace `docs` with `dist/client`, include `CNAME` and `.nojekyll`, and stage it with `git add -f docs` before committing the merge. Do not add a separate build commit on `Deploy`.
 - Create an annotated tag matching the requested version on that release merge commit; the initial release is `1.0.0`.
