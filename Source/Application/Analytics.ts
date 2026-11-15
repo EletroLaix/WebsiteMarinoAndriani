@@ -6,8 +6,9 @@ type Placement = "header" | "mobile_menu" | "footer" | "contact_page";
  * distinguished in the reports.
  */
 export function trackOutbound(network: string, placement: Placement, url: string) {
+	if (typeof window === "undefined") return;
 	const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-	if (typeof window === "undefined" || typeof gtag !== "function") return;
+	if (typeof gtag !== "function") return;
 	const isEmail = url.startsWith("mailto:");
 	gtag("event", isEmail ? "email_click" : "social_click", {
 		network,
