@@ -14,12 +14,12 @@ import appCss from "../../styles.css?url";
 import { Header } from "@/Interface/Components/Header";
 import { Footer } from "@/Interface/Components/Footer";
 import { Toaster } from "@/Interface/Components/ui/sonner";
-import { AnimatedBackground } from "@/Interface/Components/AnimatedBackground";
-import { BootLoader } from "@/Interface/Components/BootLoader";
-import { I18nProvider, useI18n } from "@/Resources/Translations";
-import { cn } from "@/Application/Utilities";
+import { PageTransitionProvider } from "@/Interface/Components/PageTransition";
+import { I18nProvider } from "@/Resources/Translations";
 import { trackPageView } from "@/Application/Analytics";
+import { langFromPath } from "@/Application/Site";
 import { ConsentBanner } from "@/Interface/Components/ConsentBanner";
+import { Profile } from "@/Resources/Content/Profile";
 
 function NotFoundComponent() {
 	return (
@@ -106,11 +106,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 				href: appCss,
 			},
 			{ rel: "icon", type: "image/png", href: "/favicon.png" },
+			{ rel: "apple-touch-icon", href: Profile.icon.path },
+			{ rel: "preload", as: "image", href: Profile.icon.path },
 			{ rel: "preconnect", href: "https://fonts.googleapis.com" },
 			{ rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+				href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap",
 			},
 		],
 	}),
@@ -121,8 +123,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+	const pathname = useRouterState({ select: (s) => s.location.pathname });
+
 	return (
-		<html lang="en" className="dark">
+		<html lang={langFromPath(pathname)} className="dark" data-overlay="closed">
 			<head>
 				<HeadContent />
 			</head>
@@ -135,61 +139,24 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function InnerRoot() {
-	const { isTransitioning } = useI18n();
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-	// Mark the document as hydrated only after the first frames + fonts are
-	// ready, so entry animations never compete with hydration/font swap.
-	useEffect(() => {
-		let cancelled = false;
-		const markReady = () => {
-			if (cancelled) return;
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					if (!cancelled) document.documentElement.classList.add("app-ready");
-				});
-			});
-		};
-		const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
-		if (fonts?.ready) {
-			fonts.ready.then(markReady).catch(markReady);
-		} else {
-			markReady();
-		}
-		const fallback = window.setTimeout(markReady, 1500);
-		return () => {
-			cancelled = true;
-			clearTimeout(fallback);
-		};
-	}, []);
 
 	useEffect(() => {
 		trackPageView(pathname);
 	}, [pathname]);
 
 	return (
-		<>
-			<AnimatedBackground />
-			<BootLoader />
+		<PageTransitionProvider>
 			<div className="relative flex min-h-screen flex-col">
 				<Header />
 				<main className="flex-1">
-					<div
-						className={cn(
-							"transition-opacity duration-300 ease-out",
-							isTransitioning ? "opacity-0" : "opacity-100",
-						)}
-					>
-						<div key={pathname} className="page-transition">
-							<Outlet />
-						</div>
-					</div>
+					<Outlet />
 				</main>
 				<Footer />
 				<ConsentBanner />
 				<Toaster />
 			</div>
-		</>
+		</PageTransitionProvider>
 	);
 }
 
