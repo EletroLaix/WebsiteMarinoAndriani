@@ -1,27 +1,5 @@
 # Marino Andriani's Website
 
-Personal portfolio built with React, TanStack Start, TypeScript, Tailwind CSS, and Vite.
+The personal website of Marino Andriani, a software engineer in Bari, Italy, working on embedded systems and industrial automation. It presents his experience, skills, and contacts in Italian and English, and is published at [marinoandriani.me](https://marinoandriani.me).
 
-## Development
-
-Use a compatible Node.js version and Bun:
-
-```sh
-git switch Develop
-bun install --frozen-lockfile
-bun run dev
-```
-
-`Source/Application` contains application services, including the page map (`Site.ts`), search metadata (`Seo.ts`), and consent-based analytics; `Source/Interface` contains routes, views, components, and hooks; `Source/Resources` contains the interface dictionary, the content files under `Content`, and public assets. Tool-defined file names are retained where required.
-
-Italian pages live at the root and English pages under `/en`. Profile, experience, and passion sections are edited in `Source/Resources/Content`; a passion sub-section appears in navigation, the sitemap, and the static build only once its `published` flag is set.
-
-## Builds and releases
-
-For VS Code, install Node.js 22.12 or newer (including npm), open this folder, and press F5. The **Website: Run and Debug** configuration installs the locked dependencies automatically using a pinned Bun version, starts the development server, and opens Chrome with browser debugging. An internet connection is required for the initial installation. Stop debugging to stop the server. To run without debugging, use **Run > Run Without Debugging** (Ctrl+F5).
-
-`bun run build` produces the Node server under `Output/Server`. `bun run build:pages` generates the static site under `Output/Static/client`. Build artifacts and caches belong in the ignored `Output` directory.
-
-Develop exclusively on `Develop`. `Deploy` is the default branch and is reserved for explicitly requested releases. To release, merge `Develop` into `Deploy` using `git merge --no-ff --no-commit Develop`, build the static site, replace `docs` with the static client output, add `.nojekyll`, and stage it with `git add -f docs`. Commit the merge as `release: <version>`, create an annotated version tag on that commit, and push the branch and tag together. Return to `Develop` afterwards.
-
-GitHub Pages publishes `Deploy:/docs` at `marinoandriani.me`. Release history is recorded in `Documentation/Changelog.md`.
+The site is developed with the help of artificial intelligence tools.
