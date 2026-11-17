@@ -24,17 +24,23 @@ function scrambledFrame(text: string, progress: number): string {
 		.join("");
 }
 
+type ScrambleTextProps = {
+	text: string;
+	/** Extra wait before the characters start resolving, to stagger several texts. */
+	delay?: number;
+};
+
 /**
- * Text that scrambles into zeros and ones when the pointer enters its link or button,
- * then settles back on the original text. The real text keeps the size and stays
- * readable by assistive technology.
+ * Text that scrambles into zeros and ones when the pointer enters its link, button or
+ * closest `[data-scramble-trigger]` element, then settles back on the original text.
+ * The real text keeps the size and stays readable by assistive technology.
  */
-export function ScrambleText({ text }: { text: string }) {
+export function ScrambleText({ text, delay = 0 }: ScrambleTextProps) {
 	const rootRef = useRef<HTMLSpanElement>(null);
 	const [frame, setFrame] = useState<string | null>(null);
 
 	useEffect(() => {
-		const trigger = rootRef.current?.closest("a, button");
+		const trigger = rootRef.current?.closest("a, button, [data-scramble-trigger]");
 		if (!trigger) {
 			return;
 		}
@@ -51,7 +57,7 @@ export function ScrambleText({ text }: { text: string }) {
 			lastFlip = 0;
 
 			const step = (now: number) => {
-				const progress = (now - start) / Duration;
+				const progress = Math.max(0, (now - start - delay) / Duration);
 				if (progress >= 1) {
 					setFrame(null);
 					return;
@@ -72,7 +78,7 @@ export function ScrambleText({ text }: { text: string }) {
 			trigger.removeEventListener("focus", play);
 			cancelAnimationFrame(animation);
 		};
-	}, [text]);
+	}, [text, delay]);
 
 	return (
 		<span ref={rootRef} className="scramble-text">

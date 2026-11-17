@@ -11,10 +11,12 @@
 - Page changes are lighter: the page fades out, the new title decodes from zeros and ones, then the content and the footer appear, while a route widget in the corner fills its dots up to OK.
 - Boxes and buttons have cut corners instead of rounded ones, every other corner is square, and timeline dots are diamonds.
 - The boot log nods to Asimov and The Hitchhiker's Guide to the Galaxy, with aligned results, a 42, and Marvin as the one step that fails.
+- Hovering the profile card on Home passes glitch slices over the photo, decodes role, focus and base from zeros and ones, lights up the edge and makes the status dot blink.
 
 ### BugFix
 
 - The orange glow on the cards now fades out when the pointer leaves instead of staying at its last position.
+- The profile card now tilts towards the pointer; its entrance animation was overriding the tilt.
 
 ### Resources
 

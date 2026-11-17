@@ -56,45 +56,70 @@ export function HomeView({ lang }: { lang: Lang }) {
 					</div>
 				</div>
 
-				<div
-					className="rise rise-2 tilt mx-auto w-full max-w-[340px]"
-					onPointerMove={tiltTowardsPointer}
-					onPointerLeave={resetTilt}
-				>
-					<div className="cut overflow-hidden bg-card">
-						<div className="flex items-center justify-between border-b border-border px-4 py-2.5 font-mono text-[11px] tracking-widest text-faint">
-							<span>{t.home.profile.toUpperCase()}</span>
-							<span className="inline-flex items-center gap-1.5">
-								<span
-									className="h-1.5 w-1.5 bg-primary shadow-[0_0_8px_var(--color-primary)]"
-									aria-hidden="true"
+				{/*
+				 * The entrance animation stays on the outer element: its final transform
+				 * would otherwise override the tilt. On hover the card follows the pointer,
+				 * glitch slices pass over the photo and the values decode from binary.
+				 */}
+				<div className="rise rise-2 mx-auto w-full max-w-[340px]">
+					<div
+						className="profile-card tilt"
+						data-scramble-trigger
+						onPointerMove={tiltTowardsPointer}
+						onPointerLeave={resetTilt}
+					>
+						<div className="cut overflow-hidden bg-card">
+							<div className="flex items-center justify-between border-b border-border px-4 py-2.5 font-mono text-[11px] tracking-widest text-faint">
+								<span>{t.home.profile.toUpperCase()}</span>
+								<span className="inline-flex items-center gap-1.5">
+									<span
+										className="profile-live-dot h-1.5 w-1.5 bg-primary shadow-[0_0_8px_var(--color-primary)]"
+										aria-hidden="true"
+									/>
+									{t.home.profileNow.toUpperCase()}
+								</span>
+							</div>
+							<div className="profile-photo relative">
+								<PixelatedImage
+									src={Profile.portrait.path}
+									alt={t.about.portraitAlt}
+									width={340}
+									height={300}
+									fetchPriority="high"
+									frameClassName="h-[300px] w-full"
 								/>
-								{t.home.profileNow.toUpperCase()}
-							</span>
+								{/* Tinted copies of the photo, shifted in slices for the glitch. */}
+								<img
+									src={Profile.portrait.path}
+									alt=""
+									aria-hidden="true"
+									className="profile-glitch profile-glitch-warm"
+								/>
+								<img
+									src={Profile.portrait.path}
+									alt=""
+									aria-hidden="true"
+									className="profile-glitch profile-glitch-cold"
+								/>
+							</div>
+							<dl className="px-4 py-1.5 font-mono text-[12.5px]">
+								{[
+									[t.home.profileRole, "Head of Software Eng."],
+									[t.home.profileFocus, t.home.focus],
+									[t.home.profileBase, Profile.location.label[lang]],
+								].map(([label, value], index) => (
+									<div
+										key={label}
+										className="flex justify-between gap-3 border-b border-dashed border-border py-2.5 last:border-0"
+									>
+										<dt className="text-faint">{label?.toUpperCase()}</dt>
+										<dd className="text-right">
+											<ScrambleText text={value ?? ""} delay={index * 140} />
+										</dd>
+									</div>
+								))}
+							</dl>
 						</div>
-						<PixelatedImage
-							src={Profile.portrait.path}
-							alt={t.about.portraitAlt}
-							width={340}
-							height={300}
-							fetchPriority="high"
-							frameClassName="h-[300px] w-full"
-						/>
-						<dl className="px-4 py-1.5 font-mono text-[12.5px]">
-							{[
-								[t.home.profileRole, "Head of Software Eng."],
-								[t.home.profileFocus, t.home.focus],
-								[t.home.profileBase, Profile.location.label[lang]],
-							].map(([label, value]) => (
-								<div
-									key={label}
-									className="flex justify-between gap-3 border-b border-dashed border-border py-2.5 last:border-0"
-								>
-									<dt className="text-faint">{label?.toUpperCase()}</dt>
-									<dd className="text-right">{value}</dd>
-								</div>
-							))}
-						</dl>
 					</div>
 				</div>
 			</section>
