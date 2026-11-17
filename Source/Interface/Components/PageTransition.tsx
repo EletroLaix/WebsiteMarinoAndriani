@@ -32,7 +32,7 @@ type RouteWidget = {
 
 const BootKey = "ma-booted";
 /** Minimum time of the first-load counter, even when everything is already loaded. */
-const BootDuration = 3200;
+const BootDuration = 4000;
 /** Longest wait for a slow page before the loader finishes anyway. */
 const MaxBootDuration = 10000;
 /** Where the counter waits while the page is still loading. */
