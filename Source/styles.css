@@ -308,6 +308,13 @@ html[data-overlay="closed"] footer {
 	gap: 0.9rem;
 }
 
+/* On narrow screens the boot log takes the whole width, so the eye and the location step aside. */
+@media (max-width: 640px) {
+	.boot-side {
+		display: none;
+	}
+}
+
 .boot-label {
 	font-size: 11px;
 	letter-spacing: 0.18em;
