@@ -433,6 +433,21 @@ html[data-overlay="closed"] .rise {
 	}
 }
 
+/* Menu labels briefly turn into binary digits on hover; see ScrambleText. */
+.scramble-text {
+	display: inline-grid;
+}
+
+.scramble-text > * {
+	grid-area: 1 / 1;
+}
+
+.scramble-text-overlay {
+	white-space: pre;
+	font-variant-numeric: tabular-nums;
+	pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;

@@ -6,6 +6,7 @@ import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
 import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
+import { ScrambleText } from "@/Interface/Components/ScrambleText";
 import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
 import {
 	moveSpotlight,
@@ -41,16 +42,16 @@ export function HomeView({ lang }: { lang: Lang }) {
 					<div className="rise rise-4 mt-9 flex flex-wrap gap-3">
 						<TransitionLink
 							href={pagePath("contact", lang)}
-							className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
+							className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-primary px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
 						>
-							{t.home.contactAction}
+							<ScrambleText text={t.home.contactAction} />
 							<ArrowRight className="h-4 w-4" aria-hidden="true" />
 						</TransitionLink>
 						<TransitionLink
 							href={pagePath("about", lang)}
-							className="inline-flex min-h-12 items-center rounded-lg border border-border px-5 text-sm font-semibold text-foreground hover:-translate-y-0.5 hover:border-primary"
+							className="inline-flex min-h-12 items-center rounded-lg border border-border px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-foreground hover:-translate-y-0.5 hover:border-primary"
 						>
-							{t.home.aboutAction}
+							<ScrambleText text={t.home.aboutAction} />
 						</TransitionLink>
 					</div>
 				</div>
@@ -129,9 +130,9 @@ export function HomeView({ lang }: { lang: Lang }) {
 					</h2>
 					<TransitionLink
 						href={pagePath("about", lang)}
-						className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent hover:text-primary"
+						className="inline-flex min-h-11 items-center gap-2 font-mono text-[13px] font-semibold tracking-wide text-accent uppercase hover:text-primary"
 					>
-						{t.home.details}
+						<ScrambleText text={t.home.details} />
 						<ArrowRight className="h-4 w-4" aria-hidden="true" />
 					</TransitionLink>
 				</div>
@@ -176,9 +177,9 @@ export function HomeView({ lang }: { lang: Lang }) {
 					<div className="flex flex-wrap gap-3">
 						<TransitionLink
 							href={pagePath("contact", lang)}
-							className="inline-flex min-h-12 items-center rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
+							className="inline-flex min-h-12 items-center rounded-lg bg-primary px-6 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
 						>
-							{t.home.contactAction}
+							<ScrambleText text={t.home.contactAction} />
 						</TransitionLink>
 						<CopyEmailButton />
 					</div>

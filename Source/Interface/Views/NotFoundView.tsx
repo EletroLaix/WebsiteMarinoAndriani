@@ -1,5 +1,6 @@
 import { pagePath } from "@/Application/Site";
 import { useDictionary, useLang } from "@/Interface/Hooks/UseLanguage";
+import { ScrambleText } from "@/Interface/Components/ScrambleText";
 
 export function NotFoundView() {
 	const lang = useLang();
@@ -13,9 +14,9 @@ export function NotFoundView() {
 			{/* A plain link: the 404 page is served outside the router on GitHub Pages. */}
 			<a
 				href={pagePath("home", lang)}
-				className="mt-8 inline-flex min-h-12 items-center rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+				className="mt-8 inline-flex min-h-12 items-center rounded-lg bg-primary px-6 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:bg-primary/90"
 			>
-				{t.notFound.home}
+				<ScrambleText text={t.notFound.home} />
 			</a>
 		</section>
 	);

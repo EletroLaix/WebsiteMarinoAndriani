@@ -5,6 +5,7 @@ import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
 import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
 import { SocialIcon } from "@/Interface/Components/Icons";
+import { ScrambleText } from "@/Interface/Components/ScrambleText";
 
 export function ContactView({ lang }: { lang: Lang }) {
 	const t = dictionary(lang);
@@ -29,10 +30,10 @@ export function ContactView({ lang }: { lang: Lang }) {
 						<a
 							href={mailto}
 							onClick={() => trackOutbound("Email", "contact_page", mailto)}
-							className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
+							className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-primary px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
 						>
 							<Send className="h-4 w-4" aria-hidden="true" />
-							{t.contact.write}
+							<ScrambleText text={t.contact.write} />
 						</a>
 						<CopyEmailButton />
 					</div>
