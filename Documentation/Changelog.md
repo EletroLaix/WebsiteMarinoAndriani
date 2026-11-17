@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Features
+
+- The first-load loader waits until the page, its images and fonts have loaded, holding at 95% if needed, for at most 10 seconds.
+
 ### BugFix
 
 - On phones the loader hides the eye and the location, which overlapped the boot log.

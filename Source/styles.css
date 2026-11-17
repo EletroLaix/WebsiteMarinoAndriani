@@ -271,8 +271,8 @@ html[data-overlay="closed"] footer {
 	transition: none;
 }
 
-/* Never block the page if scripts fail to run. */
-.boot-overlay[data-phase="boot"] {
+/* Never block the page if scripts fail to run; once they run, they decide when to lift. */
+.boot-overlay[data-phase="boot"]:not([data-scripted]) {
 	animation: boot-failsafe 0s linear 6s forwards;
 }
 

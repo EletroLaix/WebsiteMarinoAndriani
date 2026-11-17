@@ -31,7 +31,14 @@ type RouteWidget = {
 };
 
 const BootKey = "ma-booted";
+/** Minimum time of the first-load counter, even when everything is already loaded. */
 const BootDuration = 3200;
+/** Longest wait for a slow page before the loader finishes anyway. */
+const MaxBootDuration = 10000;
+/** Where the counter waits while the page is still loading. */
+const BootHoldProgress = 0.95;
+/** Time to run from the held value up to 100 once the page is ready. */
+const BootFinishDuration = 350;
 const OpenDuration = 800;
 const LeaveDuration = 160;
 const DecodeDuration = 450;
@@ -68,6 +75,17 @@ function storeBooted() {
 	} catch {
 		/* Without storage the full loader simply plays again. */
 	}
+}
+
+/** Resolves once the page, its images and its fonts have finished loading. */
+function pageReady(): Promise<void> {
+	const loaded =
+		document.readyState === "complete"
+			? Promise.resolve()
+			: new Promise<void>((resolve) =>
+					window.addEventListener("load", () => resolve(), { once: true }),
+				);
+	return Promise.all([loaded, document.fonts.ready]).then(() => undefined);
 }
 
 function setRouteStep(step: RouteStep | null) {
@@ -139,6 +157,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 	const [phase, setPhase] = useState<Phase>("boot");
 	const [progress, setProgress] = useState(0);
+	// True once this script drives the loader, which turns off the CSS failsafe.
+	const [scripted, setScripted] = useState(false);
 	const [widget, setWidget] = useState<RouteWidget>({
 		run: 0,
 		visible: false,
@@ -167,6 +187,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 		const pending = timers.current;
 		let frame = 0;
 
+		setScripted(true);
 		if (prefersReducedMotion()) {
 			changePhase("idle");
 		} else if (readBooted()) {
@@ -174,17 +195,46 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 			later(() => changePhase("opening"), 80);
 			later(() => changePhase("idle"), 80 + OpenDuration);
 		} else {
+			// The counter runs for at least BootDuration; if the page is still loading it
+			// waits near the end, then completes as soon as everything is ready.
+			let loaded = false;
+			void pageReady().then(() => {
+				loaded = true;
+			});
 			const start = performance.now();
+			let current = 0;
+			let finishStart: number | null = null;
+			let finishFrom = 0;
+
 			const step = (now: number) => {
-				const elapsed = Math.min(1, (now - start) / BootDuration);
-				setProgress(1 - Math.pow(1 - elapsed, 3));
-				if (elapsed < 1) {
-					frame = requestAnimationFrame(step);
+				const elapsed = now - start;
+				const ready = loaded || elapsed >= MaxBootDuration;
+
+				if (ready && elapsed >= BootDuration) {
+					if (finishStart === null) {
+						finishStart = now;
+						finishFrom = current;
+					}
+					const finish =
+						finishFrom >= 0.999
+							? 1
+							: Math.min(1, (now - finishStart) / BootFinishDuration);
+					current = finishFrom + (1 - finishFrom) * finish;
+					setProgress(current);
+					if (finish < 1) {
+						frame = requestAnimationFrame(step);
+						return;
+					}
+					storeBooted();
+					later(() => changePhase("opening"), 150);
+					later(() => changePhase("idle"), 150 + OpenDuration);
 					return;
 				}
-				storeBooted();
-				later(() => changePhase("opening"), 150);
-				later(() => changePhase("idle"), 150 + OpenDuration);
+
+				const timed = 1 - Math.pow(1 - Math.min(1, elapsed / BootDuration), 3);
+				current = ready ? timed : Math.min(timed, BootHoldProgress);
+				setProgress(current);
+				frame = requestAnimationFrame(step);
 			};
 			frame = requestAnimationFrame(step);
 		}
@@ -259,7 +309,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 		<PageTransitionContext.Provider value={value}>
 			{children}
 			<RouteWidgetView widget={widget} />
-			<BootOverlay phase={phase} progress={progress} />
+			<BootOverlay phase={phase} progress={progress} scripted={scripted} />
 		</PageTransitionContext.Provider>
 	);
 }
@@ -387,7 +437,15 @@ function BinaryName({ progress }: { progress: number }) {
  * Full-screen panel shown on the first visit: a boot log runs while a counter climbs to
  * 100, then the panel lifts like a curtain.
  */
-function BootOverlay({ phase, progress }: { phase: Phase; progress: number }) {
+function BootOverlay({
+	phase,
+	progress,
+	scripted,
+}: {
+	phase: Phase;
+	progress: number;
+	scripted: boolean;
+}) {
 	const t = useDictionary();
 	const lang = useLang();
 	const percent = Math.round(progress * 100);
@@ -397,7 +455,12 @@ function BootOverlay({ phase, progress }: { phase: Phase; progress: number }) {
 	);
 
 	return (
-		<div className="boot-overlay" data-phase={phase} aria-hidden="true">
+		<div
+			className="boot-overlay"
+			data-phase={phase}
+			data-scripted={scripted ? "" : undefined}
+			aria-hidden="true"
+		>
 			<div className="boot-content">
 				<pre className="boot-log">
 					{`> boot ma-os v${SiteVersion}\n`}
