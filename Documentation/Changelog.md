@@ -6,6 +6,10 @@
 
 - The portrait on Home and About appears as large pixels and sharpens once it is on screen.
 
+### Resources
+
+- Replaced Inter, Space Grotesk, and JetBrains Mono with Geist for text and Geist Mono for headings, menu, and labels.
+
 ## 1.2.0
 
 ### Features
