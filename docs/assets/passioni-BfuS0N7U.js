@@ -1,0 +1,1 @@
+import{n as e}from"./Dictionary-D4Ee5a0K.js";import{t}from"./PassionsView-B_jPZSr4.js";var n=e(),r=()=>(0,n.jsx)(t,{lang:`it`});export{r as component};

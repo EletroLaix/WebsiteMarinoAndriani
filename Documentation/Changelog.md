@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.3.0
+
+### Features
+
+- The portrait on Home and About appears as large pixels and sharpens once it is on screen.
+- Menu entries and action buttons use uppercase Geist Mono and briefly turn into zeros and ones on hover.
+- The footer shows the site version, read from `package.json` at build time.
+- A new first-load loader runs a boot log while a counter climbs to 100 in about three seconds, then lifts like a curtain; it replaces the eye loader and its eyelid page transition.
+- Page changes are lighter: the page fades out, the new title decodes from zeros and ones, then the content and the footer appear, while a route widget in the corner fills its dots up to OK.
+- Boxes and buttons have cut corners instead of rounded ones, every other corner is square, and timeline dots are diamonds.
+- The boot log nods to Asimov and The Hitchhiker's Guide to the Galaxy, with aligned results, a 42, and Marvin as the one step that fails.
+- Hovering the profile card on Home passes glitch slices over the photo, decodes role, focus and base from zeros and ones, lights up the edge and makes the status dot blink.
+
+### BugFix
+
+- The orange glow on the cards now fades out when the pointer leaves instead of staying at its last position.
+- The profile card now tilts towards the pointer; its entrance animation was overriding the tilt.
+
+### Resources
+
+- Replaced Inter, Space Grotesk, and JetBrains Mono with Geist for text and Geist Mono for headings, menu, and labels.
+
+### Known issues
+
+- Role problem and solution texts are drafts and role results are still missing.
+- Social previews use the square portrait; a dedicated 1200×630 image is not available yet.
+
 ## 1.2.0
 
 ### Features

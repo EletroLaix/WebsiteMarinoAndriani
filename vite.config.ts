@@ -3,6 +3,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
+import { readFileSync } from "node:fs";
 import { absoluteUrl, LegacyRedirects, publishedPages } from "./Source/Application/Site";
 
 type StaticPage = {
@@ -87,9 +88,12 @@ function sitemapPlugin(): Plugin {
 
 export default defineConfig(({ command, mode }) => {
 	const staticExport = mode === "pages" || process.env["STATIC_EXPORT"] === "1";
+	// The released version in package.json, shown in the footer and the loader.
+	const { version } = JSON.parse(readFileSync("package.json", "utf8")) as { version: string };
 
 	return {
 		publicDir: "Source/Resources/Public",
+		define: { __SITE_VERSION__: JSON.stringify(version) },
 		cacheDir: "Output/Cache/Vite",
 		build: { outDir: "Output/Static" },
 		resolve: {

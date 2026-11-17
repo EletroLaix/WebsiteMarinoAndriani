@@ -6,6 +6,7 @@ import { cn } from "@/Application/Utilities";
 import { Profile } from "@/Resources/Content/Profile";
 import { useDictionary, useLang } from "@/Interface/Hooks/UseLanguage";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
+import { ScrambleText } from "@/Interface/Components/ScrambleText";
 
 export function Header() {
 	const lang = useLang();
@@ -85,13 +86,13 @@ export function Header() {
 								href={item.href}
 								aria-current={isActive(item.href) ? "page" : undefined}
 								className={cn(
-									"border-b-2 px-3.5 py-2 text-sm font-medium",
+									"border-b-2 px-3.5 py-2 font-mono text-[13px] font-medium tracking-wide uppercase",
 									isActive(item.href)
 										? "border-primary text-foreground"
 										: "border-transparent text-muted-foreground hover:text-foreground",
 								)}
 							>
-								{item.label}
+								<ScrambleText text={item.label} />
 							</TransitionLink>
 						))}
 						<span className="mx-2 h-5 w-px bg-border" aria-hidden="true" />

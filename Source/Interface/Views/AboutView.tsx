@@ -11,6 +11,7 @@ import {
 import type { Lang } from "@/Resources/Content/Localized";
 import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
+import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
 
 export function AboutView({ lang }: { lang: Lang }) {
 	const t = dictionary(lang);
@@ -30,12 +31,12 @@ export function AboutView({ lang }: { lang: Lang }) {
 						{t.about.intro}
 					</p>
 				</div>
-				<img
+				<PixelatedImage
 					src={Profile.portrait.path}
 					alt={t.about.portraitAlt}
 					width={260}
 					height={260}
-					className="rise rise-2 h-[260px] w-[260px] rounded-2xl border border-border object-cover"
+					frameClassName="rise rise-2 cut h-[260px] w-[260px] shrink-0"
 				/>
 			</section>
 
@@ -68,7 +69,7 @@ export function AboutView({ lang }: { lang: Lang }) {
 										onFocus={() => setHoveredSkill(skill.id)}
 										onBlur={() => setHoveredSkill(null)}
 										className={cn(
-											"min-h-9 rounded-md border px-3 font-mono text-[13px]",
+											"min-h-9 border px-3 font-mono text-[13px]",
 											active
 												? "border-primary bg-primary text-primary-foreground"
 												: "border-border bg-card text-muted-foreground hover:border-primary",
@@ -96,15 +97,15 @@ export function AboutView({ lang }: { lang: Lang }) {
 								>
 									<span
 										className={cn(
-											"absolute top-6 -left-[37px] h-4 w-4 rounded-full border-2 border-primary",
+											"absolute top-6 -left-[37px] h-4 w-4 scale-[0.8] rotate-45 border-2 border-primary",
 											highlighted ? "bg-primary" : "bg-background",
 										)}
 										aria-hidden="true"
 									/>
 									<div
 										className={cn(
-											"rounded-xl border bg-card transition-colors",
-											highlighted ? "border-primary" : "border-border",
+											"cut bg-card",
+											highlighted && "[--edge:var(--color-primary)]",
 										)}
 									>
 										<button
@@ -171,10 +172,7 @@ export function AboutView({ lang }: { lang: Lang }) {
 				</h2>
 				<div className="mt-6 grid gap-4 md:grid-cols-2">
 					{Certifications.map((certification) => (
-						<div
-							key={certification.title}
-							className="rounded-xl border border-border bg-card p-6"
-						>
+						<div key={certification.title} className="cut bg-card p-6">
 							<p className="font-mono text-[12.5px] text-accent">
 								{certification.year}
 							</p>

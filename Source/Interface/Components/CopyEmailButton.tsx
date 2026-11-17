@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/Application/Utilities";
 import { Profile } from "@/Resources/Content/Profile";
 import { useDictionary } from "@/Interface/Hooks/UseLanguage";
+import { ScrambleText } from "@/Interface/Components/ScrambleText";
 
 export function CopyEmailButton({ className }: { className?: string | undefined }) {
 	const t = useDictionary();
@@ -28,12 +29,14 @@ export function CopyEmailButton({ className }: { className?: string | undefined 
 			type="button"
 			onClick={copy}
 			className={cn(
-				"inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-border px-5 text-sm font-semibold text-foreground hover:-translate-y-0.5 hover:border-primary",
+				"cut-sm cut-hover inline-flex min-h-12 items-center justify-center gap-2 px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-foreground hover:-translate-y-0.5",
 				className,
 			)}
 		>
 			{copied ? <Check className="h-4 w-4 text-primary" /> : <Copy className="h-4 w-4" />}
-			<span aria-live="polite">{copied ? t.contact.copied : t.contact.copy}</span>
+			<span aria-live="polite">
+				<ScrambleText text={copied ? t.contact.copied : t.contact.copy} />
+			</span>
 		</button>
 	);
 }

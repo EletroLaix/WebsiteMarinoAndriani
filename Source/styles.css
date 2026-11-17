@@ -10,17 +10,19 @@
  */
 
 @theme inline {
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
+	/* Sharp edges everywhere: boxes get cut corners instead of rounded ones (see .cut). */
+	--radius-sm: var(--radius);
+	--radius-md: var(--radius);
 	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
-	--radius-2xl: calc(var(--radius) + 8px);
-	--radius-3xl: calc(var(--radius) + 12px);
-	--radius-4xl: calc(var(--radius) + 16px);
+	--radius-xl: var(--radius);
+	--radius-2xl: var(--radius);
+	--radius-3xl: var(--radius);
+	--radius-4xl: var(--radius);
 
-	--font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-	--font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
-	--font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+	/* One family in two voices: Geist Mono for headings, menu and labels, Geist for reading. */
+	--font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+	--font-display: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -51,7 +53,7 @@
 }
 
 :root {
-	--radius: 0.75rem;
+	--radius: 0px;
 
 	/* Black / white / orange dark palette (no light toggle) */
 	--background: oklch(0.13 0 0);
@@ -92,7 +94,6 @@
 	body {
 		background-color: var(--color-background);
 		color: var(--color-foreground);
-		font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 	}
 
 	::selection {
@@ -170,113 +171,237 @@
 	backdrop-filter: blur(16px) saturate(140%);
 }
 
-/* ---- Eye overlay: first-load loader and page transitions ---- */
-.eye-overlay {
+/* ---- Page changes: fade out, decode the title, then reveal the rest ---- */
+html[data-route="leaving"] :is(main, footer) {
+	opacity: 0;
+	transition: opacity 0.16s ease-out;
+}
+
+/* While the title decodes, everything else in the page and the footer stay hidden. */
+html[data-route="entering"] main *:not(h1, h1 *, :has(h1)),
+html[data-route="entering"] footer {
+	opacity: 0;
+}
+
+html[data-route="settling"] main *:not(h1, h1 *, :has(h1)) {
+	transition: opacity 0.38s ease-out;
+}
+
+/* The footer comes last, just after the page content. */
+html[data-route="settling"] footer {
+	transition: opacity 0.38s ease-out 0.12s;
+}
+
+/* On the first load the footer also waits for the loader, then fades in after the hero. */
+footer {
+	transition: opacity 0.5s ease-out 0.35s;
+}
+
+html[data-overlay="closed"] footer {
+	opacity: 0;
+}
+
+/* Terminal line in the corner reporting the route. */
+.route-widget {
+	position: fixed;
+	right: clamp(1rem, 3vw, 1.75rem);
+	bottom: clamp(1rem, 3vw, 1.75rem);
+	z-index: 90;
+	overflow: hidden;
+	border: 1px solid var(--color-border);
+	background-color: color-mix(in oklab, var(--color-card) 94%, transparent);
+	backdrop-filter: blur(8px);
+	font-family: var(--font-mono);
+	pointer-events: none;
+	opacity: 0;
+	transform: translateY(10px);
+	transition:
+		opacity 0.2s ease-out,
+		transform 0.2s ease-out;
+}
+
+.route-widget[data-visible="true"] {
+	opacity: 1;
+	transform: none;
+}
+
+.route-widget-line {
+	margin: 0;
+	padding: 0.65rem 0.95rem;
+	font-size: 12px;
+	color: var(--color-muted-foreground);
+	white-space: pre;
+}
+
+/* ---- Boot overlay: first-load loader ---- */
+.boot-overlay {
 	position: fixed;
 	inset: 0;
 	z-index: 100;
+	overflow: hidden;
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+	font-family: var(--font-mono);
+	transform: translateY(0);
+	transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.eye-overlay[data-phase="idle"] {
+/* Faint CRT lines and a vignette keep the panel dark and technical. */
+.boot-overlay::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background:
+		repeating-linear-gradient(to bottom, oklch(0 0 0 / 0.35) 0 1px, transparent 1px 3px),
+		radial-gradient(ellipse at center, transparent 55%, oklch(0 0 0 / 0.6));
+}
+
+/* The panel lifts away to reveal the page... */
+.boot-overlay[data-phase="opening"] {
+	transform: translateY(-100%);
+	transition-duration: 0.8s;
+}
+
+/* ...and then stays out of the way. */
+.boot-overlay[data-phase="idle"] {
+	transform: translateY(-100%);
 	visibility: hidden;
 	pointer-events: none;
+	transition: none;
 }
 
 /* Never block the page if scripts fail to run. */
-.eye-overlay[data-phase="boot"] {
-	animation: eye-failsafe 0s linear 6s forwards;
+.boot-overlay[data-phase="boot"] {
+	animation: boot-failsafe 0s linear 6s forwards;
 }
 
-@keyframes eye-failsafe {
+@keyframes boot-failsafe {
 	to {
 		visibility: hidden;
 		pointer-events: none;
 	}
 }
 
-.eye-lid {
+.boot-content {
+	position: absolute;
+	inset: 0;
+	padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.boot-log {
+	margin: 0;
+	font: inherit;
+	font-size: clamp(11px, 1.1vw, 14px);
+	line-height: 1.8;
+	color: var(--color-muted-foreground);
+	white-space: pre;
+}
+
+.boot-side {
+	position: absolute;
+	top: clamp(1.5rem, 4vw, 3rem);
+	right: clamp(1.5rem, 4vw, 3rem);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.9rem;
+}
+
+.boot-label {
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--color-faint);
+}
+
+.boot-main {
+	position: absolute;
+	left: clamp(1.5rem, 4vw, 3rem);
+	right: clamp(1.5rem, 4vw, 3rem);
+	bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.boot-name {
+	margin: 0 0 0.5rem;
+	font-size: clamp(1.25rem, 3.2vw, 2.75rem);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	white-space: pre;
+	font-variant-numeric: tabular-nums;
+}
+
+.boot-cursor {
+	display: inline-block;
+	width: 0.55em;
+	height: 0.95em;
+	margin-left: 0.15em;
+	vertical-align: -0.1em;
+	background-color: var(--color-primary);
+	animation: boot-blink 1s steps(1) infinite;
+}
+
+@keyframes boot-blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+.boot-counter {
+	display: flex;
+	font-size: clamp(5.5rem, 17vw, 15rem);
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: -0.05em;
+}
+
+/* Each digit is a 0–9 strip that rolls like an odometer. */
+.boot-digit {
+	height: 1em;
+	overflow: hidden;
+}
+
+.boot-digit-strip {
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.22s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.boot-digit-strip > span {
+	height: 1em;
+}
+
+.boot-percent {
+	align-self: flex-start;
+	margin-left: 0.15em;
+	font-size: 0.2em;
+	color: var(--color-primary);
+}
+
+.boot-status {
+	position: absolute;
+	right: clamp(1.5rem, 4vw, 3rem);
+	bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.boot-bar {
 	position: absolute;
 	left: 0;
 	right: 0;
-	height: 50.5%;
-	background-color: oklch(0.11 0 0);
-	transition: transform 0.46s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.eye-lid-top {
-	top: 0;
-	border-bottom: 1px solid oklch(0.7 0.19 47 / 0.8);
-	box-shadow: 0 1px 30px oklch(0.7 0.19 47 / 0.35);
-}
-
-.eye-lid-bottom {
 	bottom: 0;
-	border-top: 1px solid oklch(0.7 0.19 47 / 0.8);
-	box-shadow: 0 -1px 30px oklch(0.7 0.19 47 / 0.35);
+	height: 3px;
+	background-color: oklch(1 0 0 / 0.06);
 }
 
-.eye-overlay[data-phase="opening"] .eye-lid-top,
-.eye-overlay[data-phase="idle"] .eye-lid-top {
-	transform: translateY(-101%);
+.boot-bar > span {
+	display: block;
+	height: 100%;
+	background-color: var(--color-primary);
+	box-shadow: 0 0 12px var(--color-primary);
+	transform-origin: left;
 }
 
-.eye-overlay[data-phase="opening"] .eye-lid-bottom,
-.eye-overlay[data-phase="idle"] .eye-lid-bottom {
-	transform: translateY(101%);
-}
-
-.eye-core {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1.4rem;
-	transform: translate(-50%, -50%);
-	transition:
-		opacity 0.3s ease,
-		transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.eye-overlay[data-phase="opening"] .eye-core,
-.eye-overlay[data-phase="idle"] .eye-core {
-	opacity: 0;
-	transform: translate(-50%, -50%) scale(1.15);
-}
-
-.eye-overlay[data-phase="closing"] .eye-core {
-	transform: translate(-50%, -50%) scale(0.7);
-}
-
-.eye-ring {
-	animation: eye-spin 2.4s linear infinite;
-	transform-origin: 50% 50%;
-}
-
-.eye-image {
-	border-radius: 9999px;
-	mix-blend-mode: screen;
-	animation: eye-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes eye-spin {
-	to {
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes eye-pulse {
-	0%,
-	100% {
-		filter: brightness(1) drop-shadow(0 0 18px oklch(0.7 0.19 47 / 0.45));
-	}
-	50% {
-		filter: brightness(1.25) drop-shadow(0 0 34px oklch(0.7 0.19 47 / 0.75));
-	}
-}
-
-/* ---- Entrance animations, started once the lids open ---- */
+/* ---- Entrance animations, started once the boot panel lifts ---- */
 .rise {
 	animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -333,18 +458,182 @@ html[data-overlay="closed"] .rise {
 	}
 }
 
+/* ---- Cut corners ---- */
+/*
+ * Boxes lose two opposite corners at 45°. The border is drawn with --edge so the
+ * diagonal lines, painted by ::after, always match it, also on hover and when active.
+ */
+.cut,
+.cut-sm {
+	--cut: 14px;
+	--edge: var(--color-border);
+	position: relative;
+	border: 1px solid var(--edge);
+	clip-path: polygon(
+		0 0,
+		calc(100% - var(--cut)) 0,
+		100% var(--cut),
+		100% 100%,
+		var(--cut) 100%,
+		0 calc(100% - var(--cut))
+	);
+}
+
+.cut-sm {
+	--cut: 9px;
+}
+
+.cut::after,
+.cut-sm::after {
+	--diagonal: linear-gradient(
+		to top right,
+		transparent calc(50% - 0.75px),
+		var(--edge) calc(50% - 0.75px) calc(50% + 0.75px),
+		transparent calc(50% + 0.75px)
+	);
+	content: "";
+	position: absolute;
+	inset: -1px;
+	pointer-events: none;
+	background:
+		var(--diagonal) top right / var(--cut) var(--cut) no-repeat,
+		var(--diagonal) bottom left / var(--cut) var(--cut) no-repeat;
+}
+
+/* Filled buttons keep their edge in the fill colour. */
+.cut-fill {
+	--edge: var(--color-primary);
+}
+
+.cut-hover:hover {
+	--edge: color-mix(in oklab, var(--color-primary) 70%, transparent);
+}
+
+/* The clip would hide an outline drawn outside, so focus is shown inside the shape. */
+.cut:focus-visible,
+.cut-sm:focus-visible {
+	outline-offset: -4px;
+}
+
 /* ---- Pointer effects ---- */
+/* The glow follows the pointer and only shows while the pointer is over the card. */
 .spotlight {
+	position: relative;
+	isolation: isolate;
+}
+
+.spotlight::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	pointer-events: none;
 	background-image: radial-gradient(
-		320px circle at var(--spot-x, -400px) var(--spot-y, -400px),
+		320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
 		oklch(0.7 0.19 47 / 0.16),
 		transparent 65%
 	);
+	opacity: 0;
+	transition: opacity 0.3s ease-out;
+}
+
+@media (hover: hover) {
+	.spotlight:hover::before {
+		opacity: 1;
+	}
 }
 
 .tilt {
 	transition: transform 0.2s ease-out;
 	will-change: transform;
+}
+
+/* ---- Profile card: on hover the edge lights up and glitch slices pass over the photo ---- */
+.profile-card:hover .cut {
+	--edge: color-mix(in oklab, var(--color-primary) 75%, transparent);
+}
+
+.profile-glitch {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	mix-blend-mode: screen;
+	pointer-events: none;
+}
+
+.profile-glitch-warm {
+	filter: sepia(1) saturate(6) hue-rotate(-25deg);
+}
+
+.profile-glitch-cold {
+	filter: grayscale(1) brightness(1.3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.profile-card:hover .profile-glitch-warm {
+		animation: glitch-warm 0.45s steps(6) 1;
+	}
+
+	.profile-card:hover .profile-glitch-cold {
+		animation: glitch-cold 0.45s steps(6) 1;
+	}
+
+	/* The status dot blinks like a live signal while the pointer is on the card. */
+	.profile-card:hover .profile-live-dot {
+		animation: live-pulse 1s ease-in-out infinite;
+	}
+}
+
+@keyframes live-pulse {
+	50% {
+		opacity: 0.25;
+		box-shadow: none;
+	}
+}
+
+@keyframes glitch-warm {
+	0% {
+		opacity: 0.7;
+		transform: translateX(-6px);
+		clip-path: inset(10% 0 60% 0);
+	}
+	33% {
+		transform: translateX(5px);
+		clip-path: inset(50% 0 20% 0);
+	}
+	66% {
+		transform: translateX(-3px);
+		clip-path: inset(30% 0 45% 0);
+	}
+	100% {
+		opacity: 0;
+		transform: none;
+		clip-path: inset(0);
+	}
+}
+
+@keyframes glitch-cold {
+	0% {
+		opacity: 0.5;
+		transform: translateX(5px);
+		clip-path: inset(60% 0 10% 0);
+	}
+	33% {
+		transform: translateX(-6px);
+		clip-path: inset(20% 0 55% 0);
+	}
+	66% {
+		transform: translateX(4px);
+		clip-path: inset(70% 0 5% 0);
+	}
+	100% {
+		opacity: 0;
+		transform: none;
+	}
 }
 
 /* ---- Mobile fullscreen menu ---- */
@@ -413,12 +702,51 @@ html[data-overlay="closed"] .rise {
 	}
 }
 
+/* Portraits start as large blocks and sharpen; see PixelatedImage. */
+.pixel-image-canvas {
+	opacity: 0;
+	transition-property: opacity;
+	transition-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.pixel-image[data-state="pending"] img,
+	.pixel-image[data-state="revealing"] img {
+		visibility: hidden;
+	}
+
+	.pixel-image[data-state="pending"] .pixel-image-canvas,
+	.pixel-image[data-state="revealing"] .pixel-image-canvas {
+		opacity: 1;
+		transition: none;
+	}
+}
+
+/* Menu labels briefly turn into binary digits on hover; see ScrambleText. */
+.scramble-text {
+	display: inline-grid;
+}
+
+.scramble-text > * {
+	grid-area: 1 / 1;
+}
+
+.scramble-text-overlay {
+	white-space: pre;
+	font-variant-numeric: tabular-nums;
+	pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
 	}
 
-	.eye-overlay {
+	footer {
+		transition: none;
+	}
+
+	.boot-overlay {
 		display: none;
 	}
 
