@@ -6,6 +6,7 @@
 
 - The first-load loader waits until the page, its images and fonts have loaded, holding at 95% if needed, for at most 10 seconds.
 - The first-load loader lasts at least four seconds, even when the page is already loaded.
+- Reloading the page plays the full loader again; menu navigation keeps the light transition.
 
 ### BugFix
 

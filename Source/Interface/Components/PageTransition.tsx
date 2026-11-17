@@ -61,7 +61,17 @@ function prefersReducedMotion(): boolean {
 	return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+/** True when the visitor reloaded the page, which plays the full loader again. */
+function isReload(): boolean {
+	const [entry] = performance.getEntriesByType("navigation");
+	return entry instanceof PerformanceNavigationTiming && entry.type === "reload";
+}
+
+/** True when the full loader already played in this tab and the page was not reloaded. */
 function readBooted(): boolean {
+	if (isReload()) {
+		return false;
+	}
 	try {
 		return window.sessionStorage.getItem(BootKey) === "1";
 	} catch {
