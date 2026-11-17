@@ -31,7 +31,7 @@ type RouteWidget = {
 };
 
 const BootKey = "ma-booted";
-const BootDuration = 2200;
+const BootDuration = 3200;
 const OpenDuration = 800;
 const LeaveDuration = 160;
 const DecodeDuration = 450;

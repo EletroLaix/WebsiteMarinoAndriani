@@ -7,7 +7,7 @@
 - The portrait on Home and About appears as large pixels and sharpens once it is on screen.
 - Menu entries and action buttons use uppercase Geist Mono and briefly turn into zeros and ones on hover.
 - The footer shows the site version, read from `package.json` at build time.
-- A new first-load loader runs a boot log while a counter climbs to 100, then lifts like a curtain; it replaces the eye loader and its eyelid page transition.
+- A new first-load loader runs a boot log while a counter climbs to 100 in about three seconds, then lifts like a curtain; it replaces the eye loader and its eyelid page transition.
 - Page changes are lighter: the page fades out, the new title decodes from zeros and ones, then the content and the footer appear, while a route widget in the corner fills its dots up to OK.
 - Boxes and buttons have cut corners instead of rounded ones, every other corner is square, and timeline dots are diamonds.
 - The boot log nods to Asimov and The Hitchhiker's Guide to the Galaxy, with aligned results, a 42, and Marvin as the one step that fails.
