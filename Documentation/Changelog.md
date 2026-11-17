@@ -7,6 +7,10 @@
 - The portrait on Home and About appears as large pixels and sharpens once it is on screen.
 - Menu entries and action buttons use uppercase Geist Mono and briefly turn into zeros and ones on hover.
 
+### BugFix
+
+- The orange glow on the cards now fades out when the pointer leaves instead of staying at its last position.
+
 ### Resources
 
 - Replaced Inter, Space Grotesk, and JetBrains Mono with Geist for text and Geist Mono for headings, menu, and labels.

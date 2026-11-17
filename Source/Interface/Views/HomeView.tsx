@@ -107,6 +107,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 					{t.home.domains.map((domain, index) => (
 						<article
 							key={domain.title}
+							onPointerEnter={moveSpotlight}
 							onPointerMove={moveSpotlight}
 							className="spotlight flex flex-col gap-3 rounded-2xl border border-border bg-card p-7 hover:-translate-y-1 hover:border-primary/60"
 						>
