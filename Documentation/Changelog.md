@@ -6,6 +6,7 @@
 
 - The portrait on Home and About appears as large pixels and sharpens once it is on screen.
 - Menu entries and action buttons use uppercase Geist Mono and briefly turn into zeros and ones on hover.
+- The footer shows the site version, read from `package.json` at build time.
 
 ### BugFix
 

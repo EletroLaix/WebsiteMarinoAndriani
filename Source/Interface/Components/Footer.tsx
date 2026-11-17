@@ -1,4 +1,5 @@
 import { openConsentBanner, trackOutbound } from "@/Application/Analytics";
+import { SiteVersion } from "@/Application/SiteVersion";
 import { Profile } from "@/Resources/Content/Profile";
 import { useDictionary } from "@/Interface/Hooks/UseLanguage";
 import { SocialIcon } from "@/Interface/Components/Icons";
@@ -41,7 +42,7 @@ export function Footer() {
 				</div>
 
 				<p className="text-sm text-faint">
-					© {year} {Profile.name} ·{" "}
+					© {year} {Profile.name} · <span className="font-mono">v{SiteVersion}</span> ·{" "}
 					<button
 						type="button"
 						onClick={openConsentBanner}
