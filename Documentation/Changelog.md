@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.0
 
 ### Features
 
@@ -21,6 +21,11 @@
 ### Resources
 
 - Replaced Inter, Space Grotesk, and JetBrains Mono with Geist for text and Geist Mono for headings, menu, and labels.
+
+### Known issues
+
+- Role problem and solution texts are drafts and role results are still missing.
+- Social previews use the square portrait; a dedicated 1200×630 image is not available yet.
 
 ## 1.2.0
 
