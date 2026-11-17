@@ -42,14 +42,14 @@ export function HomeView({ lang }: { lang: Lang }) {
 					<div className="rise rise-4 mt-9 flex flex-wrap gap-3">
 						<TransitionLink
 							href={pagePath("contact", lang)}
-							className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-primary px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
+							className="cut-sm cut-fill inline-flex min-h-12 items-center gap-2 bg-primary px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
 						>
 							<ScrambleText text={t.home.contactAction} />
 							<ArrowRight className="h-4 w-4" aria-hidden="true" />
 						</TransitionLink>
 						<TransitionLink
 							href={pagePath("about", lang)}
-							className="inline-flex min-h-12 items-center rounded-lg border border-border px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-foreground hover:-translate-y-0.5 hover:border-primary"
+							className="cut-sm cut-hover inline-flex min-h-12 items-center px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-foreground hover:-translate-y-0.5"
 						>
 							<ScrambleText text={t.home.aboutAction} />
 						</TransitionLink>
@@ -61,12 +61,12 @@ export function HomeView({ lang }: { lang: Lang }) {
 					onPointerMove={tiltTowardsPointer}
 					onPointerLeave={resetTilt}
 				>
-					<div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_30px_80px_-30px_oklch(0.55_0.18_40/0.55)]">
+					<div className="cut overflow-hidden bg-card">
 						<div className="flex items-center justify-between border-b border-border px-4 py-2.5 font-mono text-[11px] tracking-widest text-faint">
 							<span>{t.home.profile.toUpperCase()}</span>
 							<span className="inline-flex items-center gap-1.5">
 								<span
-									className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--color-primary)]"
+									className="h-1.5 w-1.5 bg-primary shadow-[0_0_8px_var(--color-primary)]"
 									aria-hidden="true"
 								/>
 								{t.home.profileNow.toUpperCase()}
@@ -109,7 +109,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 							key={domain.title}
 							onPointerEnter={moveSpotlight}
 							onPointerMove={moveSpotlight}
-							className="spotlight flex flex-col gap-3 rounded-2xl border border-border bg-card p-7 hover:-translate-y-1 hover:border-primary/60"
+							className="spotlight cut cut-hover flex flex-col gap-3 bg-card p-7 hover:-translate-y-1"
 						>
 							<p className="font-mono text-xs text-faint">
 								{String(index + 1).padStart(2, "0")}
@@ -150,8 +150,8 @@ export function HomeView({ lang }: { lang: Lang }) {
 									<span
 										className={
 											current && role.id === "head"
-												? "block h-5 w-5 rounded-full border-2 border-primary bg-primary shadow-[0_0_0_6px_oklch(0.7_0.19_47/0.18)]"
-												: "block h-5 w-5 rounded-full border-2 border-primary bg-background transition-colors group-hover:bg-primary"
+												? "block h-5 w-5 scale-[0.8] rotate-45 border-2 border-primary bg-primary shadow-[0_0_0_6px_oklch(0.7_0.19_47/0.18)]"
+												: "block h-5 w-5 scale-[0.8] rotate-45 border-2 border-primary bg-background transition-colors group-hover:bg-primary"
 										}
 										aria-hidden="true"
 									/>
@@ -168,7 +168,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 			</section>
 
 			<section className="reveal mx-auto max-w-6xl px-4 pt-16 pb-28 sm:px-6">
-				<div className="flex flex-wrap items-center justify-between gap-8 rounded-2xl border border-border bg-card p-8 sm:p-12">
+				<div className="flex flex-wrap items-center justify-between gap-8 cut bg-card p-8 sm:p-12">
 					<div>
 						<h2 className="font-display text-3xl font-bold tracking-tight">
 							{t.home.contactTitle}
@@ -178,7 +178,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 					<div className="flex flex-wrap gap-3">
 						<TransitionLink
 							href={pagePath("contact", lang)}
-							className="inline-flex min-h-12 items-center rounded-lg bg-primary px-6 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
+							className="cut-sm cut-fill inline-flex min-h-12 items-center bg-primary px-6 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
 						>
 							<ScrambleText text={t.home.contactAction} />
 						</TransitionLink>

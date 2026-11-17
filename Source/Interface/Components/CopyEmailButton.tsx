@@ -29,7 +29,7 @@ export function CopyEmailButton({ className }: { className?: string | undefined 
 			type="button"
 			onClick={copy}
 			className={cn(
-				"inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-border px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-foreground hover:-translate-y-0.5 hover:border-primary",
+				"cut-sm cut-hover inline-flex min-h-12 items-center justify-center gap-2 px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-foreground hover:-translate-y-0.5",
 				className,
 			)}
 		>

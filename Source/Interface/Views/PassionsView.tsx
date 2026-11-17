@@ -22,7 +22,7 @@ export function PassionsView({ lang }: { lang: Lang }) {
 						href={section.path[lang]}
 						onPointerEnter={moveSpotlight}
 						onPointerMove={moveSpotlight}
-						className="spotlight flex flex-col gap-3 rounded-2xl border border-border bg-card p-7 hover:-translate-y-1 hover:border-primary/60"
+						className="spotlight cut cut-hover flex flex-col gap-3 bg-card p-7 hover:-translate-y-1"
 					>
 						<h2 className="font-display text-2xl font-semibold">
 							{section.title[lang]}

@@ -19,7 +19,7 @@ export function ContactView({ lang }: { lang: Lang }) {
 				</h1>
 				<p className="rise rise-1 mt-5 text-lg text-muted-foreground">{t.contact.note}</p>
 
-				<div className="rise rise-2 mt-10 max-w-xl rounded-2xl border border-border bg-card p-6">
+				<div className="rise rise-2 cut mt-10 max-w-xl bg-card p-6">
 					<p className="font-mono text-xs tracking-widest text-faint">
 						{t.contact.emailLabel.toUpperCase()}
 					</p>
@@ -30,7 +30,7 @@ export function ContactView({ lang }: { lang: Lang }) {
 						<a
 							href={mailto}
 							onClick={() => trackOutbound("Email", "contact_page", mailto)}
-							className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-primary px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
+							className="cut-sm cut-fill inline-flex min-h-12 items-center gap-2 bg-primary px-5 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
 						>
 							<Send className="h-4 w-4" aria-hidden="true" />
 							<ScrambleText text={t.contact.write} />
@@ -51,14 +51,14 @@ export function ContactView({ lang }: { lang: Lang }) {
 						target="_blank"
 						rel="noopener noreferrer me"
 						onClick={() => trackOutbound(social.label, "contact_page", social.url)}
-						className="flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 hover:translate-x-1 hover:border-primary"
+						className="cut cut-hover flex items-center gap-4 bg-card px-5 py-4 hover:translate-x-1"
 					>
 						<SocialIcon id={social.id} className="h-5 w-5 text-primary" />
 						<span className="flex-1 font-semibold">{social.label}</span>
 						<span className="font-mono text-xs text-faint">{social.handle}</span>
 					</a>
 				))}
-				<p className="mt-2 flex items-center gap-3 rounded-xl border border-dashed border-border px-5 py-4 font-semibold">
+				<p className="mt-2 flex items-center gap-3 border border-dashed border-border px-5 py-4 font-semibold">
 					<MapPin className="h-5 w-5 text-accent" aria-hidden="true" />
 					{Profile.location.label[lang]}
 				</p>

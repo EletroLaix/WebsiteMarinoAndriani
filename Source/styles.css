@@ -10,13 +10,14 @@
  */
 
 @theme inline {
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
+	/* Sharp edges everywhere: boxes get cut corners instead of rounded ones (see .cut). */
+	--radius-sm: var(--radius);
+	--radius-md: var(--radius);
 	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
-	--radius-2xl: calc(var(--radius) + 8px);
-	--radius-3xl: calc(var(--radius) + 12px);
-	--radius-4xl: calc(var(--radius) + 16px);
+	--radius-xl: var(--radius);
+	--radius-2xl: var(--radius);
+	--radius-3xl: var(--radius);
+	--radius-4xl: var(--radius);
 
 	/* One family in two voices: Geist Mono for headings, menu and labels, Geist for reading. */
 	--font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
@@ -52,7 +53,7 @@
 }
 
 :root {
-	--radius: 0.75rem;
+	--radius: 0px;
 
 	/* Black / white / orange dark palette (no light toggle) */
 	--background: oklch(0.13 0 0);
@@ -455,6 +456,63 @@ html[data-overlay="closed"] .rise {
 		opacity: 1;
 		transform: none;
 	}
+}
+
+/* ---- Cut corners ---- */
+/*
+ * Boxes lose two opposite corners at 45°. The border is drawn with --edge so the
+ * diagonal lines, painted by ::after, always match it, also on hover and when active.
+ */
+.cut,
+.cut-sm {
+	--cut: 14px;
+	--edge: var(--color-border);
+	position: relative;
+	border: 1px solid var(--edge);
+	clip-path: polygon(
+		0 0,
+		calc(100% - var(--cut)) 0,
+		100% var(--cut),
+		100% 100%,
+		var(--cut) 100%,
+		0 calc(100% - var(--cut))
+	);
+}
+
+.cut-sm {
+	--cut: 9px;
+}
+
+.cut::after,
+.cut-sm::after {
+	--diagonal: linear-gradient(
+		to top right,
+		transparent calc(50% - 0.75px),
+		var(--edge) calc(50% - 0.75px) calc(50% + 0.75px),
+		transparent calc(50% + 0.75px)
+	);
+	content: "";
+	position: absolute;
+	inset: -1px;
+	pointer-events: none;
+	background:
+		var(--diagonal) top right / var(--cut) var(--cut) no-repeat,
+		var(--diagonal) bottom left / var(--cut) var(--cut) no-repeat;
+}
+
+/* Filled buttons keep their edge in the fill colour. */
+.cut-fill {
+	--edge: var(--color-primary);
+}
+
+.cut-hover:hover {
+	--edge: color-mix(in oklab, var(--color-primary) 70%, transparent);
+}
+
+/* The clip would hide an outline drawn outside, so focus is shown inside the shape. */
+.cut:focus-visible,
+.cut-sm:focus-visible {
+	outline-offset: -4px;
 }
 
 /* ---- Pointer effects ---- */
