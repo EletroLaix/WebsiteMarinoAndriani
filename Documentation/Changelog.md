@@ -8,6 +8,7 @@
 - Menu entries and action buttons use uppercase Geist Mono and briefly turn into zeros and ones on hover.
 - The footer shows the site version, read from `package.json` at build time.
 - A new first-load loader runs a boot log while a counter climbs to 100, then lifts like a curtain; it replaces the eye loader and its eyelid page transition.
+- Page changes are lighter: the page fades out, the new title decodes from zeros and ones, then the content and the footer appear, while a route widget in the corner fills its dots up to OK.
 
 ### BugFix
 

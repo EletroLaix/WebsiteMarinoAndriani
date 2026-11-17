@@ -18,9 +18,25 @@ import { useDictionary, useLang } from "@/Interface/Hooks/UseLanguage";
 
 type Phase = "boot" | "opening" | "idle";
 
+/** Steps of a page change, exposed on <html data-route> for the CSS. */
+type RouteStep = "leaving" | "entering" | "settling";
+
+type RouteWidget = {
+	/** Changes on every page change, so the widget restarts from empty. */
+	run: number;
+	visible: boolean;
+	path: string;
+	progress: number;
+	done: boolean;
+};
+
 const BootKey = "ma-booted";
 const BootDuration = 2200;
 const OpenDuration = 800;
+const LeaveDuration = 160;
+const DecodeDuration = 450;
+const SettleDuration = 520;
+const WidgetLinger = 900;
 
 type PageTransitionValue = {
 	navigate: (href: string) => void;
@@ -54,12 +70,84 @@ function storeBooted() {
 	}
 }
 
-/** Plays the boot loader on the first visit of a session; links change page through `navigate`. */
+function setRouteStep(step: RouteStep | null) {
+	const root = document.documentElement;
+	if (step === null) {
+		delete root.dataset["route"];
+	} else {
+		root.dataset["route"] = step;
+	}
+}
+
+function wait(delay: number): Promise<void> {
+	return new Promise((resolve) => window.setTimeout(resolve, delay));
+}
+
+function nextFrame(): Promise<void> {
+	return new Promise((resolve) => requestAnimationFrame(() => resolve()));
+}
+
+/**
+ * Turns the heading into zeros and ones and resolves it from left to right, then puts
+ * the original text back exactly as React rendered it.
+ */
+async function decodeHeading(heading: HTMLElement, duration: number): Promise<void> {
+	const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+	const nodes: Text[] = [];
+	while (walker.nextNode()) {
+		nodes.push(walker.currentNode as Text);
+	}
+	const originals = nodes.map((node) => node.nodeValue ?? "");
+	const total = originals.reduce((sum, text) => sum + text.length, 0) || 1;
+
+	await new Promise<void>((resolve) => {
+		const start = performance.now();
+		const step = (now: number) => {
+			const progress = Math.min(1, (now - start) / duration);
+			let index = 0;
+			nodes.forEach((node, nodeIndex) => {
+				node.nodeValue = [...originals[nodeIndex]!]
+					.map((character) => {
+						const resolved = progress >= 0.2 + (0.8 * index++) / total;
+						if (character.trim() === "" || resolved) {
+							return character;
+						}
+						return Math.random() < 0.5 ? "0" : "1";
+					})
+					.join("");
+			});
+			if (progress < 1) {
+				requestAnimationFrame(step);
+			} else {
+				resolve();
+			}
+		};
+		requestAnimationFrame(step);
+	});
+
+	nodes.forEach((node, nodeIndex) => {
+		node.nodeValue = originals[nodeIndex]!;
+	});
+}
+
+/**
+ * Plays the boot loader on the first visit of a session. Later page changes are light:
+ * the page fades out, the new title decodes from binary, then the rest appears, while a
+ * small route widget reports the progress in the corner.
+ */
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 	const [phase, setPhase] = useState<Phase>("boot");
 	const [progress, setProgress] = useState(0);
+	const [widget, setWidget] = useState<RouteWidget>({
+		run: 0,
+		visible: false,
+		path: "/",
+		progress: 0,
+		done: false,
+	});
 	const phaseRef = useRef<Phase>("boot");
+	const navigating = useRef(false);
 	const timers = useRef<number[]>([]);
 
 	const changePhase = useCallback((next: Phase) => {
@@ -109,22 +197,121 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 	}, [changePhase, later]);
 
 	const navigate = useCallback(
-		(href: string) => {
+		async (href: string) => {
 			if (normalizePath(href) === normalizePath(window.location.pathname)) {
 				return;
 			}
-			void router.navigate({ href }).finally(() => window.scrollTo(0, 0));
+			if (prefersReducedMotion() || phaseRef.current !== "idle" || navigating.current) {
+				void router.navigate({ href });
+				return;
+			}
+
+			navigating.current = true;
+			const path = normalizePath(href);
+			const root = document.documentElement;
+			try {
+				// Fade the current page out while the widget starts reporting.
+				setWidget((current) => ({
+					run: current.run + 1,
+					visible: true,
+					path,
+					progress: 0.3,
+					done: false,
+				}));
+				root.dataset["overlay"] = "closed";
+				setRouteStep("leaving");
+				await wait(LeaveDuration);
+
+				await router.navigate({ href });
+				window.scrollTo(0, 0);
+				await nextFrame();
+
+				// Only the new title is visible, and it decodes from binary.
+				setRouteStep("entering");
+				setWidget((current) => ({ ...current, progress: 0.75 }));
+				const heading = document.querySelector<HTMLElement>("main h1");
+				if (heading) {
+					heading.style.animation = "none";
+					await decodeHeading(heading, DecodeDuration);
+				}
+
+				// The rest of the page appears and the widget reports OK.
+				root.dataset["overlay"] = "open";
+				setRouteStep("settling");
+				setWidget((current) => ({ ...current, progress: 1, done: true }));
+				await wait(SettleDuration);
+			} finally {
+				setRouteStep(null);
+				root.dataset["overlay"] = "open";
+				navigating.current = false;
+				later(() => setWidget((current) => ({ ...current, visible: false })), WidgetLinger);
+			}
 		},
-		[router],
+		[router, later],
 	);
 
-	const value = useMemo<PageTransitionValue>(() => ({ navigate }), [navigate]);
+	const value = useMemo<PageTransitionValue>(
+		() => ({ navigate: (href) => void navigate(href) }),
+		[navigate],
+	);
 
 	return (
 		<PageTransitionContext.Provider value={value}>
 			{children}
+			<RouteWidgetView widget={widget} />
 			<BootOverlay phase={phase} progress={progress} />
 		</PageTransitionContext.Provider>
+	);
+}
+
+/** Number of dots that fill up after the route, like a text progress bar. */
+const RouteDots = 12;
+
+/**
+ * Small terminal line in the corner: the dots after the route fill up with the progress
+ * and turn into OK at 100%.
+ */
+function RouteWidgetView({ widget }: { widget: RouteWidget }) {
+	const [shown, setShown] = useState(0);
+	const shownRef = useRef(0);
+
+	// Each page change starts again from an empty line.
+	useEffect(() => {
+		shownRef.current = 0;
+		setShown(0);
+	}, [widget.run]);
+
+	// Glide towards the target so the dots fill one by one instead of jumping,
+	// and stop as soon as the target is reached.
+	useEffect(() => {
+		let frame = 0;
+		const step = () => {
+			const current = shownRef.current;
+			let next = current + (widget.progress - current) * 0.16;
+			if (Math.abs(widget.progress - next) < 0.004) {
+				next = widget.progress;
+			}
+			shownRef.current = next;
+			setShown(next);
+			if (next !== widget.progress) {
+				frame = requestAnimationFrame(step);
+			}
+		};
+		frame = requestAnimationFrame(step);
+		return () => cancelAnimationFrame(frame);
+	}, [widget.progress, widget.run]);
+
+	const complete = widget.done && shown >= 1;
+	const filled = Math.floor(shown * RouteDots);
+	const dots = ".".repeat(filled) + " ".repeat(RouteDots - filled);
+
+	return (
+		<div className="route-widget" data-visible={widget.visible} aria-hidden="true">
+			<p className="route-widget-line">
+				{`> route ${widget.path} ${dots} `}
+				<span className="text-primary">{complete ? "OK" : "  "}</span>
+			</p>
+		</div>
 	);
 }
 
@@ -245,7 +432,7 @@ function BootOverlay({ phase, progress }: { phase: Phase; progress: number }) {
 
 type TransitionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
-/** An internal link that changes page through the transition provider. */
+/** An internal link that plays the page transition before changing page. */
 export function TransitionLink({ href, onClick, children, ...rest }: TransitionLinkProps) {
 	const { navigate } = usePageTransition();
 

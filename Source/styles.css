@@ -170,6 +170,68 @@
 	backdrop-filter: blur(16px) saturate(140%);
 }
 
+/* ---- Page changes: fade out, decode the title, then reveal the rest ---- */
+html[data-route="leaving"] :is(main, footer) {
+	opacity: 0;
+	transition: opacity 0.16s ease-out;
+}
+
+/* While the title decodes, everything else in the page and the footer stay hidden. */
+html[data-route="entering"] main *:not(h1, h1 *, :has(h1)),
+html[data-route="entering"] footer {
+	opacity: 0;
+}
+
+html[data-route="settling"] main *:not(h1, h1 *, :has(h1)) {
+	transition: opacity 0.38s ease-out;
+}
+
+/* The footer comes last, just after the page content. */
+html[data-route="settling"] footer {
+	transition: opacity 0.38s ease-out 0.12s;
+}
+
+/* On the first load the footer also waits for the loader, then fades in after the hero. */
+footer {
+	transition: opacity 0.5s ease-out 0.35s;
+}
+
+html[data-overlay="closed"] footer {
+	opacity: 0;
+}
+
+/* Terminal line in the corner reporting the route. */
+.route-widget {
+	position: fixed;
+	right: clamp(1rem, 3vw, 1.75rem);
+	bottom: clamp(1rem, 3vw, 1.75rem);
+	z-index: 90;
+	overflow: hidden;
+	border: 1px solid var(--color-border);
+	background-color: color-mix(in oklab, var(--color-card) 94%, transparent);
+	backdrop-filter: blur(8px);
+	font-family: var(--font-mono);
+	pointer-events: none;
+	opacity: 0;
+	transform: translateY(10px);
+	transition:
+		opacity 0.2s ease-out,
+		transform 0.2s ease-out;
+}
+
+.route-widget[data-visible="true"] {
+	opacity: 1;
+	transform: none;
+}
+
+.route-widget-line {
+	margin: 0;
+	padding: 0.65rem 0.95rem;
+	font-size: 12px;
+	color: var(--color-muted-foreground);
+	white-space: pre;
+}
+
 /* ---- Boot overlay: first-load loader ---- */
 .boot-overlay {
 	position: fixed;
@@ -533,6 +595,10 @@ html[data-overlay="closed"] .rise {
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
+	}
+
+	footer {
+		transition: none;
 	}
 
 	.boot-overlay {
