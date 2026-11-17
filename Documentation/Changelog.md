@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.1
 
 ### Features
 
@@ -11,6 +11,11 @@
 ### BugFix
 
 - On phones the loader hides the eye and the location, which overlapped the boot log.
+
+### Known issues
+
+- Role problem and solution texts are drafts and role results are still missing.
+- Social previews use the square portrait; a dedicated 1200×630 image is not available yet.
 
 ## 1.3.0
 
