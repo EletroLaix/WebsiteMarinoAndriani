@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.3.1
+
+### Features
+
+- The first-load loader waits until the page, its images and fonts have loaded, holding at 95% if needed, for at most 10 seconds.
+- The first-load loader lasts at least four seconds, even when the page is already loaded.
+- Reloading the page plays the full loader again; menu navigation keeps the light transition.
+
+### BugFix
+
+- On phones the loader hides the eye and the location, which overlapped the boot log.
+
+### Known issues
+
+- Role problem and solution texts are drafts and role results are still missing.
+- Social previews use the square portrait; a dedicated 1200×630 image is not available yet.
+
 ## 1.3.0
 
 ### Features

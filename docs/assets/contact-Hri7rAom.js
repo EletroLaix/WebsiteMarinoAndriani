@@ -1,0 +1,1 @@
+import{n as e}from"./Dictionary-D4Ee5a0K.js";import{t}from"./index-B73wfsD0.js";import{t as n}from"./LegacyRedirectView-DEtR6XCM.js";var r=e(),i=()=>(0,r.jsx)(n,{to:t});export{i as component};

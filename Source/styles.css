@@ -271,8 +271,8 @@ html[data-overlay="closed"] footer {
 	transition: none;
 }
 
-/* Never block the page if scripts fail to run. */
-.boot-overlay[data-phase="boot"] {
+/* Never block the page if scripts fail to run; once they run, they decide when to lift. */
+.boot-overlay[data-phase="boot"]:not([data-scripted]) {
 	animation: boot-failsafe 0s linear 6s forwards;
 }
 
@@ -306,6 +306,13 @@ html[data-overlay="closed"] footer {
 	flex-direction: column;
 	align-items: flex-end;
 	gap: 0.9rem;
+}
+
+/* On narrow screens the boot log takes the whole width, so the eye and the location step aside. */
+@media (max-width: 640px) {
+	.boot-side {
+		display: none;
+	}
 }
 
 .boot-label {
