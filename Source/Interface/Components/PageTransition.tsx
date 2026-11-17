@@ -4,6 +4,7 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useMemo,
 	useRef,
 	useState,
 	type AnchorHTMLAttributes,
@@ -11,16 +12,15 @@ import {
 	type ReactNode,
 } from "react";
 import { normalizePath } from "@/Application/Site";
+import { SiteVersion } from "@/Application/SiteVersion";
 import { Profile } from "@/Resources/Content/Profile";
-import { useDictionary } from "@/Interface/Hooks/UseLanguage";
+import { useDictionary, useLang } from "@/Interface/Hooks/UseLanguage";
 
-type Phase = "boot" | "opening" | "idle" | "closing";
+type Phase = "boot" | "opening" | "idle";
 
 const BootKey = "ma-booted";
-const BootDuration = 1300;
-const LidDuration = 460;
-const OpenDuration = 520;
-const RingLength = 502.65;
+const BootDuration = 2200;
+const OpenDuration = 800;
 
 type PageTransitionValue = {
 	navigate: (href: string) => void;
@@ -54,10 +54,7 @@ function storeBooted() {
 	}
 }
 
-/**
- * Plays the eye loader on the first visit of a session, then closes and reopens
- * two "eyelids" around every page change made through `navigate`.
- */
+/** Plays the boot loader on the first visit of a session; links change page through `navigate`. */
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 	const [phase, setPhase] = useState<Phase>("boot");
@@ -75,8 +72,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 	}, []);
 
 	useEffect(() => {
-		const closed = phase === "boot" || phase === "closing";
-		document.documentElement.dataset["overlay"] = closed ? "closed" : "open";
+		document.documentElement.dataset["overlay"] = phase === "boot" ? "closed" : "open";
 	}, [phase]);
 
 	useEffect(() => {
@@ -117,76 +113,131 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 			if (normalizePath(href) === normalizePath(window.location.pathname)) {
 				return;
 			}
-			if (prefersReducedMotion() || phaseRef.current !== "idle") {
-				void router.navigate({ href });
-				return;
-			}
-			changePhase("closing");
-			later(() => {
-				void router.navigate({ href }).finally(() => {
-					window.scrollTo(0, 0);
-					changePhase("opening");
-					later(() => changePhase("idle"), OpenDuration);
-				});
-			}, LidDuration);
+			void router.navigate({ href }).finally(() => window.scrollTo(0, 0));
 		},
-		[router, changePhase, later],
+		[router],
 	);
 
+	const value = useMemo<PageTransitionValue>(() => ({ navigate }), [navigate]);
+
 	return (
-		<PageTransitionContext.Provider value={{ navigate }}>
+		<PageTransitionContext.Provider value={value}>
 			{children}
-			<EyeOverlay phase={phase} progress={progress} />
+			<BootOverlay phase={phase} progress={progress} />
 		</PageTransitionContext.Provider>
 	);
 }
 
-function EyeOverlay({ phase, progress }: { phase: Phase; progress: number }) {
+/** Boot steps of the loader; each turns OK once the counter reaches its threshold. */
+const BootSteps: ReadonlyArray<{ label: string; at: number }> = [
+	{ label: "init firmware", at: 25 },
+	{ label: "load profile", at: 50 },
+	{ label: "calibrate eye", at: 75 },
+	{ label: "render interface", at: 100 },
+];
+
+/** A random 0 or 1; always "0" before the counter starts, so server and client render the same. */
+function randomBit(progress: number): string {
+	if (progress === 0) {
+		return "0";
+	}
+	return Math.random() < 0.5 ? "0" : "1";
+}
+
+/** One digit of the counter: a 0–9 strip shifted so the wanted digit shows. */
+function RollingDigit({ value }: { value: number }) {
+	return (
+		<span className="boot-digit">
+			<span className="boot-digit-strip" style={{ transform: `translateY(${-value}em)` }}>
+				{Array.from({ length: 10 }, (_, digit) => (
+					<span key={digit}>{digit}</span>
+				))}
+			</span>
+		</span>
+	);
+}
+
+/** The name, still made of binary digits for the characters not resolved yet. */
+function BinaryName({ progress }: { progress: number }) {
+	const characters = [...Profile.name.toUpperCase()];
+	const surnameStart = characters.indexOf(" ") + 1;
+	return (
+		<p className="boot-name">
+			{characters.map((character, index) => {
+				const resolved = progress >= 0.15 + (0.85 * index) / characters.length;
+				const shown = character === " " || resolved ? character : randomBit(progress);
+				return (
+					<span
+						key={index}
+						className={index >= surnameStart ? "text-primary" : undefined}
+					>
+						{shown}
+					</span>
+				);
+			})}
+			<span className="boot-cursor" />
+		</p>
+	);
+}
+
+/**
+ * Full-screen panel shown on the first visit: a boot log runs while a counter climbs to
+ * 100, then the panel lifts like a curtain.
+ */
+function BootOverlay({ phase, progress }: { phase: Phase; progress: number }) {
 	const t = useDictionary();
-	const percent = String(Math.round(progress * 100)).padStart(3, "0");
+	const lang = useLang();
+	const percent = Math.round(progress * 100);
+	const digits = String(percent).padStart(3, "0").split("").map(Number);
+	const visibleSteps = BootSteps.filter(
+		(_, index) => index === 0 || percent >= BootSteps[index - 1]!.at,
+	);
 
 	return (
-		<div className="eye-overlay" data-phase={phase} aria-hidden="true">
-			<div className="eye-lid eye-lid-top" />
-			<div className="eye-lid eye-lid-bottom" />
-			<div className="eye-core">
-				<div className="relative grid h-[168px] w-[168px] place-items-center">
-					<svg viewBox="0 0 168 168" className="eye-ring absolute inset-0 h-full w-full">
-						<circle
-							cx="84"
-							cy="84"
-							r="80"
-							fill="none"
-							stroke="oklch(0.7 0.19 47 / 0.15)"
-							strokeWidth="2"
-						/>
-						<circle
-							cx="84"
-							cy="84"
-							r="80"
-							fill="none"
-							stroke="var(--color-primary)"
-							strokeWidth="2.5"
-							strokeLinecap="round"
-							strokeDasharray={RingLength}
-							strokeDashoffset={(RingLength * (1 - progress)).toFixed(1)}
-							transform="rotate(-90 84 84)"
-						/>
-					</svg>
+		<div className="boot-overlay" data-phase={phase} aria-hidden="true">
+			<div className="boot-content">
+				<pre className="boot-log">
+					{`> boot ma-os v${SiteVersion}\n`}
+					{visibleSteps.map((step) => (
+						<span key={step.label}>
+							{`> ${step.label.padEnd(17, " ")}........ `}
+							{percent >= step.at ? (
+								<span className="text-primary">OK</span>
+							) : (
+								<span className="text-faint">
+									{randomBit(progress) + randomBit(progress)}
+								</span>
+							)}
+							{"\n"}
+						</span>
+					))}
+				</pre>
+
+				<div className="boot-side">
 					<img
 						src={Profile.icon.path}
 						alt=""
-						width={128}
-						height={128}
-						className="eye-image h-32 w-32"
+						width={40}
+						height={40}
+						className="brand-eye h-10 w-10"
 					/>
+					<span className="boot-label">[ {Profile.location.label[lang]} ]</span>
 				</div>
-				<div className="text-center font-mono">
-					<p className="text-[13px] tracking-[0.32em] text-foreground">MARINO ANDRIANI</p>
-					<p className="mt-2 text-[11px] tracking-[0.2em] text-faint">
-						{phase === "boot" ? `${t.loader.loading.toUpperCase()} ${percent}%` : " "}
-					</p>
+
+				<div className="boot-main">
+					<BinaryName progress={progress} />
+					<div className="boot-counter">
+						{digits.map((digit, index) => (
+							<RollingDigit key={index} value={digit} />
+						))}
+						<span className="boot-percent">%</span>
+					</div>
 				</div>
+
+				<span className="boot-label boot-status">[ {t.loader.loading} ]</span>
+				<span className="boot-bar">
+					<span style={{ transform: `scaleX(${progress})` }} />
+				</span>
 			</div>
 		</div>
 	);
@@ -194,7 +245,7 @@ function EyeOverlay({ phase, progress }: { phase: Phase; progress: number }) {
 
 type TransitionLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
-/** An internal link that plays the eyelid transition before changing page. */
+/** An internal link that changes page through the transition provider. */
 export function TransitionLink({ href, onClick, children, ...rest }: TransitionLinkProps) {
 	const { navigate } = usePageTransition();
 

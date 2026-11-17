@@ -170,113 +170,175 @@
 	backdrop-filter: blur(16px) saturate(140%);
 }
 
-/* ---- Eye overlay: first-load loader and page transitions ---- */
-.eye-overlay {
+/* ---- Boot overlay: first-load loader ---- */
+.boot-overlay {
 	position: fixed;
 	inset: 0;
 	z-index: 100;
+	overflow: hidden;
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+	font-family: var(--font-mono);
+	transform: translateY(0);
+	transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.eye-overlay[data-phase="idle"] {
+/* Faint CRT lines and a vignette keep the panel dark and technical. */
+.boot-overlay::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background:
+		repeating-linear-gradient(to bottom, oklch(0 0 0 / 0.35) 0 1px, transparent 1px 3px),
+		radial-gradient(ellipse at center, transparent 55%, oklch(0 0 0 / 0.6));
+}
+
+/* The panel lifts away to reveal the page... */
+.boot-overlay[data-phase="opening"] {
+	transform: translateY(-100%);
+	transition-duration: 0.8s;
+}
+
+/* ...and then stays out of the way. */
+.boot-overlay[data-phase="idle"] {
+	transform: translateY(-100%);
 	visibility: hidden;
 	pointer-events: none;
+	transition: none;
 }
 
 /* Never block the page if scripts fail to run. */
-.eye-overlay[data-phase="boot"] {
-	animation: eye-failsafe 0s linear 6s forwards;
+.boot-overlay[data-phase="boot"] {
+	animation: boot-failsafe 0s linear 6s forwards;
 }
 
-@keyframes eye-failsafe {
+@keyframes boot-failsafe {
 	to {
 		visibility: hidden;
 		pointer-events: none;
 	}
 }
 
-.eye-lid {
+.boot-content {
+	position: absolute;
+	inset: 0;
+	padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.boot-log {
+	margin: 0;
+	font: inherit;
+	font-size: clamp(11px, 1.1vw, 14px);
+	line-height: 1.8;
+	color: var(--color-muted-foreground);
+	white-space: pre;
+}
+
+.boot-side {
+	position: absolute;
+	top: clamp(1.5rem, 4vw, 3rem);
+	right: clamp(1.5rem, 4vw, 3rem);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.9rem;
+}
+
+.boot-label {
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--color-faint);
+}
+
+.boot-main {
+	position: absolute;
+	left: clamp(1.5rem, 4vw, 3rem);
+	right: clamp(1.5rem, 4vw, 3rem);
+	bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.boot-name {
+	margin: 0 0 0.5rem;
+	font-size: clamp(1.25rem, 3.2vw, 2.75rem);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	white-space: pre;
+	font-variant-numeric: tabular-nums;
+}
+
+.boot-cursor {
+	display: inline-block;
+	width: 0.55em;
+	height: 0.95em;
+	margin-left: 0.15em;
+	vertical-align: -0.1em;
+	background-color: var(--color-primary);
+	animation: boot-blink 1s steps(1) infinite;
+}
+
+@keyframes boot-blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+.boot-counter {
+	display: flex;
+	font-size: clamp(5.5rem, 17vw, 15rem);
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: -0.05em;
+}
+
+/* Each digit is a 0–9 strip that rolls like an odometer. */
+.boot-digit {
+	height: 1em;
+	overflow: hidden;
+}
+
+.boot-digit-strip {
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.22s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.boot-digit-strip > span {
+	height: 1em;
+}
+
+.boot-percent {
+	align-self: flex-start;
+	margin-left: 0.15em;
+	font-size: 0.2em;
+	color: var(--color-primary);
+}
+
+.boot-status {
+	position: absolute;
+	right: clamp(1.5rem, 4vw, 3rem);
+	bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.boot-bar {
 	position: absolute;
 	left: 0;
 	right: 0;
-	height: 50.5%;
-	background-color: oklch(0.11 0 0);
-	transition: transform 0.46s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.eye-lid-top {
-	top: 0;
-	border-bottom: 1px solid oklch(0.7 0.19 47 / 0.8);
-	box-shadow: 0 1px 30px oklch(0.7 0.19 47 / 0.35);
-}
-
-.eye-lid-bottom {
 	bottom: 0;
-	border-top: 1px solid oklch(0.7 0.19 47 / 0.8);
-	box-shadow: 0 -1px 30px oklch(0.7 0.19 47 / 0.35);
+	height: 3px;
+	background-color: oklch(1 0 0 / 0.06);
 }
 
-.eye-overlay[data-phase="opening"] .eye-lid-top,
-.eye-overlay[data-phase="idle"] .eye-lid-top {
-	transform: translateY(-101%);
+.boot-bar > span {
+	display: block;
+	height: 100%;
+	background-color: var(--color-primary);
+	box-shadow: 0 0 12px var(--color-primary);
+	transform-origin: left;
 }
 
-.eye-overlay[data-phase="opening"] .eye-lid-bottom,
-.eye-overlay[data-phase="idle"] .eye-lid-bottom {
-	transform: translateY(101%);
-}
-
-.eye-core {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1.4rem;
-	transform: translate(-50%, -50%);
-	transition:
-		opacity 0.3s ease,
-		transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.eye-overlay[data-phase="opening"] .eye-core,
-.eye-overlay[data-phase="idle"] .eye-core {
-	opacity: 0;
-	transform: translate(-50%, -50%) scale(1.15);
-}
-
-.eye-overlay[data-phase="closing"] .eye-core {
-	transform: translate(-50%, -50%) scale(0.7);
-}
-
-.eye-ring {
-	animation: eye-spin 2.4s linear infinite;
-	transform-origin: 50% 50%;
-}
-
-.eye-image {
-	border-radius: 9999px;
-	mix-blend-mode: screen;
-	animation: eye-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes eye-spin {
-	to {
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes eye-pulse {
-	0%,
-	100% {
-		filter: brightness(1) drop-shadow(0 0 18px oklch(0.7 0.19 47 / 0.45));
-	}
-	50% {
-		filter: brightness(1.25) drop-shadow(0 0 34px oklch(0.7 0.19 47 / 0.75));
-	}
-}
-
-/* ---- Entrance animations, started once the lids open ---- */
+/* ---- Entrance animations, started once the boot panel lifts ---- */
 .rise {
 	animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -473,7 +535,7 @@ html[data-overlay="closed"] .rise {
 		scroll-behavior: auto;
 	}
 
-	.eye-overlay {
+	.boot-overlay {
 		display: none;
 	}
 
