@@ -413,6 +413,26 @@ html[data-overlay="closed"] .rise {
 	}
 }
 
+/* Portraits start as large blocks and sharpen; see PixelatedImage. */
+.pixel-image-canvas {
+	opacity: 0;
+	transition-property: opacity;
+	transition-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.pixel-image[data-state="pending"] img,
+	.pixel-image[data-state="revealing"] img {
+		visibility: hidden;
+	}
+
+	.pixel-image[data-state="pending"] .pixel-image-canvas,
+	.pixel-image[data-state="revealing"] .pixel-image-canvas {
+		opacity: 1;
+		transition: none;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;

@@ -11,6 +11,7 @@ import {
 import type { Lang } from "@/Resources/Content/Localized";
 import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
+import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
 
 export function AboutView({ lang }: { lang: Lang }) {
 	const t = dictionary(lang);
@@ -30,12 +31,12 @@ export function AboutView({ lang }: { lang: Lang }) {
 						{t.about.intro}
 					</p>
 				</div>
-				<img
+				<PixelatedImage
 					src={Profile.portrait.path}
 					alt={t.about.portraitAlt}
 					width={260}
 					height={260}
-					className="rise rise-2 h-[260px] w-[260px] rounded-2xl border border-border object-cover"
+					frameClassName="rise rise-2 h-[260px] w-[260px] shrink-0 rounded-2xl border border-border"
 				/>
 			</section>
 

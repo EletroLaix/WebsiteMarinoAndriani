@@ -6,6 +6,7 @@ import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
 import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
+import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
 import {
 	moveSpotlight,
 	resetTilt,
@@ -70,13 +71,13 @@ export function HomeView({ lang }: { lang: Lang }) {
 								{t.home.profileNow.toUpperCase()}
 							</span>
 						</div>
-						<img
+						<PixelatedImage
 							src={Profile.portrait.path}
 							alt={t.about.portraitAlt}
 							width={340}
 							height={300}
 							fetchPriority="high"
-							className="h-[300px] w-full object-cover"
+							frameClassName="h-[300px] w-full"
 						/>
 						<dl className="px-4 py-1.5 font-mono text-[12.5px]">
 							{[

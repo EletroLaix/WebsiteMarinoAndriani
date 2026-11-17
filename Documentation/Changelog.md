@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- The portrait on Home and About appears as large pixels and sharpens once it is on screen.
+
 ## 1.2.0
 
 ### Features
