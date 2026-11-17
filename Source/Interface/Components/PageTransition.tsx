@@ -315,13 +315,29 @@ function RouteWidgetView({ widget }: { widget: RouteWidget }) {
 	);
 }
 
-/** Boot steps of the loader; each turns OK once the counter reaches its threshold. */
-const BootSteps: ReadonlyArray<{ label: string; at: number }> = [
-	{ label: "init firmware", at: 25 },
-	{ label: "load profile", at: 50 },
-	{ label: "calibrate eye", at: 75 },
-	{ label: "render interface", at: 100 },
+type BootStep = {
+	label: string;
+	/** Counter value at which the step reports its result. */
+	at: number;
+	result: "OK" | "FAIL" | "42";
+};
+
+/**
+ * Boot steps of the loader, with a few nods to Asimov and to The Hitchhiker's Guide to
+ * the Galaxy. Marvin, the depressed android, is the one step that is meant to fail.
+ */
+const BootSteps: ReadonlyArray<BootStep> = [
+	{ label: "Don't panic", at: 12, result: "OK" },
+	{ label: "Load positronic brain", at: 25, result: "OK" },
+	{ label: "Seek answer to everything", at: 38, result: "42" },
+	{ label: "Calibrate robopsychology", at: 52, result: "OK" },
+	{ label: "Verify three laws", at: 65, result: "OK" },
+	{ label: "Cheer up Marvin", at: 80, result: "FAIL" },
+	{ label: "Render interface", at: 100, result: "OK" },
 ];
+
+/** Width of label plus dots, so every result lines up in one column. */
+const BootColumn = 36;
 
 /** A random 0 or 1; always "0" before the counter starts, so server and client render the same. */
 function randomBit(progress: number): string {
@@ -387,9 +403,15 @@ function BootOverlay({ phase, progress }: { phase: Phase; progress: number }) {
 					{`> boot ma-os v${SiteVersion}\n`}
 					{visibleSteps.map((step) => (
 						<span key={step.label}>
-							{`> ${step.label.padEnd(17, " ")}........ `}
+							{`> ${step.label} ${".".repeat(BootColumn - step.label.length - 1)} `}
 							{percent >= step.at ? (
-								<span className="text-primary">OK</span>
+								<span
+									className={
+										step.result === "FAIL" ? "text-destructive" : "text-primary"
+									}
+								>
+									{step.result}
+								</span>
 							) : (
 								<span className="text-faint">
 									{randomBit(progress) + randomBit(progress)}
