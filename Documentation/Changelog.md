@@ -12,6 +12,7 @@
 
 - Made the preparation status clear on the Personal projects and Quotes cards.
 - Restored Google Analytics when a visitor accepts after previously declining.
+- Kept the cookie consent banner above the footer in a compact layout with larger mobile touch targets.
 
 ### Resources
 

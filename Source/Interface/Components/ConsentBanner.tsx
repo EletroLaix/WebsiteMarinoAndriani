@@ -1,3 +1,4 @@
+import { Cookie } from "lucide-react";
 import { useEffect, useSyncExternalStore } from "react";
 import {
 	analyticsServerState,
@@ -22,28 +23,31 @@ export function ConsentBanner() {
 	}
 
 	return (
-		<div
-			role="region"
-			aria-label={t.consent.label}
-			className="consent-banner fixed inset-x-4 bottom-4 z-40 cut flex flex-col gap-3 bg-card/95 p-4 backdrop-blur sm:right-auto sm:max-w-sm"
-		>
-			<p className="text-sm leading-relaxed text-muted-foreground">{t.consent.text}</p>
-			<div className="flex justify-end gap-2">
-				<button
-					type="button"
-					onClick={() => setConsent("denied")}
-					className="cut-sm cut-hover min-h-10 px-4 text-sm font-semibold text-foreground"
-				>
-					{t.consent.decline}
-				</button>
-				<button
-					type="button"
-					onClick={() => setConsent("granted")}
-					className="cut-sm cut-fill min-h-10 bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-				>
-					{t.consent.accept}
-				</button>
-			</div>
+		<div className="consent-banner">
+			<section aria-label={t.consent.label} className="cut bg-card">
+				<div className="consent-banner-content px-3.5 pt-3 pb-1">
+					<p className="flex items-start gap-2 text-[0.8125rem] leading-snug text-muted-foreground">
+						<Cookie className="mt-px size-4 shrink-0 text-accent" aria-hidden="true" />
+						<span>{t.consent.text}</span>
+					</p>
+					<div className="mt-1 flex flex-wrap justify-end gap-x-2">
+						<button
+							type="button"
+							onClick={() => setConsent("denied")}
+							className="min-h-11 w-20 px-2 text-sm font-semibold text-foreground transition-colors hover:text-accent"
+						>
+							{t.consent.decline}
+						</button>
+						<button
+							type="button"
+							onClick={() => setConsent("granted")}
+							className="min-h-11 w-20 px-2 text-sm font-semibold text-foreground transition-colors hover:text-accent"
+						>
+							{t.consent.accept}
+						</button>
+					</div>
+				</div>
+			</section>
 		</div>
 	);
 }
