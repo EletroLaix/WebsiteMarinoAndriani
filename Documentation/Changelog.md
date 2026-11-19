@@ -11,6 +11,7 @@
 ### BugFix
 
 - Made the preparation status clear on the Personal projects and Quotes cards.
+- Restored Google Analytics when a visitor accepts after previously declining.
 
 ### Resources
 
