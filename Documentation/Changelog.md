@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Reworked the bilingual Passions hub with previews of personal projects and quotes.
+
 ## 1.3.1
 
 ### Features

@@ -15,7 +15,7 @@ export const PassionSections: PassionSection[] = [
 		id: "lab",
 		published: false,
 		path: { it: "/passioni/laboratorio", en: "/en/passions/lab" },
-		title: { it: "Laboratorio", en: "Lab" },
+		title: { it: "Progetti personali", en: "Personal projects" },
 		summary: {
 			it: "Elettronica e firmware. Codice su GitHub.",
 			en: "Electronics and firmware. Code on GitHub.",
