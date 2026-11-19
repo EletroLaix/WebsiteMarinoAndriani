@@ -17,8 +17,8 @@ export const PassionSections: PassionSection[] = [
 		path: { it: "/passioni/laboratorio", en: "/en/passions/lab" },
 		title: { it: "Progetti personali", en: "Personal projects" },
 		summary: {
-			it: "Elettronica e firmware. Codice su GitHub.",
-			en: "Electronics and firmware. Code on GitHub.",
+			it: "Progetti di elettronica e firmware.",
+			en: "Electronics and firmware projects.",
 		},
 	},
 	{

@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Mountain, Quote } from "lucide-react";
+import { ArrowRight, Clock, Github, Mountain, Quote } from "lucide-react";
 import type { Lang } from "@/Resources/Content/Localized";
 import { PassionSections } from "@/Resources/Content/Passions";
 import { dictionary } from "@/Resources/Dictionary";
@@ -28,14 +28,20 @@ export function PassionsView({ lang }: { lang: Lang }) {
 								key={section.id}
 								className="cut flex flex-col gap-3 bg-card p-7"
 							>
-								<Icon className="size-6 text-muted-foreground" aria-hidden="true" />
+								<div className="flex flex-wrap items-center justify-between gap-3">
+									<Icon
+										className="size-6 text-muted-foreground"
+										aria-hidden="true"
+									/>
+									<p className="inline-flex items-center gap-2 border border-accent/35 bg-accent/10 px-3 py-1.5 font-display text-xs font-semibold uppercase text-accent">
+										<Clock className="size-3.5" aria-hidden="true" />
+										{t.passions.inPreparation}
+									</p>
+								</div>
 								<h2 className="font-display text-2xl font-semibold">
 									{section.title[lang]}
 								</h2>
 								<p className="text-muted-foreground">{section.summary[lang]}</p>
-								<p className="font-display text-xs uppercase text-muted-foreground">
-									{lang === "it" ? "In preparazione" : "Coming soon"}
-								</p>
 							</article>
 						);
 					}
