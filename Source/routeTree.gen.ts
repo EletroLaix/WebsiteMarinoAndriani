@@ -19,7 +19,9 @@ import { Route as EnIndexRouteImport } from './Interface/Routes/en/index'
 import { Route as EnAboutRouteImport } from './Interface/Routes/en/about'
 import { Route as EnContactRouteImport } from './Interface/Routes/en/contact'
 import { Route as PassioniIndexRouteImport } from './Interface/Routes/passioni/index'
+import { Route as PassioniTrekkingRouteImport } from './Interface/Routes/passioni/trekking'
 import { Route as EnPassionsIndexRouteImport } from './Interface/Routes/en/passions/index'
+import { Route as EnPassionsTrekkingRouteImport } from './Interface/Routes/en/passions/trekking'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -71,9 +73,19 @@ const PassioniIndexRoute = PassioniIndexRouteImport.update({
   path: '/passioni/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PassioniTrekkingRoute = PassioniTrekkingRouteImport.update({
+  id: '/passioni/trekking',
+  path: '/passioni/trekking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnPassionsIndexRoute = EnPassionsIndexRouteImport.update({
   id: '/en/passions/',
   path: '/en/passions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPassionsTrekkingRoute = EnPassionsTrekkingRouteImport.update({
+  id: '/en/passions/trekking',
+  path: '/en/passions/trekking',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -86,8 +98,10 @@ export interface FileRoutesByFullPath {
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
   '/en/contact': typeof EnContactRoute
+  '/passioni/trekking': typeof PassioniTrekkingRoute
   '/en/': typeof EnIndexRoute
   '/passioni/': typeof PassioniIndexRoute
+  '/en/passions/trekking': typeof EnPassionsTrekkingRoute
   '/en/passions/': typeof EnPassionsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -99,8 +113,10 @@ export interface FileRoutesByTo {
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
   '/en/contact': typeof EnContactRoute
+  '/passioni/trekking': typeof PassioniTrekkingRoute
   '/en': typeof EnIndexRoute
   '/passioni': typeof PassioniIndexRoute
+  '/en/passions/trekking': typeof EnPassionsTrekkingRoute
   '/en/passions': typeof EnPassionsIndexRoute
 }
 export interface FileRoutesById {
@@ -113,8 +129,10 @@ export interface FileRoutesById {
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
   '/en/contact': typeof EnContactRoute
+  '/passioni/trekking': typeof PassioniTrekkingRoute
   '/en/': typeof EnIndexRoute
   '/passioni/': typeof PassioniIndexRoute
+  '/en/passions/trekking': typeof EnPassionsTrekkingRoute
   '/en/passions/': typeof EnPassionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -128,8 +146,10 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/en/about'
     | '/en/contact'
+    | '/passioni/trekking'
     | '/en/'
     | '/passioni/'
+    | '/en/passions/trekking'
     | '/en/passions/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -141,8 +161,10 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/en/about'
     | '/en/contact'
+    | '/passioni/trekking'
     | '/en'
     | '/passioni'
+    | '/en/passions/trekking'
     | '/en/passions'
   id:
     | '__root__'
@@ -154,8 +176,10 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/en/about'
     | '/en/contact'
+    | '/passioni/trekking'
     | '/en/'
     | '/passioni/'
+    | '/en/passions/trekking'
     | '/en/passions/'
   fileRoutesById: FileRoutesById
 }
@@ -168,8 +192,10 @@ export interface RootRouteChildren {
   ContattiRoute: typeof ContattiRoute
   EnAboutRoute: typeof EnAboutRoute
   EnContactRoute: typeof EnContactRoute
+  PassioniTrekkingRoute: typeof PassioniTrekkingRoute
   EnIndexRoute: typeof EnIndexRoute
   PassioniIndexRoute: typeof PassioniIndexRoute
+  EnPassionsTrekkingRoute: typeof EnPassionsTrekkingRoute
   EnPassionsIndexRoute: typeof EnPassionsIndexRoute
 }
 
@@ -245,11 +271,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PassioniIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/passioni/trekking': {
+      id: '/passioni/trekking'
+      path: '/passioni/trekking'
+      fullPath: '/passioni/trekking'
+      preLoaderRoute: typeof PassioniTrekkingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/passions/': {
       id: '/en/passions/'
       path: '/en/passions'
       fullPath: '/en/passions/'
       preLoaderRoute: typeof EnPassionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/passions/trekking': {
+      id: '/en/passions/trekking'
+      path: '/en/passions/trekking'
+      fullPath: '/en/passions/trekking'
+      preLoaderRoute: typeof EnPassionsTrekkingRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -264,8 +304,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContattiRoute: ContattiRoute,
   EnAboutRoute: EnAboutRoute,
   EnContactRoute: EnContactRoute,
+  PassioniTrekkingRoute: PassioniTrekkingRoute,
   EnIndexRoute: EnIndexRoute,
   PassioniIndexRoute: PassioniIndexRoute,
+  EnPassionsTrekkingRoute: EnPassionsTrekkingRoute,
   EnPassionsIndexRoute: EnPassionsIndexRoute,
 }
 export const routeTree = rootRouteImport

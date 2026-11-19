@@ -69,6 +69,7 @@ const it = {
 		title: "Le cose che amo",
 		intro: "Progetti personali, citazioni, trekking.",
 		open: "Apri",
+		inPreparation: "In preparazione",
 	},
 	footer: {
 		role: "Software engineer · Bari, Puglia",
@@ -165,6 +166,7 @@ const en: Dictionary = {
 		title: "Things I love",
 		intro: "Personal projects, quotes, trekking.",
 		open: "Open",
+		inPreparation: "Coming soon",
 	},
 	footer: {
 		role: "Software engineer · Bari, Italy",

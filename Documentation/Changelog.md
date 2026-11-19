@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Opened the bilingual Passions hub with Trekking, Personal projects, and Quotes.
+- Added a chronological trekking landing page for the Sentiero del Viandante, Sentiero dello Spirito, and Via degli Dei, with thirteen recorded stages and a link to Marino's Wikiloc profile.
+- Added interactive maps and synchronized elevation previews that restart when a map returns to view.
+
+### BugFix
+
+- Made the preparation status clear on the Personal projects and Quotes cards.
+
+### Resources
+
+- Added thirteen original GPX files as source assets. The public build includes the geometry and elevation used by the maps.
+
+### Known issues
+
+- Touch pinch-to-zoom still needs verification on a physical phone.
+
 ## 1.3.1
 
 ### Features

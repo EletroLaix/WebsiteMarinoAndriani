@@ -15,10 +15,10 @@ export const PassionSections: PassionSection[] = [
 		id: "lab",
 		published: false,
 		path: { it: "/passioni/laboratorio", en: "/en/passions/lab" },
-		title: { it: "Laboratorio", en: "Lab" },
+		title: { it: "Progetti personali", en: "Personal projects" },
 		summary: {
-			it: "Elettronica e firmware. Codice su GitHub.",
-			en: "Electronics and firmware. Code on GitHub.",
+			it: "Progetti di elettronica e firmware.",
+			en: "Electronics and firmware projects.",
 		},
 	},
 	{
@@ -30,7 +30,7 @@ export const PassionSections: PassionSection[] = [
 	},
 	{
 		id: "trekking",
-		published: false,
+		published: true,
 		path: { it: "/passioni/trekking", en: "/en/passions/trekking" },
 		title: { it: "Trekking", en: "Trekking" },
 		summary: { it: "I percorsi che ho fatto.", en: "Trails I have hiked." },

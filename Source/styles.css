@@ -768,3 +768,69 @@ html[data-overlay="closed"] .rise {
 		transform: none !important;
 	}
 }
+.trek-map-placeholder {
+	background-color: var(--card);
+	background-image:
+		radial-gradient(ellipse at center, var(--card) 20%, transparent 75%),
+		linear-gradient(
+			to right,
+			color-mix(in oklab, var(--accent) 13%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			color-mix(in oklab, var(--accent) 13%, transparent) 1px,
+			transparent 1px
+		);
+	background-size:
+		auto,
+		24px 24px,
+		24px 24px;
+}
+
+.trek-map .maplibregl-canvas {
+	mask-image:
+		linear-gradient(to right, transparent, black 9%, black 91%, transparent),
+		linear-gradient(to bottom, transparent, black 12%, black 84%, transparent);
+	mask-composite: intersect;
+}
+
+.trek-map .maplibregl-ctrl.maplibregl-ctrl-attrib {
+	background: transparent;
+	color: var(--muted-foreground);
+	font-family: var(--font-sans);
+	font-size: 0.6875rem;
+	line-height: 1.35;
+	text-align: right;
+}
+
+.trek-map .maplibregl-ctrl-attrib a {
+	color: inherit;
+}
+
+.trek-map .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button {
+	display: grid;
+	place-items: center;
+	background: transparent;
+	color: var(--muted-foreground);
+	font-size: 0.875rem;
+}
+
+.trek-map .maplibregl-ctrl-attrib-button::before {
+	content: "©";
+}
+
+.trek-map-cursor {
+	box-shadow: 0 0 12px 3px color-mix(in oklab, var(--accent) 65%, transparent);
+}
+
+.trek-hero {
+	background-image:
+		linear-gradient(105deg, var(--card) 30%, transparent 100%),
+		repeating-radial-gradient(
+			ellipse at 92% -20%,
+			transparent 0 16px,
+			color-mix(in oklab, var(--accent) 13%, transparent) 17px 18px,
+			transparent 19px 28px
+		);
+}
