@@ -52,6 +52,18 @@ const PageText: Record<PageKey, Record<Lang, SeoText>> = {
 			description: "Personal projects, quotes, and trekking by Marino Andriani.",
 		},
 	},
+	trekking: {
+		it: {
+			title: "Trekking — Marino Andriani",
+			description:
+				"Mappe, tappe e tracce del Sentiero del Viandante, del Sentiero dello Spirito e della Via degli Dei.",
+		},
+		en: {
+			title: "Trekking — Marino Andriani",
+			description:
+				"Maps, stages and GPS tracks for the Sentiero del Viandante, Sentiero dello Spirito and Via degli Dei.",
+		},
+	},
 };
 
 const Locales: Record<Lang, string> = { it: "it_IT", en: "en_US" };
@@ -103,6 +115,7 @@ function breadcrumbSchema(lang: Lang, key: PageKey) {
 		about: t.nav.about,
 		contact: t.nav.contact,
 		passions: t.nav.passions,
+		trekking: "Trekking",
 	};
 	return {
 		"@type": "BreadcrumbList",
@@ -115,7 +128,7 @@ function breadcrumbSchema(lang: Lang, key: PageKey) {
 			},
 			{
 				"@type": "ListItem",
-				position: 2,
+				position: key === "trekking" ? 3 : 2,
 				name: names[key],
 				item: absoluteUrl(pagePath(key, lang)),
 			},

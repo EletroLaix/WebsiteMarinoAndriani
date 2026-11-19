@@ -1,5 +1,6 @@
 const MeasurementId = "G-J1BV4FVTH5";
 const ConsentKey = "ma-analytics-consent";
+const AnalyticsDisabledKey = `ga-disable-${MeasurementId}`;
 
 export type Consent = "granted" | "denied" | null;
 
@@ -96,14 +97,15 @@ export function initializeAnalytics() {
 
 export function setConsent(consent: "granted" | "denied") {
 	storeConsent(consent);
-	if (consent === "granted") {
+	const granted = consent === "granted";
+	(window as unknown as Record<string, unknown>)[AnalyticsDisabledKey] = !granted;
+	if (granted) {
 		loadGoogleAnalytics();
-		trackPageView(window.location.pathname);
 	} else {
-		(window as unknown as Record<string, unknown>)[`ga-disable-${MeasurementId}`] = true;
 		removeGoogleAnalyticsCookies();
 	}
 	emit({ consent, bannerOpen: false });
+	if (granted) trackPageView(window.location.pathname);
 }
 
 export function openConsentBanner() {

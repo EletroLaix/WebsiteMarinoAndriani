@@ -36,4 +36,28 @@
 		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/contact/" />
 		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/contatti/" />
 	</url>
+	<url>
+		<loc>https://marinoandriani.me/passioni/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/passioni/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/en/passions/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/passioni/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/passioni/trekking/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/passioni/trekking/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/trekking/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/trekking/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/en/passions/trekking/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/passioni/trekking/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/trekking/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/trekking/" />
+	</url>
 </urlset>

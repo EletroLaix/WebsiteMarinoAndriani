@@ -4,13 +4,16 @@ import { PassionSections, publishedPassionSections } from "../Resources/Content/
 
 export const SiteUrl = "https://marinoandriani.me";
 
-export type PageKey = "home" | "about" | "contact" | "passions";
+export type PageKey = "home" | "about" | "contact" | "passions" | "trekking";
+
+const TrekkingSection = PassionSections.find((section) => section.id === "trekking")!;
 
 const PagePaths: Record<PageKey, Localized> = {
 	home: { it: "/", en: "/en" },
 	about: { it: "/chi-sono", en: "/en/about" },
 	contact: { it: "/contatti", en: "/en/contact" },
 	passions: { it: "/passioni", en: "/en/passions" },
+	trekking: TrekkingSection.path,
 };
 
 /** Old addresses that now redirect to their localized replacement. */
@@ -42,6 +45,9 @@ export function pageFromPath(pathname: string): PageKey | undefined {
 }
 
 export function isPagePublished(key: PageKey): boolean {
+	if (key === "trekking") {
+		return TrekkingSection.published;
+	}
 	if (key === "passions") {
 		return publishedPassionSections().length > 0;
 	}
@@ -88,6 +94,7 @@ export function publishedPages(): SitePage[] {
 		}
 	}
 	for (const section of publishedPassionSections()) {
+		if (pageFromPath(section.path.it)) continue;
 		for (const lang of Languages) {
 			pages.push({
 				path: section.path[lang],

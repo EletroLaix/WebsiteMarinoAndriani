@@ -4,6 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
+import { DOMParser } from "@xmldom/xmldom";
+import { parseGpx } from "./Source/Application/Gpx";
 import { absoluteUrl, LegacyRedirects, publishedPages } from "./Source/Application/Site";
 
 type StaticPage = {
@@ -51,6 +54,38 @@ function staticPages(): StaticPage[] {
 
 function escapeXml(value: string): string {
 	return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function trekkingTracksPlugin(): Plugin {
+	const parser = new DOMParser({
+		onError(level, message) {
+			if (level !== "warning") throw new Error(message);
+		},
+	});
+	return {
+		name: "trekking-tracks",
+		enforce: "pre",
+		async load(id) {
+			if (!id.endsWith(".gpx?track")) return;
+			const filename = id.slice(0, -"?track".length);
+			this.addWatchFile(filename);
+			try {
+				const document = parser.parseFromString(
+					await readFile(filename, "utf8"),
+					"application/xml",
+				);
+				const segments = parseGpx(document);
+				const data = JSON.stringify(segments, (key, value) =>
+					key === "distance" && typeof value === "number"
+						? Number(value.toFixed(5))
+						: value,
+				);
+				return `export default ${data};`;
+			} catch (error) {
+				this.error(`Could not read trekking track ${filename}: ${String(error)}`);
+			}
+		},
+	};
 }
 
 /** Writes sitemap.xml with hreflang alternates into the static client output. */
@@ -101,6 +136,7 @@ export default defineConfig(({ command, mode }) => {
 			dedupe: ["react", "react-dom", "@tanstack/react-query", "@tanstack/query-core"],
 		},
 		plugins: [
+			trekkingTracksPlugin(),
 			tailwindcss(),
 			tanstackStart({
 				srcDirectory: "Source",
