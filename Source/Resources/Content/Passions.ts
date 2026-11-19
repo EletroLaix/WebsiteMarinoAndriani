@@ -30,7 +30,7 @@ export const PassionSections: PassionSection[] = [
 	},
 	{
 		id: "trekking",
-		published: false,
+		published: true,
 		path: { it: "/passioni/trekking", en: "/en/passions/trekking" },
 		title: { it: "Trekking", en: "Trekking" },
 		summary: { it: "I percorsi che ho fatto.", en: "Trails I have hiked." },

@@ -5,6 +5,9 @@
 ### Features
 
 - Reworked the bilingual Passions hub with previews of personal projects and quotes.
+- Added a chronological trekking landing page for the Sentiero del Viandante, Sentiero dello Spirito, and Via degli Dei, with thirteen recorded stages and a link to Marino's Wikiloc profile.
+- Added a native map and synchronized elevation profile for each hike. The build reads the original GPX stage files and publishes the geometry and elevation used by the maps.
+- Blended the trail maps into the page, simplified their controls, and added an elevation preview that restarts when a map returns to view.
 
 ## 1.3.1
 

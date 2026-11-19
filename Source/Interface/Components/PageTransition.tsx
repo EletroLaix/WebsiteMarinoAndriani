@@ -47,10 +47,12 @@ const WidgetLinger = 900;
 
 type PageTransitionValue = {
 	navigate: (href: string) => void;
+	bootComplete: boolean;
 };
 
 const PageTransitionContext = createContext<PageTransitionValue>({
 	navigate: () => {},
+	bootComplete: true,
 });
 
 export function usePageTransition(): PageTransitionValue {
@@ -310,9 +312,10 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 		[router, later],
 	);
 
+	const bootComplete = phase === "idle";
 	const value = useMemo<PageTransitionValue>(
-		() => ({ navigate: (href) => void navigate(href) }),
-		[navigate],
+		() => ({ navigate: (href) => void navigate(href), bootComplete }),
+		[navigate, bootComplete],
 	);
 
 	return (
