@@ -1,0 +1,310 @@
+.quotes-page {
+	--quote-font: "Geist Mono", ui-monospace, monospace;
+	--quote-accent: var(--color-accent);
+	--quote-ink: var(--color-foreground);
+	position: relative;
+	isolation: isolate;
+	overflow: clip;
+	display: grid;
+	grid-template-rows: auto minmax(380px, 1fr) auto;
+	min-height: calc(100svh - 4rem);
+	padding: 0.85rem max(1rem, calc((100% - 69rem) / 2)) 1.6rem;
+	text-align: center;
+}
+
+.quotes-toolbar,
+.quotes-controls {
+	z-index: 1;
+}
+
+.quotes-toolbar {
+	display: flex;
+}
+
+.quotes-back {
+	display: inline-flex;
+	min-height: 44px;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--color-faint);
+	font: 500 0.75rem var(--quote-font);
+}
+
+.quotes-back:hover {
+	color: var(--quote-accent);
+}
+
+.quotes-scene {
+	--lava-travel: clamp(4.5rem, 22vh, 12rem);
+	position: relative;
+	display: grid;
+	align-items: center;
+	min-width: 0;
+}
+
+.quotes-field {
+	position: absolute;
+	inset-block: 0;
+	left: 50%;
+	width: min(100vw, 106rem);
+	height: 100%;
+	transform: translateX(-50%);
+	pointer-events: none;
+}
+
+.quotes-fragments {
+	z-index: 1;
+	display: grid;
+	grid-template-areas: "fragment";
+	place-items: center;
+	min-width: 0;
+	padding: 3rem 0 2rem;
+	pointer-events: none;
+}
+
+.quotes-fragment {
+	grid-area: fragment;
+	max-width: min(100%, 49rem);
+	margin: 0;
+}
+
+.quotes-fragment blockquote {
+	color: var(--quote-ink);
+	font: 450 clamp(1.35rem, 4vw, 3.2rem)/1.23 var(--quote-font);
+	letter-spacing: -0.065em;
+	text-wrap: balance;
+	text-shadow:
+		0 2px 16px #0b0909,
+		0 0 32px #0b0909;
+}
+
+.quotes-fragment[data-dense] blockquote {
+	font-size: clamp(1.03rem, 2.55vw, 2.05rem);
+	line-height: 1.37;
+	letter-spacing: -0.035em;
+}
+
+.quotes-fragment-enter {
+	pointer-events: auto;
+}
+
+.quotes-word {
+	display: inline-block;
+	max-width: 100%;
+	overflow-wrap: anywhere;
+}
+
+.quotes-glyph {
+	position: relative;
+	display: inline-block;
+}
+
+.quotes-glyph::before {
+	position: absolute;
+	inset: 0;
+	color: #ffab66;
+	content: attr(data-bit);
+	opacity: 0;
+	text-shadow: 0 0 12px #e95e2b;
+}
+
+.quotes-fragment-enter .quotes-binary {
+	animation: quote-rise 960ms var(--entry-delay) cubic-bezier(0.24, 0.72, 0.3, 1) both;
+}
+
+.quotes-fragment-enter .quotes-glyph {
+	animation: quote-letter-in 195ms calc(var(--entry-delay) + 515ms + var(--glyph-delay)) both;
+}
+
+.quotes-fragment-enter .quotes-glyph::before {
+	animation: quote-bit-in 450ms calc(var(--entry-delay) + 115ms + var(--glyph-delay)) both;
+}
+
+.quotes-fragment-exit {
+	user-select: none;
+}
+
+.quotes-fragment-exit .quotes-binary {
+	animation: quote-sink var(--exit-duration) ease-in both;
+}
+
+.quotes-fragment-exit .quotes-glyph {
+	animation: quote-letter-out 140ms calc(var(--glyph-delay) / 2) both;
+}
+
+.quotes-fragment-exit .quotes-glyph::before {
+	animation: quote-bit-out 405ms calc(115ms + var(--glyph-delay) / 2) both;
+}
+
+.quotes-fragment figcaption {
+	display: grid;
+	justify-items: center;
+	gap: 0.3rem;
+	margin-top: clamp(0.9rem, 4vh, 2rem);
+	color: var(--quote-ink);
+	font-size: 0.9rem;
+}
+
+.quotes-fragment-enter figcaption {
+	animation: quote-credit-in 350ms calc(var(--entry-delay) + 680ms) ease-out both;
+}
+
+.quotes-fragment-exit figcaption {
+	animation: quote-credit-out 160ms ease-in both;
+}
+
+.quotes-kind {
+	font: 500 0.63rem var(--quote-font);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--quote-accent);
+}
+
+.quotes-fragment small {
+	color: var(--color-faint);
+}
+
+.quotes-controls {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.quotes-controls button {
+	display: inline-flex;
+	min-width: 44px;
+	min-height: 44px;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid color-mix(in srgb, var(--quote-accent) 24%, transparent);
+	background: color-mix(in srgb, var(--quote-accent) 5%, var(--color-background));
+	color: var(--quote-ink);
+	cursor: pointer;
+}
+
+.quotes-controls button:hover {
+	border-color: var(--quote-accent);
+	color: var(--quote-accent);
+	background: color-mix(in srgb, var(--quote-accent) 13%, var(--color-background));
+}
+
+@keyframes quote-rise {
+	0% {
+		opacity: 0;
+		transform: translateY(var(--lava-travel)) scale(0.42, 0.36);
+	}
+	28% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes quote-sink {
+	0%,
+	27% {
+		opacity: 1;
+		transform: none;
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(var(--lava-travel)) scale(0.32, 0.26);
+	}
+}
+
+@keyframes quote-letter-in {
+	0%,
+	35% {
+		color: transparent;
+		text-shadow: none;
+	}
+	100% {
+		color: var(--quote-ink);
+	}
+}
+
+@keyframes quote-letter-out {
+	0% {
+		color: var(--quote-ink);
+	}
+	100% {
+		color: transparent;
+		text-shadow: none;
+	}
+}
+
+@keyframes quote-bit-in {
+	0% {
+		opacity: 0;
+		transform: translateY(0.25em);
+	}
+	25%,
+	78% {
+		opacity: 0.95;
+	}
+	100% {
+		opacity: 0;
+		transform: none;
+	}
+}
+
+@keyframes quote-bit-out {
+	0% {
+		opacity: 0;
+	}
+	35%,
+	70% {
+		opacity: 0.92;
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(0.28em);
+	}
+}
+
+@keyframes quote-credit-in {
+	from {
+		opacity: 0;
+		transform: translateY(0.4rem);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes quote-credit-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+		transform: translateY(0.2rem);
+	}
+}
+
+@media (max-width: 600px) {
+	.quotes-page {
+		grid-template-rows: auto minmax(315px, 1fr) auto;
+	}
+
+	.quotes-scene {
+		--lava-travel: clamp(4.5rem, 21vh, 10rem);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.quotes-fragment-enter .quotes-binary,
+	.quotes-fragment-enter .quotes-glyph,
+	.quotes-fragment-enter .quotes-glyph::before,
+	.quotes-fragment-enter figcaption {
+		animation: none;
+	}
+
+	.quotes-fragment-exit {
+		display: none;
+	}
+}

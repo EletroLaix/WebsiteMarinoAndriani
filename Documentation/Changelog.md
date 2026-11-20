@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Added a local Quotes preview in Italian and English, where each quote rises from the existing lava background as binary digits and dissolves back into it.
+
+### Resources
+
+- Imported all 90 entries from the Notion collection and documented the source review.
+
+### Known issues
+
+- Some attributions still need verification. The English preview displays the Italian text when an English version is unavailable.
+
 ## 1.4.0
 
 ### Features

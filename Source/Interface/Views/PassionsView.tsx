@@ -42,6 +42,15 @@ export function PassionsView({ lang }: { lang: Lang }) {
 									{section.title[lang]}
 								</h2>
 								<p className="text-muted-foreground">{section.summary[lang]}</p>
+								{import.meta.env.DEV && section.id === "quotes" && (
+									<TransitionLink
+										href={section.path[lang]}
+										className="mt-1 inline-flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-accent hover:underline"
+									>
+										{lang === "it" ? "Apri la bozza" : "Open the draft"}
+										<ArrowRight className="size-4" aria-hidden="true" />
+									</TransitionLink>
+								)}
 							</article>
 						);
 					}
