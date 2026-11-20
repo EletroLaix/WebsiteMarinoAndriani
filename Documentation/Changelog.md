@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.5.0
 
 ### Features
 
@@ -14,6 +14,11 @@
 ### Resources
 
 - The build summarizes each GPX file into a light elevation profile for the hero chart.
+- Added the add-trek agent skill in `.agents/skills`, which explains how to publish a new trek from its GPX files.
+
+### Known issues
+
+- Touch pinch-to-zoom on the trek maps still needs verification on a physical phone.
 
 ## 1.4.0
 
