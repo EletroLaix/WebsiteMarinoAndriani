@@ -1127,28 +1127,46 @@ html[data-overlay="closed"] .rise {
 .passion-index {
 	/* Grey of rows still loading, kept above 3:1 contrast for these large titles. */
 	--passion-dim: oklch(0.52 0 0);
-	border-top: 1px solid var(--color-border);
+	display: grid;
+	gap: 0.75rem;
 }
 
-.passion-index > li {
-	border-bottom: 1px solid var(--color-border);
-}
-
+/* Rows are see-through bands with cut corners, so the lava stays visible behind them. */
 .passion-row {
+	--cut: 14px;
 	position: relative;
 	display: grid;
 	grid-template-columns: 3rem minmax(0, 1fr);
 	gap: 0.5rem 1rem;
 	align-items: center;
 	overflow: hidden;
-	padding: 1.75rem 0.5rem;
+	padding: 1.75rem 1.25rem;
+	background-color: color-mix(in oklab, var(--card) 45%, transparent);
+	clip-path: polygon(
+		0 0,
+		calc(100% - var(--cut)) 0,
+		100% var(--cut),
+		100% 100%,
+		var(--cut) 100%,
+		0 calc(100% - var(--cut))
+	);
+	transition: background-color 300ms ease;
+}
+
+.passion-row.is-published {
+	background-color: color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+/* The clip would hide an outline drawn outside, so focus is shown inside the band. */
+.passion-row:focus-visible {
+	outline-offset: -4px;
 }
 
 @media (min-width: 768px) {
 	.passion-row {
 		grid-template-columns: 5.5rem minmax(0, 1fr) auto;
 		gap: 1.5rem;
-		padding-block: 2.125rem;
+		padding: 2.125rem 1.75rem;
 	}
 }
 
@@ -1255,6 +1273,10 @@ html[data-overlay="closed"] .rise {
 
 /* Touch screens keep :hover after a tap, so the shifts only follow a real pointer. */
 @media (hover: hover) {
+	.passion-row.is-open:hover {
+		background-color: color-mix(in oklab, var(--card) 85%, transparent);
+	}
+
 	.passion-row.is-open:hover .passion-title {
 		color: var(--accent);
 		transform: translateX(0.5rem);
