@@ -9,7 +9,11 @@ export type PassionSection = {
 	/** Unpublished sections only: where the index counter stops, from 0 to 99. */
 	progress?: number;
 	/** Unpublished sections only: the tongue-in-cheek error shown under the counter. */
-	status?: Localized;
+	status?: {
+		/** Error code shown in red, the same in every language. */
+		code: string;
+		message: Localized;
+	};
 };
 
 /** Sub-sections of the "Passioni" area; each one is enabled once it has content. */
@@ -21,8 +25,11 @@ export const PassionSections: PassionSection[] = [
 		title: { it: "Progetti personali", en: "Personal projects" },
 		progress: 42,
 		status: {
-			it: "ERR 42 · la risposta c’è, manca la domanda",
-			en: "ERR 42 · the answer is here, the question is missing",
+			code: "ERR 42",
+			message: {
+				it: "la risposta c’è, manca la domanda",
+				en: "the answer is here, the question is missing",
+			},
 		},
 	},
 	{
@@ -32,8 +39,11 @@ export const PassionSections: PassionSection[] = [
 		title: { it: "Citazioni", en: "Quotes" },
 		progress: 68,
 		status: {
-			it: "FAIL · Marvin si rifiuta di collaborare",
-			en: "FAIL · Marvin refuses to cooperate",
+			code: "FAIL",
+			message: {
+				it: "Marvin si rifiuta di collaborare",
+				en: "Marvin refuses to cooperate",
+			},
 		},
 	},
 	{

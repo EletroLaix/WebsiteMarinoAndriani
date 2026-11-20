@@ -137,7 +137,8 @@ function PublishedRow({
 	const delay = FirstRowDelay + index * RowStagger;
 	const value = useCounter(100, PublishedCount, delay, ready);
 	const [open, setOpen] = useState(false);
-	const label = useDecoded(`${t.passions.open} →`, open);
+	const openText = `${t.passions.open} →`;
+	const label = useDecoded(openText, open);
 	const Preview = Previews[section.id];
 
 	useEffect(() => {
@@ -164,7 +165,15 @@ function PublishedRow({
 			<span className="passion-side" aria-hidden="true">
 				<span className="passion-counter">
 					{open ? (
-						<span className="passion-open">{label}</span>
+						<span className="passion-open">
+							{label === openText ? (
+								<>
+									{t.passions.open} <span className="passion-arrow">→</span>
+								</>
+							) : (
+								label
+							)}
+						</span>
 					) : (
 						<>
 							{threeDigits(value)}
@@ -190,11 +199,15 @@ function UnpublishedRow({
 }) {
 	const t = dictionary(lang);
 	const target = section.progress ?? 0;
-	const status = section.status?.[lang] ?? t.passions.inPreparation;
+	const code = section.status?.code;
+	const message = section.status?.message[lang] ?? t.passions.inPreparation;
+	const status = code ? `${code} · ${message}` : message;
 	const delay = FirstRowDelay + index * RowStagger;
 	const value = useCounter(target, 900 + target * 12, delay, ready);
 	const stuck = ready && value === target;
 	const statusText = useDecoded(status, stuck);
+	// While decoding the status is plain zeros and ones; once settled the code turns red.
+	const statusSettled = statusText === status;
 	const [glitch, setGlitch] = useState<string>();
 
 	// Once stuck, the digits break into zeros and ones for an instant every few seconds.
@@ -241,7 +254,17 @@ function UnpublishedRow({
 					{glitch ?? threeDigits(value)}
 					<sup>%</sup>
 				</span>
-				<span className="passion-status">{stuck ? statusText : " "}</span>
+				<span className="passion-status">
+					{!stuck ? (
+						" "
+					) : statusSettled && code ? (
+						<>
+							<b className="passion-code">{code}</b> · {message}
+						</>
+					) : (
+						statusText
+					)}
+				</span>
 			</span>
 		</div>
 	);

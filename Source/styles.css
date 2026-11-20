@@ -1234,6 +1234,11 @@ html[data-overlay="closed"] .rise {
 	white-space: pre-wrap;
 }
 
+.passion-code {
+	color: var(--destructive);
+	font-weight: 600;
+}
+
 .passion-row.is-open .passion-number,
 .passion-row.is-open .passion-counter {
 	color: var(--accent);
@@ -1243,17 +1248,30 @@ html[data-overlay="closed"] .rise {
 	color: var(--foreground);
 }
 
-/* Touch screens keep :hover after a tap, so the shift only follows a real pointer. */
+.passion-arrow {
+	display: inline-block;
+	transition: transform 300ms ease;
+}
+
+/* Touch screens keep :hover after a tap, so the shifts only follow a real pointer. */
 @media (hover: hover) {
 	.passion-row.is-open:hover .passion-title {
 		color: var(--accent);
 		transform: translateX(0.5rem);
+	}
+
+	.passion-row.is-open:hover .passion-arrow {
+		transform: translateX(0.375rem);
 	}
 }
 
 .passion-row.is-open:focus-visible .passion-title {
 	color: var(--accent);
 	transform: translateX(0.5rem);
+}
+
+.passion-row.is-open:focus-visible .passion-arrow {
+	transform: translateX(0.375rem);
 }
 
 .passion-preview {
