@@ -19,8 +19,10 @@ import { Route as EnIndexRouteImport } from './Interface/Routes/en/index'
 import { Route as EnAboutRouteImport } from './Interface/Routes/en/about'
 import { Route as EnContactRouteImport } from './Interface/Routes/en/contact'
 import { Route as PassioniIndexRouteImport } from './Interface/Routes/passioni/index'
+import { Route as PassioniQuotesRouteImport } from './Interface/Routes/passioni/quotes'
 import { Route as PassioniTrekkingRouteImport } from './Interface/Routes/passioni/trekking'
 import { Route as EnPassionsIndexRouteImport } from './Interface/Routes/en/passions/index'
+import { Route as EnPassionsQuotesRouteImport } from './Interface/Routes/en/passions/quotes'
 import { Route as EnPassionsTrekkingRouteImport } from './Interface/Routes/en/passions/trekking'
 
 const IndexRoute = IndexRouteImport.update({
@@ -73,6 +75,11 @@ const PassioniIndexRoute = PassioniIndexRouteImport.update({
   path: '/passioni/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PassioniQuotesRoute = PassioniQuotesRouteImport.update({
+  id: '/passioni/citazioni',
+  path: '/passioni/citazioni',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PassioniTrekkingRoute = PassioniTrekkingRouteImport.update({
   id: '/passioni/trekking',
   path: '/passioni/trekking',
@@ -81,6 +88,11 @@ const PassioniTrekkingRoute = PassioniTrekkingRouteImport.update({
 const EnPassionsIndexRoute = EnPassionsIndexRouteImport.update({
   id: '/en/passions/',
   path: '/en/passions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPassionsQuotesRoute = EnPassionsQuotesRouteImport.update({
+  id: '/en/passions/quotes',
+  path: '/en/passions/quotes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnPassionsTrekkingRoute = EnPassionsTrekkingRouteImport.update({
@@ -98,9 +110,11 @@ export interface FileRoutesByFullPath {
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
   '/en/contact': typeof EnContactRoute
+  '/passioni/citazioni': typeof PassioniQuotesRoute
   '/passioni/trekking': typeof PassioniTrekkingRoute
   '/en/': typeof EnIndexRoute
   '/passioni/': typeof PassioniIndexRoute
+  '/en/passions/quotes': typeof EnPassionsQuotesRoute
   '/en/passions/trekking': typeof EnPassionsTrekkingRoute
   '/en/passions/': typeof EnPassionsIndexRoute
 }
@@ -113,9 +127,11 @@ export interface FileRoutesByTo {
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
   '/en/contact': typeof EnContactRoute
+  '/passioni/citazioni': typeof PassioniQuotesRoute
   '/passioni/trekking': typeof PassioniTrekkingRoute
   '/en': typeof EnIndexRoute
   '/passioni': typeof PassioniIndexRoute
+  '/en/passions/quotes': typeof EnPassionsQuotesRoute
   '/en/passions/trekking': typeof EnPassionsTrekkingRoute
   '/en/passions': typeof EnPassionsIndexRoute
 }
@@ -129,9 +145,11 @@ export interface FileRoutesById {
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
   '/en/contact': typeof EnContactRoute
+  '/passioni/citazioni': typeof PassioniQuotesRoute
   '/passioni/trekking': typeof PassioniTrekkingRoute
   '/en/': typeof EnIndexRoute
   '/passioni/': typeof PassioniIndexRoute
+  '/en/passions/quotes': typeof EnPassionsQuotesRoute
   '/en/passions/trekking': typeof EnPassionsTrekkingRoute
   '/en/passions/': typeof EnPassionsIndexRoute
 }
@@ -146,9 +164,11 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/en/about'
     | '/en/contact'
+    | '/passioni/citazioni'
     | '/passioni/trekking'
     | '/en/'
     | '/passioni/'
+    | '/en/passions/quotes'
     | '/en/passions/trekking'
     | '/en/passions/'
   fileRoutesByTo: FileRoutesByTo
@@ -161,9 +181,11 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/en/about'
     | '/en/contact'
+    | '/passioni/citazioni'
     | '/passioni/trekking'
     | '/en'
     | '/passioni'
+    | '/en/passions/quotes'
     | '/en/passions/trekking'
     | '/en/passions'
   id:
@@ -176,9 +198,11 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/en/about'
     | '/en/contact'
+    | '/passioni/citazioni'
     | '/passioni/trekking'
     | '/en/'
     | '/passioni/'
+    | '/en/passions/quotes'
     | '/en/passions/trekking'
     | '/en/passions/'
   fileRoutesById: FileRoutesById
@@ -192,9 +216,11 @@ export interface RootRouteChildren {
   ContattiRoute: typeof ContattiRoute
   EnAboutRoute: typeof EnAboutRoute
   EnContactRoute: typeof EnContactRoute
+  PassioniQuotesRoute: typeof PassioniQuotesRoute
   PassioniTrekkingRoute: typeof PassioniTrekkingRoute
   EnIndexRoute: typeof EnIndexRoute
   PassioniIndexRoute: typeof PassioniIndexRoute
+  EnPassionsQuotesRoute: typeof EnPassionsQuotesRoute
   EnPassionsTrekkingRoute: typeof EnPassionsTrekkingRoute
   EnPassionsIndexRoute: typeof EnPassionsIndexRoute
 }
@@ -271,6 +297,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PassioniIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/passioni/citazioni': {
+      id: '/passioni/citazioni'
+      path: '/passioni/citazioni'
+      fullPath: '/passioni/citazioni'
+      preLoaderRoute: typeof PassioniQuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/passioni/trekking': {
       id: '/passioni/trekking'
       path: '/passioni/trekking'
@@ -283,6 +316,13 @@ declare module '@tanstack/react-router' {
       path: '/en/passions'
       fullPath: '/en/passions/'
       preLoaderRoute: typeof EnPassionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/passions/quotes': {
+      id: '/en/passions/quotes'
+      path: '/en/passions/quotes'
+      fullPath: '/en/passions/quotes'
+      preLoaderRoute: typeof EnPassionsQuotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/passions/trekking': {
@@ -304,9 +344,11 @@ const rootRouteChildren: RootRouteChildren = {
   ContattiRoute: ContattiRoute,
   EnAboutRoute: EnAboutRoute,
   EnContactRoute: EnContactRoute,
+  PassioniQuotesRoute: PassioniQuotesRoute,
   PassioniTrekkingRoute: PassioniTrekkingRoute,
   EnIndexRoute: EnIndexRoute,
   PassioniIndexRoute: PassioniIndexRoute,
+  EnPassionsQuotesRoute: EnPassionsQuotesRoute,
   EnPassionsTrekkingRoute: EnPassionsTrekkingRoute,
   EnPassionsIndexRoute: EnPassionsIndexRoute,
 }
