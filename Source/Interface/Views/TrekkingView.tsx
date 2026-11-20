@@ -1,15 +1,10 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { ClientOnly } from "@tanstack/react-router";
 import { ArrowDown, ArrowLeft, ArrowUpRight, MapPin } from "lucide-react";
-import {
-	combineProfiles,
-	combineTracks,
-	type ElevationProfile,
-	type TrackPoint,
-	type TrackStage,
-} from "@/Application/Gpx";
+import { combineTracks, type TrackPoint, type TrackStage } from "@/Application/Gpx";
 import { pagePath } from "@/Application/Site";
-import { ElevationChart, type ChartTrek } from "@/Interface/Components/ElevationChart";
+import { stagePath, TrekProfiles } from "@/Application/TrekProfiles";
+import { ElevationChart } from "@/Interface/Components/ElevationChart";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
 import type { Lang } from "@/Resources/Content/Localized";
 import { Treks, type Trek } from "@/Resources/Content/Trekking";
@@ -19,12 +14,6 @@ const TrackMap = lazy(() => import("@/Interface/Components/TrackMap"));
 const TrackFiles = import.meta.glob<TrackPoint[][]>("/Source/Resources/Tracks/*.gpx", {
 	query: "?track",
 	import: "default",
-});
-// Light profiles are bundled with the page, so the hero chart needs no full track.
-const ProfileFiles = import.meta.glob<ElevationProfile>("/Source/Resources/Tracks/*.gpx", {
-	query: "?profile",
-	import: "default",
-	eager: true,
 });
 const EverestHeight = 8849;
 
@@ -67,11 +56,6 @@ const Copy = {
 
 const Timeline = [...Treks].sort((first, second) => second.year - first.year);
 
-function stagePath(trek: Trek, stage: number) {
-	const number = String(stage).padStart(2, "0");
-	return `/Source/Resources/Tracks/${trek.name} [${number}].gpx`;
-}
-
 function trackFile(trek: Trek, stage: number) {
 	return TrackFiles[stagePath(trek, stage)];
 }
@@ -82,20 +66,6 @@ function trekStats(trek: Trek) {
 		ascent: trek.stages.reduce((total, stage) => total + stage.ascent, 0),
 	};
 }
-
-/** Treks from the first to the latest, so the most recent profile is drawn on top. */
-function chartTreks(): ChartTrek[] {
-	return [...Timeline].reverse().flatMap((trek) => {
-		const profiles = trek.stages.flatMap(
-			(_, index) => ProfileFiles[stagePath(trek, index + 1)] ?? [],
-		);
-		return profiles.length
-			? [{ id: trek.id, name: trek.name, profile: combineProfiles(profiles) }]
-			: [];
-	});
-}
-
-const ChartTreks = chartTreks();
 
 function TrekMap({ trek, lang }: { trek: Trek; lang: Lang }) {
 	const t = Copy[lang];
@@ -279,9 +249,9 @@ export function TrekkingView({ lang }: { lang: Lang }) {
 						</div>
 					</dl>
 				</div>
-				{ChartTreks.length > 0 && (
+				{TrekProfiles.length > 0 && (
 					<div className="-mx-6 mt-14 sm:-mx-10 sm:mt-10">
-						<ElevationChart treks={ChartTreks} lang={lang} />
+						<ElevationChart treks={TrekProfiles} lang={lang} />
 					</div>
 				)}
 			</section>
