@@ -27,3 +27,4 @@
 
 - Repository skills live in `.agents/skills/<name>/SKILL.md`, in the shared Agent Skills format, so that any coding agent can use them. Read the matching skill before starting its task.
 - `add-trek`: add a new hike with its GPX stages to the trekking page.
+- `add-quote`: check and add a new quote to the Quotes page.
