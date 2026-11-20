@@ -1,0 +1,1 @@
+function e(){return Math.random()<.5?`0`:`1`}function t(t,n){let r=[...t];return r.map((t,i)=>t.trim()===``||n>=.25+.75*i/r.length?t:e()).join(``)}export{t as n,e as t};

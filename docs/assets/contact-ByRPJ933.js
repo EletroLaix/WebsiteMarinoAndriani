@@ -1,1 +1,0 @@
-import{n as e}from"./Dictionary-R_9kPuOv.js";import{t}from"./index-DEqHaulU.js";import{t as n}from"./LegacyRedirectView-BB_590XW.js";var r=e(),i=()=>(0,r.jsx)(n,{to:t});export{i as component};

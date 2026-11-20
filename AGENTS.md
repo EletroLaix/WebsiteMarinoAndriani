@@ -22,3 +22,8 @@
 - Keep generated builds, caches, and test output under ignored `Output`; never commit validation reports or checksums.
 - Maintain `Documentation/Changelog.md` with newest releases first and Features, BugFix, Resources, and Known issues sections.
 - Keep an existing license in the repository root. Generate dependency notices during builds when required; do not invent a license.
+
+## Agent skills
+
+- Repository skills live in `.agents/skills/<name>/SKILL.md`, in the shared Agent Skills format, so that any coding agent can use them. Read the matching skill before starting its task.
+- `add-trek`: add a new hike with its GPX stages to the trekking page.

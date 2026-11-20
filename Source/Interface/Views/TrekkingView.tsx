@@ -3,6 +3,8 @@ import { ClientOnly } from "@tanstack/react-router";
 import { ArrowDown, ArrowLeft, ArrowUpRight, MapPin } from "lucide-react";
 import { combineTracks, type TrackPoint, type TrackStage } from "@/Application/Gpx";
 import { pagePath } from "@/Application/Site";
+import { stagePath, TrekProfiles } from "@/Application/TrekProfiles";
+import { ElevationChart } from "@/Interface/Components/ElevationChart";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
 import type { Lang } from "@/Resources/Content/Localized";
 import { Treks, type Trek } from "@/Resources/Content/Trekking";
@@ -13,18 +15,20 @@ const TrackFiles = import.meta.glob<TrackPoint[][]>("/Source/Resources/Tracks/*.
 	query: "?track",
 	import: "default",
 });
+const EverestHeight = 8849;
 
 const Copy = {
 	it: {
 		back: "Passioni",
 		title: "Cammini",
-		intro: "Dal Lago di Como alla Maiella e all’Appennino. I miei viaggi a piedi, dal più recente al primo.",
 		explore: "Esplora i cammini",
 		wikiloc: "Il mio profilo Wikiloc",
 		treks: "Cammini",
-		stages: "Tappe",
 		distance: "Distanza percorsa",
 		ascent: "Dislivello positivo",
+		everest: (times: string) => `≈ ${times} volte l’Everest`,
+		shortDistance: "Distanza",
+		shortAscent: "Dislivello",
 		missing: "Traccia GPS in preparazione",
 		map: "Mappa",
 		loading: "Caricamento della mappa…",
@@ -34,13 +38,14 @@ const Copy = {
 	en: {
 		back: "Passions",
 		title: "Hikes",
-		intro: "From Lake Como to the Maiella and the Apennines. My journeys on foot, from the latest to the first.",
 		explore: "Explore the hikes",
 		wikiloc: "My Wikiloc profile",
 		treks: "Hikes",
-		stages: "Stages",
 		distance: "Distance covered",
 		ascent: "Elevation gain",
+		everest: (times: string) => `≈ ${times} times Everest`,
+		shortDistance: "Distance",
+		shortAscent: "Elevation gain",
 		missing: "GPS track awaiting import",
 		map: "Map",
 		loading: "Loading map…",
@@ -52,8 +57,7 @@ const Copy = {
 const Timeline = [...Treks].sort((first, second) => second.year - first.year);
 
 function trackFile(trek: Trek, stage: number) {
-	const number = String(stage).padStart(2, "0");
-	return TrackFiles[`/Source/Resources/Tracks/${trek.name} [${number}].gpx`];
+	return TrackFiles[stagePath(trek, stage)];
 }
 
 function trekStats(trek: Trek) {
@@ -96,7 +100,7 @@ function TrekMap({ trek, lang }: { trek: Trek; lang: Lang }) {
 	const loadingMap = (
 		<p
 			role="status"
-			className="trek-map-placeholder grid h-[22rem] place-items-center p-6 text-sm text-muted-foreground sm:h-[28rem]"
+			className="trek-map-placeholder grid h-[30rem] place-items-center p-6 text-sm text-muted-foreground sm:h-[36rem]"
 		>
 			{t.loading}
 		</p>
@@ -108,6 +112,7 @@ function TrekMap({ trek, lang }: { trek: Trek; lang: Lang }) {
 			<Suspense fallback={loadingMap}>
 				<TrackMap
 					track={track}
+					stages={trek.stages}
 					areaBounds={trek.mapBounds}
 					label={`${t.map} · ${trek.name}`}
 					lang={lang}
@@ -161,15 +166,14 @@ function TrekEntry({ trek, lang, number }: { trek: Trek; lang: Lang; number: Int
 				<p className="mt-3 max-w-2xl text-base text-muted-foreground">
 					{trek.description[lang]}
 				</p>
-				<dl className="my-6 flex flex-wrap gap-x-8 gap-y-3">
+				<dl className="mt-4 mb-5 flex flex-wrap gap-x-7 gap-y-2 font-display">
 					{[
-						{ label: t.distance, value: `${number.format(stats.distance)} km` },
-						{ label: t.ascent, value: `${number.format(stats.ascent)} m` },
-						{ label: t.stages, value: trek.stages.length },
+						{ label: t.shortDistance, value: `${number.format(stats.distance)} km` },
+						{ label: t.shortAscent, value: `${number.format(stats.ascent)} m` },
 					].map(({ label, value }) => (
-						<div key={label}>
-							<dt className="text-xs text-muted-foreground">{label}</dt>
-							<dd className="font-display text-lg font-semibold tabular-nums">
+						<div key={label} className="flex items-baseline gap-2">
+							<dt className="text-xs uppercase tracking-wider text-faint">{label}</dt>
+							<dd className="text-sm font-medium tabular-nums text-muted-foreground">
 								{value}
 							</dd>
 						</div>
@@ -185,59 +189,71 @@ export function TrekkingView({ lang }: { lang: Lang }) {
 	const t = Copy[lang];
 	const number = new Intl.NumberFormat(lang, { maximumFractionDigits: 2 });
 	const distance = Timeline.reduce((total, trek) => total + trekStats(trek).distance, 0);
-	const stageCount = Timeline.reduce((total, trek) => total + trek.stages.length, 0);
+	const ascent = Timeline.reduce((total, trek) => total + trekStats(trek).ascent, 0);
+	const everest = new Intl.NumberFormat(lang, { maximumFractionDigits: 1 }).format(
+		ascent / EverestHeight,
+	);
 
 	return (
 		<div className="mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 sm:pt-20">
-			<section className="trek-hero cut isolate grid gap-8 bg-card px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-				<div>
-					<TransitionLink
-						href={pagePath("passions", lang)}
-						className="inline-flex items-center gap-2 font-display text-xs uppercase tracking-widest text-accent hover:underline"
-					>
-						<ArrowLeft className="size-4" aria-hidden="true" /> {t.back}
-					</TransitionLink>
-					<h1 className="mt-5 font-display text-[clamp(3.5rem,10vw,8rem)] font-bold leading-[0.94] tracking-tighter">
-						{t.title}
-					</h1>
-					<p className="mt-6 max-w-lg text-lg text-muted-foreground">{t.intro}</p>
-					<div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-						<a
-							href={`#${Timeline[0]!.id}`}
-							className="cut cut-hover inline-flex items-center gap-2 bg-accent px-4 py-3 font-display font-semibold text-accent-foreground"
+			<section className="cut isolate overflow-hidden bg-card px-6 pt-10 sm:px-10 sm:pt-14">
+				<div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+					<div>
+						<TransitionLink
+							href={pagePath("passions", lang)}
+							className="inline-flex items-center gap-2 font-display text-xs uppercase tracking-widest text-accent hover:underline"
 						>
-							{t.explore} <ArrowDown className="size-4" aria-hidden="true" />
-						</a>
-						<a
-							href={WikilocProfile}
-							target="_blank"
-							rel="noreferrer"
-							className="inline-flex items-center gap-1.5 font-semibold text-accent hover:underline"
-						>
-							{t.wikiloc} <ArrowUpRight className="size-4" aria-hidden="true" />
-						</a>
+							<ArrowLeft className="size-4" aria-hidden="true" /> {t.back}
+						</TransitionLink>
+						<h1 className="mt-5 font-display text-[clamp(3.5rem,10vw,8rem)] font-bold leading-[0.94] tracking-tighter">
+							{t.title}
+						</h1>
+						<div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
+							<a
+								href={`#${Timeline[0]!.id}`}
+								className="cut cut-hover inline-flex items-center gap-2 bg-accent px-4 py-3 font-display font-semibold text-accent-foreground"
+							>
+								{t.explore} <ArrowDown className="size-4" aria-hidden="true" />
+							</a>
+							<a
+								href={WikilocProfile}
+								target="_blank"
+								rel="noreferrer"
+								className="inline-flex items-center gap-1.5 font-semibold text-accent hover:underline"
+							>
+								{t.wikiloc} <ArrowUpRight className="size-4" aria-hidden="true" />
+							</a>
+						</div>
 					</div>
+					<dl className="grid grid-cols-3 gap-x-5 gap-y-4 border-t border-accent/35 pt-5 lg:grid-cols-1 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-7">
+						<div>
+							<dt className="text-sm text-muted-foreground">{t.treks}</dt>
+							<dd className="font-display text-lg font-semibold text-accent sm:text-3xl">
+								{Timeline.length}
+							</dd>
+						</div>
+						<div>
+							<dt className="text-sm text-muted-foreground">{t.distance}</dt>
+							<dd className="font-display text-lg font-semibold tabular-nums text-accent sm:text-3xl">
+								{number.format(distance)} km
+							</dd>
+						</div>
+						<div>
+							<dt className="text-sm text-muted-foreground">{t.ascent}</dt>
+							<dd className="font-display text-lg font-semibold tabular-nums text-accent sm:text-3xl">
+								{new Intl.NumberFormat(lang).format(ascent)} m
+							</dd>
+							<dd className="mt-1 font-display text-xs text-faint">
+								{t.everest(everest)}
+							</dd>
+						</div>
+					</dl>
 				</div>
-				<dl className="grid grid-cols-2 gap-x-5 gap-y-4 border-l border-accent/35 pl-5 sm:pl-7">
-					<div>
-						<dt className="text-sm text-muted-foreground">{t.treks}</dt>
-						<dd className="font-display text-3xl font-semibold text-accent">
-							{Timeline.length}
-						</dd>
+				{TrekProfiles.length > 0 && (
+					<div className="-mx-6 mt-14 sm:-mx-10 sm:mt-10">
+						<ElevationChart treks={TrekProfiles} lang={lang} />
 					</div>
-					<div>
-						<dt className="text-sm text-muted-foreground">{t.stages}</dt>
-						<dd className="font-display text-3xl font-semibold text-accent">
-							{stageCount}
-						</dd>
-					</div>
-					<div className="col-span-2">
-						<dt className="text-sm text-muted-foreground">{t.distance}</dt>
-						<dd className="font-display text-3xl font-semibold text-accent">
-							{number.format(distance)} km
-						</dd>
-					</div>
-				</dl>
+				)}
 			</section>
 			<ol className="mt-12 pl-1 sm:mt-16 sm:pl-2">
 				{Timeline.map((trek) => (
