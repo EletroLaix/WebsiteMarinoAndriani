@@ -8,8 +8,8 @@
 - The chart draws itself once the page is ready, labels each summit with its height and trek name, and highlights the trek under the pointer while dimming the others.
 - Each trek map is taller and carries a stage profile over its bottom edge, with distance, elevation gain and difficulty for every stage; the stage under the moving dot lights up.
 - Trek entries show only distance and elevation gain, and the map credits sit in the top corner.
-- The Passions page is a numbered index of titles: Trekking counts up to 100% and turns into an open label, with the treks' elevation profiles drawn behind it on hover.
-- Sections in preparation stop at their own progress, pulse, glitch into zeros and ones from time to time and show a tongue-in-cheek error.
+- The Passions page is a numbered index of titles on see-through bands with cut corners: Trekking counts up to 100% and turns into an open label, with the treks' elevation profiles drawn behind it on hover.
+- Sections in preparation stop at their own progress, pulse, glitch into zeros and ones from time to time and show a tongue-in-cheek error with its code in red.
 
 ### Resources
 
