@@ -853,13 +853,180 @@ html[data-overlay="closed"] .rise {
 	box-shadow: 0 0 12px 3px color-mix(in oklab, var(--accent) 65%, transparent);
 }
 
-.trek-hero {
-	background-image:
-		linear-gradient(105deg, var(--card) 30%, transparent 100%),
-		repeating-radial-gradient(
-			ellipse at 92% -20%,
-			transparent 0 16px,
-			color-mix(in oklab, var(--accent) 13%, transparent) 17px 18px,
-			transparent 19px 28px
-		);
+/* ---- Trekking elevation chart ---- */
+/* Profiles draw themselves once the page is ready; hovering one highlights it and dims the others. */
+.elevation-chart {
+	--trail: #ff782c;
+	position: relative;
+	height: 12.5rem;
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+}
+
+@media (min-width: 640px) {
+	.elevation-chart {
+		height: 17rem;
+	}
+}
+
+.elevation-chart svg {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.elevation-chart-grid {
+	stroke: oklch(0.3 0 0);
+	stroke-dasharray: 2 5;
+}
+
+.elevation-chart-scale {
+	position: absolute;
+	right: 0.75rem;
+	transform: translateY(-120%);
+	color: var(--faint);
+}
+
+.elevation-chart-trek {
+	transition: opacity 350ms ease;
+}
+
+.elevation-chart-area {
+	fill: color-mix(in oklab, var(--trail) 8%, transparent);
+	transition: fill 350ms ease;
+}
+
+.elevation-chart-line {
+	fill: none;
+	stroke: color-mix(in oklab, var(--trail) var(--strength), transparent);
+	stroke-width: 1.6;
+	transition:
+		stroke 350ms ease,
+		stroke-width 350ms ease;
+}
+
+.elevation-chart.is-drawn .elevation-chart-line {
+	stroke-dasharray: 1;
+	stroke-dashoffset: 1;
+	animation: elevation-draw 2.8s cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
+}
+
+.elevation-chart.is-drawn .elevation-chart-area {
+	opacity: 0;
+	animation: elevation-fade 1.2s ease calc(var(--delay) + 0.6s) forwards;
+}
+
+.elevation-chart-peak {
+	position: absolute;
+	width: 0;
+	height: 0;
+	transition: opacity 350ms ease;
+}
+
+.elevation-chart.is-drawn .elevation-chart-peak {
+	opacity: 0;
+	animation: elevation-fade 0.6s ease var(--delay) forwards;
+}
+
+.elevation-chart-dot {
+	position: absolute;
+	left: -5px;
+	top: -5px;
+	width: 10px;
+	height: 10px;
+	rotate: 45deg;
+	background: var(--accent);
+	border: 2px solid var(--card);
+}
+
+.elevation-chart-stem {
+	position: absolute;
+	left: -0.5px;
+	bottom: 7px;
+	width: 1px;
+	height: var(--narrow-stem);
+	background: color-mix(in oklab, var(--accent) 70%, transparent);
+}
+
+/* Phones use the narrow stacking and alignment computed for labels that fill half the chart. */
+.elevation-chart-label {
+	position: absolute;
+	bottom: calc(var(--narrow-stem) + 7px);
+	left: 0;
+	translate: var(--narrow-shift) 0;
+	padding: 3px 6px;
+	background: color-mix(in oklab, var(--card) 80%, transparent);
+	color: var(--muted-foreground);
+	white-space: nowrap;
+	transition: color 350ms ease;
+}
+
+@media (min-width: 640px) {
+	.elevation-chart-stem {
+		height: var(--stem);
+	}
+
+	.elevation-chart-label {
+		bottom: calc(var(--stem) + 7px);
+		translate: var(--shift) 0;
+	}
+}
+
+.elevation-chart-label b {
+	color: var(--accent);
+	font-weight: 600;
+}
+
+/* Once drawn, the entrance animation is dropped so that the highlight can change the opacity. */
+.elevation-chart.is-settled .elevation-chart-line,
+.elevation-chart.is-settled .elevation-chart-area,
+.elevation-chart.is-settled .elevation-chart-peak {
+	animation: none;
+	opacity: 1;
+	stroke-dasharray: none;
+}
+
+.elevation-chart.is-highlighting .elevation-chart-trek,
+.elevation-chart.is-highlighting .elevation-chart-peak {
+	opacity: 0.4;
+}
+
+.elevation-chart.is-highlighting .is-active {
+	opacity: 1;
+}
+
+.elevation-chart .is-active .elevation-chart-line {
+	stroke: var(--trail);
+	stroke-width: 2.6;
+}
+
+.elevation-chart .is-active .elevation-chart-area {
+	fill: color-mix(in oklab, var(--trail) 20%, transparent);
+}
+
+.elevation-chart-peak.is-active .elevation-chart-label {
+	color: var(--foreground);
+}
+
+@keyframes elevation-draw {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes elevation-fade {
+	to {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elevation-chart.is-drawn .elevation-chart-line,
+	.elevation-chart.is-drawn .elevation-chart-area,
+	.elevation-chart.is-drawn .elevation-chart-peak {
+		animation: none;
+		opacity: 1;
+		stroke-dashoffset: 0;
+	}
 }
