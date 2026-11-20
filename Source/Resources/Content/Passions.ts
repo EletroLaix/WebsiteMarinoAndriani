@@ -6,6 +6,8 @@ export type PassionSection = {
 	published: boolean;
 	path: Localized;
 	title: Localized;
+	/** Shown as open while developing, so its page can be tried before it is published. */
+	openInDevelopment?: boolean;
 	/** Unpublished sections only: where the index counter stops, from 0 to 99. */
 	progress?: number;
 	/** Unpublished sections only: the tongue-in-cheek error shown under the counter. */
@@ -35,6 +37,7 @@ export const PassionSections: PassionSection[] = [
 	{
 		id: "quotes",
 		published: false,
+		openInDevelopment: true,
 		path: { it: "/passioni/citazioni", en: "/en/passions/quotes" },
 		title: { it: "Citazioni", en: "Quotes" },
 		progress: 68,

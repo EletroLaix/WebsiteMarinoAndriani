@@ -1597,3 +1597,31 @@ html[data-lava="wall"] .lava-veil {
 		transition: opacity 0.6s ease;
 	}
 }
+
+/* Bits behind the quotes row run under the open label, fade out on the left,
+   and their middle lines resolve into Marino's quote on perfection. */
+.passion-preview:has(.passion-preview-bits) {
+	width: 78%;
+	mask-image: linear-gradient(to right, transparent, black 45%, black 74%, transparent 94%);
+}
+
+.passion-preview-bits {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+	height: 100%;
+	overflow: hidden;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	line-height: 1.6;
+	letter-spacing: 0.08em;
+	white-space: pre;
+	color: color-mix(in oklab, #ff782c 45%, transparent);
+}
+
+.passion-preview-bits b {
+	color: var(--foreground);
+	font-weight: 600;
+	text-shadow: 0 0 12px color-mix(in oklab, #ff782c 70%, transparent);
+}
