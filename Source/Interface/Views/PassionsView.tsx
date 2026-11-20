@@ -1,6 +1,7 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { randomBit, scrambledFrame } from "@/Application/Scramble";
 import { TrekProfiles } from "@/Application/TrekProfiles";
+import { Quotes } from "@/Resources/Content/Quotes";
 import type { Lang } from "@/Resources/Content/Localized";
 import { PassionSections, type PassionSection } from "@/Resources/Content/Passions";
 import { dictionary } from "@/Resources/Dictionary";
@@ -118,8 +119,99 @@ function TrekkingPreview() {
 	);
 }
 
+const BitLines = 5;
+const BitLineLength = 96;
+const PreviewDecode = 1600;
+const PreviewFlicker = 60;
+/** Longest piece of the featured quote shown on one line of bits. */
+const PieceLength = 42;
+/** Bits kept between the end of the quote and the right edge, under the open label. */
+const LabelGap = 24;
+/** Marino's own quote on perfection, shown behind the quotes row. */
+const FeaturedQuoteId = 12;
+
+/** Splits the featured quote into pieces that each fit one line of bits. */
+function featuredPieces(): string[] {
+	const quote = Quotes.find((item) => item.id === FeaturedQuoteId) ?? Quotes[0]!;
+	const pieces: string[] = [];
+	let piece = "";
+	for (const word of quote.text.it.split(" ")) {
+		const next = piece ? `${piece} ${word}` : word;
+		if (next.length > PieceLength && piece) {
+			pieces.push(piece);
+			piece = word;
+		} else {
+			piece = next;
+		}
+	}
+	if (piece) pieces.push(piece);
+	return pieces;
+}
+
+const FeaturedPieces = featuredPieces();
+
+type BitLine = { before: string; word: string; after: string };
+
+/** Lines of bits behind the quotes row; on hover a few of them resolve into words of quotes. */
+function QuotesPreview() {
+	const rootRef = useRef<HTMLSpanElement>(null);
+	const [lines, setLines] = useState<BitLine[]>([]);
+
+	useEffect(() => {
+		const trigger = rootRef.current?.closest("a");
+		if (!trigger) return;
+		const bits = (length: number) => Array.from({ length }, randomBit).join("");
+		let interval = 0;
+		const play = () => {
+			if (prefersReducedMotion()) return;
+			window.clearInterval(interval);
+			// The pieces sit on the middle lines towards the open label, each one a little later.
+			const first = Math.floor((BitLines - FeaturedPieces.length) / 2);
+			const layout = Array.from({ length: BitLines }, (_, line) => {
+				const word = FeaturedPieces[line - first] ?? "";
+				const start = word
+					? BitLineLength - word.length - LabelGap + (line - first) * 2
+					: 0;
+				return { word, start, delay: (line - first) * 0.18 };
+			});
+			const begin = performance.now();
+			interval = window.setInterval(() => {
+				const progress = (performance.now() - begin) / PreviewDecode;
+				setLines(
+					layout.map(({ word, start, delay }) => ({
+						before: bits(start),
+						word: word ? scrambledFrame(word, Math.max(0, progress * 1.4 - delay)) : "",
+						after: bits(BitLineLength - start - word.length),
+					})),
+				);
+			}, PreviewFlicker);
+		};
+		const stop = () => window.clearInterval(interval);
+		trigger.addEventListener("pointerenter", play);
+		trigger.addEventListener("pointerleave", stop);
+		return () => {
+			stop();
+			trigger.removeEventListener("pointerenter", play);
+			trigger.removeEventListener("pointerleave", stop);
+		};
+	}, []);
+
+	return (
+		<span ref={rootRef} className="passion-preview-bits" aria-hidden="true">
+			{lines.map((line, index) => (
+				<span key={index}>
+					{line.before}
+					{line.word && <b>{line.word}</b>}
+					{line.after}
+				</span>
+			))}
+		</span>
+	);
+}
+
 const Previews: Partial<Record<PassionSection["id"], () => ReactNode>> = {
 	trekking: TrekkingPreview,
+	quotes: QuotesPreview,
 };
 
 function PublishedRow({
@@ -273,9 +365,11 @@ function UnpublishedRow({
 export function PassionsView({ lang }: { lang: Lang }) {
 	const t = dictionary(lang);
 	const { bootComplete } = usePageTransition();
-	const sections = [...PassionSections].sort(
-		(first, second) => Number(second.published) - Number(first.published),
-	);
+	const isOpen = (section: PassionSection) =>
+		section.published || (import.meta.env.DEV && section.openInDevelopment === true);
+	// Published sections first, then the ones open only while developing, then the rest.
+	const rank = (section: PassionSection) => (section.published ? 2 : isOpen(section) ? 1 : 0);
+	const sections = [...PassionSections].sort((first, second) => rank(second) - rank(first));
 
 	return (
 		<section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
@@ -286,7 +380,7 @@ export function PassionsView({ lang }: { lang: Lang }) {
 			<ol className="passion-index rise rise-2 mt-12">
 				{sections.map((section, index) => (
 					<li key={section.id}>
-						{section.published ? (
+						{isOpen(section) ? (
 							<PublishedRow
 								section={section}
 								index={index}

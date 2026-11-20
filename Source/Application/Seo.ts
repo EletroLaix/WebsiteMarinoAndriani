@@ -64,6 +64,18 @@ const PageText: Record<PageKey, Record<Lang, SeoText>> = {
 				"Maps, stages and GPS tracks for the Sentiero del Viandante, Sentiero dello Spirito and Via degli Dei.",
 		},
 	},
+	quotes: {
+		it: {
+			title: "Citazioni — Marino Andriani",
+			description:
+				"Le frasi che Marino Andriani ha raccolto negli anni, da film, libri, canzoni e persone.",
+		},
+		en: {
+			title: "Quotes — Marino Andriani",
+			description:
+				"Lines Marino Andriani has collected over the years, from films, books, songs and people.",
+		},
+	},
 };
 
 const Locales: Record<Lang, string> = { it: "it_IT", en: "en_US" };
@@ -116,6 +128,7 @@ function breadcrumbSchema(lang: Lang, key: PageKey) {
 		contact: t.nav.contact,
 		passions: t.nav.passions,
 		trekking: "Trekking",
+		quotes: lang === "it" ? "Citazioni" : "Quotes",
 	};
 	return {
 		"@type": "BreadcrumbList",
@@ -128,7 +141,7 @@ function breadcrumbSchema(lang: Lang, key: PageKey) {
 			},
 			{
 				"@type": "ListItem",
-				position: key === "trekking" ? 3 : 2,
+				position: key === "trekking" || key === "quotes" ? 3 : 2,
 				name: names[key],
 				item: absoluteUrl(pagePath(key, lang)),
 			},

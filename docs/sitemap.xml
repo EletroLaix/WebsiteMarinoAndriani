@@ -60,4 +60,16 @@
 		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/trekking/" />
 		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/trekking/" />
 	</url>
+	<url>
+		<loc>https://marinoandriani.me/passioni/citazioni/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/passioni/citazioni/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/quotes/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/citazioni/" />
+	</url>
+	<url>
+		<loc>https://marinoandriani.me/en/passions/quotes/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/passioni/citazioni/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/passions/quotes/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/passioni/citazioni/" />
+	</url>
 </urlset>

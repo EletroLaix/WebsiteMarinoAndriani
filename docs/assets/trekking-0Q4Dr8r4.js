@@ -1,0 +1,1 @@
+import{n as e}from"./Dictionary-R_9kPuOv.js";import{t}from"./TrekkingView-C-7ckyF_.js";var n=e(),r=()=>(0,n.jsx)(t,{lang:`en`});export{r as component};
