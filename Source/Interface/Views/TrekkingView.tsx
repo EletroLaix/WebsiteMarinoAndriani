@@ -38,7 +38,8 @@ const Copy = {
 		distance: "Distanza percorsa",
 		ascent: "Dislivello positivo",
 		everest: (times: string) => `≈ ${times} volte l’Everest`,
-		stages: "Tappe",
+		shortDistance: "Distanza",
+		shortAscent: "Dislivello",
 		missing: "Traccia GPS in preparazione",
 		map: "Mappa",
 		loading: "Caricamento della mappa…",
@@ -54,7 +55,8 @@ const Copy = {
 		distance: "Distance covered",
 		ascent: "Elevation gain",
 		everest: (times: string) => `≈ ${times} times Everest`,
-		stages: "Stages",
+		shortDistance: "Distance",
+		shortAscent: "Elevation gain",
 		missing: "GPS track awaiting import",
 		map: "Map",
 		loading: "Loading map…",
@@ -128,7 +130,7 @@ function TrekMap({ trek, lang }: { trek: Trek; lang: Lang }) {
 	const loadingMap = (
 		<p
 			role="status"
-			className="trek-map-placeholder grid h-[22rem] place-items-center p-6 text-sm text-muted-foreground sm:h-[28rem]"
+			className="trek-map-placeholder grid h-[30rem] place-items-center p-6 text-sm text-muted-foreground sm:h-[36rem]"
 		>
 			{t.loading}
 		</p>
@@ -140,6 +142,7 @@ function TrekMap({ trek, lang }: { trek: Trek; lang: Lang }) {
 			<Suspense fallback={loadingMap}>
 				<TrackMap
 					track={track}
+					stages={trek.stages}
 					areaBounds={trek.mapBounds}
 					label={`${t.map} · ${trek.name}`}
 					lang={lang}
@@ -193,15 +196,14 @@ function TrekEntry({ trek, lang, number }: { trek: Trek; lang: Lang; number: Int
 				<p className="mt-3 max-w-2xl text-base text-muted-foreground">
 					{trek.description[lang]}
 				</p>
-				<dl className="my-6 flex flex-wrap gap-x-8 gap-y-3">
+				<dl className="mt-4 mb-5 flex flex-wrap gap-x-7 gap-y-2 font-display">
 					{[
-						{ label: t.distance, value: `${number.format(stats.distance)} km` },
-						{ label: t.ascent, value: `${number.format(stats.ascent)} m` },
-						{ label: t.stages, value: trek.stages.length },
+						{ label: t.shortDistance, value: `${number.format(stats.distance)} km` },
+						{ label: t.shortAscent, value: `${number.format(stats.ascent)} m` },
 					].map(({ label, value }) => (
-						<div key={label}>
-							<dt className="text-xs text-muted-foreground">{label}</dt>
-							<dd className="font-display text-lg font-semibold tabular-nums">
+						<div key={label} className="flex items-baseline gap-2">
+							<dt className="text-xs uppercase tracking-wider text-faint">{label}</dt>
+							<dd className="text-sm font-medium tabular-nums text-muted-foreground">
 								{value}
 							</dd>
 						</div>
