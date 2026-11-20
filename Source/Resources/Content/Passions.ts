@@ -6,7 +6,10 @@ export type PassionSection = {
 	published: boolean;
 	path: Localized;
 	title: Localized;
-	summary: Localized;
+	/** Unpublished sections only: where the index counter stops, from 0 to 99. */
+	progress?: number;
+	/** Unpublished sections only: the tongue-in-cheek error shown under the counter. */
+	status?: Localized;
 };
 
 /** Sub-sections of the "Passioni" area; each one is enabled once it has content. */
@@ -16,9 +19,10 @@ export const PassionSections: PassionSection[] = [
 		published: false,
 		path: { it: "/passioni/laboratorio", en: "/en/passions/lab" },
 		title: { it: "Progetti personali", en: "Personal projects" },
-		summary: {
-			it: "Progetti di elettronica e firmware.",
-			en: "Electronics and firmware projects.",
+		progress: 42,
+		status: {
+			it: "ERR 42 · la risposta c’è, manca la domanda",
+			en: "ERR 42 · the answer is here, the question is missing",
 		},
 	},
 	{
@@ -26,14 +30,17 @@ export const PassionSections: PassionSection[] = [
 		published: false,
 		path: { it: "/passioni/citazioni", en: "/en/passions/quotes" },
 		title: { it: "Citazioni", en: "Quotes" },
-		summary: { it: "Le citazioni che preferisco.", en: "My favourite quotes." },
+		progress: 68,
+		status: {
+			it: "FAIL · Marvin si rifiuta di collaborare",
+			en: "FAIL · Marvin refuses to cooperate",
+		},
 	},
 	{
 		id: "trekking",
 		published: true,
 		path: { it: "/passioni/trekking", en: "/en/passions/trekking" },
 		title: { it: "Trekking", en: "Trekking" },
-		summary: { it: "I percorsi che ho fatto.", en: "Trails I have hiked." },
 	},
 ];
 
