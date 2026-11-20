@@ -17,7 +17,8 @@ const Copy = {
 			personal: "Pensiero personale",
 			book: "Libro",
 			film: "Film",
-			noted: "Attribuzione da verificare",
+			music: "Musica",
+			author: "Attribuzione da verificare",
 			unknown: "Fonte da identificare",
 		},
 	},
@@ -30,7 +31,8 @@ const Copy = {
 			personal: "Personal note",
 			book: "Book",
 			film: "Film",
-			noted: "Attribution to verify",
+			music: "Music",
+			author: "Attribution to verify",
 			unknown: "Source to identify",
 		},
 	},
@@ -39,14 +41,12 @@ const Copy = {
 const ExitDuration = 680;
 
 function quoteText(quote: Quote, lang: Lang) {
-	return lang === "en" && quote.english
-		? { value: quote.english, language: "en" }
-		: { value: quote.italian, language: "it" };
+	return { value: quote.text[lang], language: lang };
 }
 
 function QuoteFragment({ quote, lang, outgoing }: { quote: Quote; lang: Lang; outgoing: boolean }) {
 	const text = quoteText(quote, lang);
-	const source = typeof quote.source === "string" ? quote.source : quote.source?.[lang];
+	const source = quote.source?.[lang];
 	return (
 		<figure
 			className={`quotes-fragment ${outgoing ? "quotes-fragment-exit" : "quotes-fragment-enter"}`}
@@ -95,8 +95,8 @@ function QuotesView({ lang }: { lang: Lang }) {
 	const [pageVisible, setPageVisible] = useState(true);
 	const [reading, setReading] = useState(false);
 	const [keyboardNavigation, setKeyboardNavigation] = useState(false);
-	const quote = Quotes[position.index] ?? Quotes[0];
-	const previous = Quotes[position.previous] ?? Quotes[0];
+	const quote = Quotes[position.index] ?? Quotes[0]!;
+	const previous = Quotes[position.previous] ?? Quotes[0]!;
 	const hasExit = previous.id !== quote.id;
 	const entryDelay = hasExit ? ExitDuration : 0;
 	const text = quoteText(quote, lang);
