@@ -18,8 +18,23 @@ export type PassionSection = {
 	};
 };
 
-/** Sub-sections of the "Passioni" area; each one is enabled once it has content. */
+/**
+ * Sub-sections of the "Passioni" area, in the order of the Passions index; each one is
+ * enabled once it has content.
+ */
 export const PassionSections: PassionSection[] = [
+	{
+		id: "trekking",
+		published: true,
+		path: { it: "/passioni/trekking", en: "/en/passions/trekking" },
+		title: { it: "Trekking", en: "Trekking" },
+	},
+	{
+		id: "quotes",
+		published: true,
+		path: { it: "/passioni/citazioni", en: "/en/passions/quotes" },
+		title: { it: "Citazioni", en: "Quotes" },
+	},
 	{
 		id: "lab",
 		published: false,
@@ -33,18 +48,6 @@ export const PassionSections: PassionSection[] = [
 				en: "the answer is here, the question is missing",
 			},
 		},
-	},
-	{
-		id: "quotes",
-		published: true,
-		path: { it: "/passioni/citazioni", en: "/en/passions/quotes" },
-		title: { it: "Citazioni", en: "Quotes" },
-	},
-	{
-		id: "trekking",
-		published: true,
-		path: { it: "/passioni/trekking", en: "/en/passions/trekking" },
-		title: { it: "Trekking", en: "Trekking" },
 	},
 ];
 
