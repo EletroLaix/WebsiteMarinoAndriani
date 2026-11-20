@@ -1,12 +1,8 @@
-import { createFileRoute, lazyRouteComponent, notFound } from "@tanstack/react-router";
-import { hiddenPageHead } from "@/Application/Seo";
+import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/Application/Seo";
+import { QuotesView } from "@/Interface/Views/QuotesView";
 
 export const Route = createFileRoute("/en/passions/quotes")({
-	beforeLoad: () => {
-		if (!import.meta.env.DEV) throw notFound();
-	},
-	head: () => hiddenPageHead("Quotes — Marino Andriani"),
-	component: import.meta.env.DEV
-		? lazyRouteComponent(() => import("@/Interface/Views/QuotesView"), "EnglishQuotesView")
-		: () => null,
+	head: () => pageHead("quotes", "en"),
+	component: () => <QuotesView lang="en" />,
 });

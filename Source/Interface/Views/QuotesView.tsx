@@ -542,11 +542,3 @@ export function QuotesView({ lang }: { lang: Lang }) {
 		</div>
 	);
 }
-
-export function ItalianQuotesView() {
-	return <QuotesView lang="it" />;
-}
-
-export function EnglishQuotesView() {
-	return <QuotesView lang="en" />;
-}

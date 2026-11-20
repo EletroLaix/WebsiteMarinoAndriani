@@ -36,18 +36,9 @@ export const PassionSections: PassionSection[] = [
 	},
 	{
 		id: "quotes",
-		published: false,
-		openInDevelopment: true,
+		published: true,
 		path: { it: "/passioni/citazioni", en: "/en/passions/quotes" },
 		title: { it: "Citazioni", en: "Quotes" },
-		progress: 68,
-		status: {
-			code: "FAIL",
-			message: {
-				it: "Marvin si rifiuta di collaborare",
-				en: "Marvin refuses to cooperate",
-			},
-		},
 	},
 	{
 		id: "trekking",

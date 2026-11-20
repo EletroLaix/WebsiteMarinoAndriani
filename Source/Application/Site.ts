@@ -4,9 +4,10 @@ import { PassionSections, publishedPassionSections } from "../Resources/Content/
 
 export const SiteUrl = "https://marinoandriani.me";
 
-export type PageKey = "home" | "about" | "contact" | "passions" | "trekking";
+export type PageKey = "home" | "about" | "contact" | "passions" | "trekking" | "quotes";
 
 const TrekkingSection = PassionSections.find((section) => section.id === "trekking")!;
+const QuotesSection = PassionSections.find((section) => section.id === "quotes")!;
 
 const PagePaths: Record<PageKey, Localized> = {
 	home: { it: "/", en: "/en" },
@@ -14,6 +15,7 @@ const PagePaths: Record<PageKey, Localized> = {
 	contact: { it: "/contatti", en: "/en/contact" },
 	passions: { it: "/passioni", en: "/en/passions" },
 	trekking: TrekkingSection.path,
+	quotes: QuotesSection.path,
 };
 
 /** Old addresses that now redirect to their localized replacement. */
@@ -47,6 +49,9 @@ export function pageFromPath(pathname: string): PageKey | undefined {
 export function isPagePublished(key: PageKey): boolean {
 	if (key === "trekking") {
 		return TrekkingSection.published;
+	}
+	if (key === "quotes") {
+		return QuotesSection.published;
 	}
 	if (key === "passions") {
 		return publishedPassionSections().length > 0;
