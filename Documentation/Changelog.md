@@ -1,18 +1,22 @@
 # Changelog
 
-## Unreleased
+## 1.6.0
 
 ### Features
 
-- Added a local Quotes preview in Italian and English, where each quote rises from the existing lava background as binary digits and dissolves back into it.
+- Published the Quotes page in Italian and English. The lava behind the site slowly heats up into a wall; in its centre it turns into bits that take its colours, and each quote forms from them and comes forward, with its source and kind below: film, book, music, author, Marino Andriani or unknown.
+- All 90 quotes appear in random order without repeats and stay on screen for a time that follows their length. A counter climbs to each quote number, and a pause control drawn like the route widget stops the rotation.
+- The Quotes row in the Passions index counts up to 100% and opens like Trekking; on hover, lines of bits fade in behind it and decode Marino's quote on perfection.
 
 ### Resources
 
-- Imported all 90 entries from the Notion collection and documented the source review.
+- Collected the 90 quotes from the Notion collection in one bilingual file, `Source/Resources/Quotes/Quotes.json`, with an English version for every quote.
+- Added the add-quote agent skill in `.agents/skills`, which explains the checks to run before adding a quote and includes a script that finds similar quotes and validates the file.
 
 ### Known issues
 
-- Some attributions still need verification. The English preview displays the Italian text when an English version is unavailable.
+- Some attributions still need verification, and a few author quotes may belong to a more specific kind, such as The Social Dilemma under film.
+- Touch pinch-to-zoom on the trek maps still needs verification on a physical phone.
 
 ## 1.5.0
 
