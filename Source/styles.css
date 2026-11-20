@@ -150,6 +150,8 @@
 	transform: scale(1.15);
 	transform-origin: center;
 	opacity: 0.42;
+	/* Pages such as Quotes heat the lava up; only the opacity changes, which is cheap to animate. */
+	transition: opacity 2.4s ease;
 }
 
 /* Darkens the edges and the reading area so text keeps full contrast. */
@@ -163,6 +165,7 @@
 			color-mix(in oklab, var(--color-background) 40%, transparent),
 			color-mix(in oklab, var(--color-background) 30%, transparent)
 		);
+	transition: opacity 2.4s ease;
 }
 
 /* ---- Frosted bars ---- */
@@ -1348,5 +1351,249 @@ html[data-overlay="closed"] .rise {
 @media (prefers-reduced-motion: reduce) {
 	.passion-row.is-stuck .passion-counter {
 		animation: none;
+	}
+}
+
+/* ---- Quotes: a wall of lava where quotes emerge as bits ---- */
+/* On this page the same lava becomes the wall: it slowly burns brighter and the veil thins out. */
+html[data-lava="wall"] .lava-canvas {
+	opacity: 0.74;
+}
+
+html[data-lava="wall"] .lava-veil {
+	opacity: 0.45;
+}
+
+.quotes-stage {
+	position: relative;
+	min-height: calc(100svh - 4rem);
+	overflow: hidden;
+}
+
+.quotes-bits {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	mix-blend-mode: screen;
+}
+
+/* Back link and title sit on the left of the page container, as on the other pages. */
+.quotes-intro {
+	position: relative;
+	z-index: 2;
+	max-width: 72rem;
+	margin: 0 auto;
+	padding: 2.5rem 1rem 0;
+	text-shadow: 0 2px 18px rgb(20 4 2 / 0.85);
+}
+
+/* Same size as the Passions title (text-5xl, then text-6xl from the sm breakpoint). */
+.quotes-title {
+	margin: 1.25rem 0 0;
+	font-family: var(--font-display);
+	font-size: 3rem;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.05em;
+}
+
+@media (min-width: 640px) {
+	.quotes-title {
+		font-size: 3.75rem;
+	}
+}
+
+/* The quote gets its own compositing layer, so the moving lava behind it does not
+   force its large text shadows to be repainted on every frame. */
+.quotes-quote {
+	position: absolute;
+	z-index: 2;
+	left: 50%;
+	top: 52%;
+	width: min(44rem, calc(100% - 3rem));
+	margin: 0;
+	text-align: center;
+	will-change: transform;
+	contain: paint;
+	translate: -50% -50%;
+	transition:
+		opacity 1.3s ease 0.6s,
+		transform 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+}
+
+/* Quotes arrive from the depth of the wall and leave the same way; only opacity and scale
+   are animated, which the browser can do without repainting the text. */
+.quotes-quote.is-hidden {
+	opacity: 0;
+	transform: scale(0.84);
+	transition: none;
+}
+
+.quotes-quote.is-sinking {
+	opacity: 0;
+	transform: scale(0.88);
+	transition:
+		opacity 1s ease 0.7s,
+		transform 1.7s ease 0.3s;
+}
+
+.quotes-text {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(1.25rem, 3vw, 2.375rem);
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: -0.02em;
+	text-shadow: 0 2px 24px rgb(20 4 2 / 0.9);
+}
+
+.quotes-quote.is-long .quotes-text {
+	font-size: clamp(1.0625rem, 2.2vw, 1.75rem);
+}
+
+.quotes-word {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.quotes-character {
+	display: inline-block;
+	white-space: pre;
+	transition: color 0.6s;
+}
+
+/* Flickering bits change several times a second, so they skip the costly glow. */
+.quotes-character.is-bit {
+	color: #ffb060;
+	text-shadow: none;
+}
+
+.quotes-character.is-hot {
+	color: #fff0d0;
+}
+
+.quotes-source {
+	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.375rem 0.625rem;
+	align-items: center;
+	margin-top: 1.125rem;
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	letter-spacing: 0.06em;
+	color: var(--muted-foreground);
+	text-shadow: 0 1px 12px rgb(20 4 2 / 0.9);
+}
+
+.quotes-source b {
+	color: var(--foreground);
+	font-weight: 600;
+}
+
+.quotes-kind {
+	padding: 0.1875rem 0.4375rem;
+	background: var(--accent);
+	color: var(--accent-foreground);
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-shadow: none;
+}
+
+.quotes-kind[data-kind="unknown"] {
+	background: transparent;
+	border: 1px solid oklch(0.4 0 0);
+	color: var(--faint);
+}
+
+/* The number and the pause control appear with the first quote. */
+.quotes-controls.is-ready {
+	opacity: 1;
+}
+
+.quotes-controls {
+	opacity: 0;
+	transition: opacity 0.8s ease;
+	position: absolute;
+	z-index: 3;
+	inset: auto 0 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.875rem;
+	padding: 0 1rem 1.25rem;
+}
+
+/* The counter climbs to the quote number, as the counters of the Passions index do. */
+.quotes-counter {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.375rem;
+	font-family: var(--font-display);
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: -0.02em;
+	font-variant-numeric: tabular-nums;
+	color: var(--accent);
+	text-shadow: 0 1px 14px rgb(20 4 2 / 0.9);
+}
+
+.quotes-counter sup {
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	color: var(--muted-foreground);
+}
+
+/* The pause control is drawn like the route widget shown during page changes. */
+.quotes-auto {
+	margin: 0;
+	padding: 0.65rem 0.95rem;
+	border: 1px solid var(--color-border);
+	background-color: color-mix(in oklab, var(--color-card) 94%, transparent);
+	backdrop-filter: blur(8px);
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--muted-foreground);
+	white-space: pre;
+	cursor: pointer;
+	transition: border-color 0.2s;
+}
+
+.quotes-auto:hover,
+.quotes-auto:focus-visible {
+	border-color: color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+.quotes-auto-state {
+	color: var(--color-primary);
+}
+
+@media (min-width: 640px) {
+	.quotes-intro {
+		padding-inline: 1.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.quotes-counter {
+		font-size: 1.5rem;
+	}
+
+	.quotes-controls {
+		padding-bottom: 1.75rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.quotes-quote,
+	.quotes-quote.is-sinking {
+		transform: none;
+		filter: none;
+		transition: opacity 0.6s ease;
 	}
 }
