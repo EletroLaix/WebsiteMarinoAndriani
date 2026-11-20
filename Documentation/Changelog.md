@@ -14,6 +14,26 @@
 
 - Some attributions still need verification. The English preview displays the Italian text when an English version is unavailable.
 
+## 1.5.0
+
+### Features
+
+- The trekking hero shows three figures, treks, distance and elevation gain with an Everest comparison, above a chart of every trek's elevation profile on one altitude scale.
+- The chart draws itself once the page is ready, labels each summit with its height and trek name, and highlights the trek under the pointer while dimming the others.
+- Each trek map is taller and carries a stage profile over its bottom edge, with distance, elevation gain and difficulty for every stage; the stage under the moving dot lights up.
+- Trek entries show only distance and elevation gain, and the map credits sit in the top corner.
+- The Passions page is a numbered index of titles on see-through bands with cut corners: Trekking counts up to 100% and turns into an open label, with the treks' elevation profiles drawn behind it on hover.
+- Sections in preparation stop at their own progress, pulse, glitch into zeros and ones from time to time and show a tongue-in-cheek error with its code in red.
+
+### Resources
+
+- The build summarizes each GPX file into a light elevation profile for the hero chart.
+- Added the add-trek agent skill in `.agents/skills`, which explains how to publish a new trek from its GPX files.
+
+### Known issues
+
+- Touch pinch-to-zoom on the trek maps still needs verification on a physical phone.
+
 ## 1.4.0
 
 ### Features

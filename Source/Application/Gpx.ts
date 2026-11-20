@@ -27,6 +27,53 @@ export function combineTracks(stages: TrackStage[]) {
 	return { segments, starts };
 }
 
+/** A light elevation profile: distance in kilometres and elevation in metres. */
+export type ElevationProfile = {
+	distance: number;
+	points: [distance: number, elevation: number][];
+};
+
+/** Width in kilometres of the buckets that summarize a profile; each keeps its highest point. */
+const ProfileBucket = 0.25;
+
+function roundDistance(distance: number): number {
+	return Math.round(distance * 100) / 100;
+}
+
+/** Reduces a track to its elevation profile, keeping the summits that a chart should show. */
+export function summarizeProfile(segments: TrackPoint[][]): ElevationProfile {
+	const points: [number, number][] = [];
+	let bucket = -1;
+	for (const segment of segments) {
+		for (const point of segment) {
+			if (point.elevation === null) continue;
+			const current = Math.floor(point.distance / ProfileBucket);
+			const elevation = Math.round(point.elevation);
+			const last = points.at(-1);
+			if (current !== bucket || !last) {
+				points.push([roundDistance(point.distance), elevation]);
+				bucket = current;
+			} else if (elevation > last[1]) {
+				points[points.length - 1] = [roundDistance(point.distance), elevation];
+			}
+		}
+	}
+	return { distance: roundDistance(segments.at(-1)!.at(-1)!.distance), points };
+}
+
+/** Joins the profiles of consecutive stages into the profile of the whole trek. */
+export function combineProfiles(profiles: ElevationProfile[]): ElevationProfile {
+	const points: [number, number][] = [];
+	let offset = 0;
+	for (const profile of profiles) {
+		for (const [distance, elevation] of profile.points) {
+			points.push([roundDistance(distance + offset), elevation]);
+		}
+		offset += profile.distance;
+	}
+	return { distance: roundDistance(offset), points };
+}
+
 function distanceBetween(first: TrackPoint, second: TrackPoint): number {
 	const radians = Math.PI / 180;
 	const latitude = Math.sin(((second.latitude - first.latitude) * radians) / 2);

@@ -6,7 +6,7 @@ import { nitro } from "nitro/vite";
 import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { DOMParser } from "@xmldom/xmldom";
-import { parseGpx } from "./Source/Application/Gpx";
+import { parseGpx, summarizeProfile } from "./Source/Application/Gpx";
 import { absoluteUrl, LegacyRedirects, publishedPages } from "./Source/Application/Site";
 
 type StaticPage = {
@@ -66,8 +66,14 @@ function trekkingTracksPlugin(): Plugin {
 		name: "trekking-tracks",
 		enforce: "pre",
 		async load(id) {
-			if (!id.endsWith(".gpx?track")) return;
-			const filename = id.slice(0, -"?track".length);
+			// "?track" gives the full geometry for the maps, "?profile" a light elevation profile.
+			const query = id.endsWith(".gpx?track")
+				? "?track"
+				: id.endsWith(".gpx?profile")
+					? "?profile"
+					: undefined;
+			if (!query) return;
+			const filename = id.slice(0, -query.length);
 			this.addWatchFile(filename);
 			try {
 				const document = parser.parseFromString(
@@ -75,6 +81,9 @@ function trekkingTracksPlugin(): Plugin {
 					"application/xml",
 				);
 				const segments = parseGpx(document);
+				if (query === "?profile") {
+					return `export default ${JSON.stringify(summarizeProfile(segments))};`;
+				}
 				const data = JSON.stringify(segments, (key, value) =>
 					key === "distance" && typeof value === "number"
 						? Number(value.toFixed(5))
