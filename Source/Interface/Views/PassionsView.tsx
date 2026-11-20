@@ -150,16 +150,19 @@ function PublishedRow({
 		<TransitionLink
 			href={section.path[lang]}
 			className={`passion-row is-published ${open ? "is-open" : ""}`}
+			aria-label={`${section.title[lang]} · ${t.passions.open}`}
 		>
 			{Preview && (
 				<span className="passion-preview">
 					<Preview />
 				</span>
 			)}
-			<span className="passion-number">{String(index + 1).padStart(2, "0")}</span>
+			<span className="passion-number" aria-hidden="true">
+				{String(index + 1).padStart(2, "0")}
+			</span>
 			<h2 className="passion-title">{section.title[lang]}</h2>
-			<span className="passion-side">
-				<span className="passion-counter" aria-hidden={!open}>
+			<span className="passion-side" aria-hidden="true">
+				<span className="passion-counter">
 					{open ? (
 						<span className="passion-open">{label}</span>
 					) : (
@@ -226,7 +229,9 @@ function UnpublishedRow({
 
 	return (
 		<div className={`passion-row is-unpublished ${stuck ? "is-stuck" : ""}`}>
-			<span className="passion-number">{String(index + 1).padStart(2, "0")}</span>
+			<span className="passion-number" aria-hidden="true">
+				{String(index + 1).padStart(2, "0")}
+			</span>
 			<h2 className="passion-title">
 				{section.title[lang]}
 				<span className="sr-only"> · {t.passions.inPreparation}</span>
