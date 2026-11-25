@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.0
 
 ### Features
 
@@ -21,6 +21,7 @@
 ### Known issues
 
 - Six quotes have a name but no known work, and some attributions still need verification.
+- Widening the window from phone to desktop size replays the spark of the home career timeline once.
 
 ## 1.6.0
 
