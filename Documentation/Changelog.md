@@ -4,6 +4,8 @@
 
 ### Features
 
+- The home page presents the three fields of expertise as cards that widen and turn orange under the pointer, above a smaller career timeline without company names.
+- Renamed the About page to Career, at `/carriera` and `/en/career`; the old addresses redirect to the new ones.
 - Quotes now say where they were found, such as a film, TV series, TV show, book or website, instead of the generic author label; when only a name is known, it is shown without a label.
 
 ### Resources
