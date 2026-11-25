@@ -7,6 +7,7 @@
 - The home page presents the three fields of expertise as cards that widen and turn orange under the pointer, above a smaller career timeline without company names.
 - The career timeline on the home page advances when it comes into view, lighting each role as the line reaches it.
 - The orange line under the current page slides between the links of the top menu.
+- The analytics preferences link in the footer is now an orange cookie icon, with a short label on hover.
 - Renamed the About page to Career, at `/carriera` and `/en/career`; the old addresses redirect to the new ones.
 - Quotes now say where they were found, such as a film, TV series, TV show, book or website, instead of the generic author label; when only a name is known, it is shown without a label.
 
