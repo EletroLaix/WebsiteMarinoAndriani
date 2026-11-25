@@ -20,7 +20,11 @@ const Copy = {
 			film: "FILM",
 			book: "LIBRO",
 			music: "MUSICA",
-			author: "AUTORE",
+			series: "SERIE TV",
+			tv: "PROGRAMMA TV",
+			web: "SITO WEB",
+			// Only the name is known, so it is shown without a label.
+			person: "",
 			unknown: "FONTE IGNOTA",
 		},
 	},
@@ -37,7 +41,10 @@ const Copy = {
 			film: "FILM",
 			book: "BOOK",
 			music: "MUSIC",
-			author: "AUTHOR",
+			series: "TV SERIES",
+			tv: "TV SHOW",
+			web: "WEBSITE",
+			person: "",
 			unknown: "UNKNOWN SOURCE",
 		},
 	},
@@ -389,9 +396,12 @@ export function QuotesView({ lang }: { lang: Lang }) {
 			const detail = [title, note].filter(Boolean).join(" · ");
 			const titleHtml = title ? `<b>${escape(title)}</b>` : "";
 			const detailHtml = [titleHtml, note ? escape(note) : ""].filter(Boolean).join(" · ");
-			const html = `<span class="quotes-kind" data-kind="${quote.kind}">${label}</span>${detailHtml ? `<span>${detailHtml}</span>` : ""}`;
+			const labelHtml = label
+				? `<span class="quotes-kind" data-kind="${quote.kind}">${label}</span>`
+				: "";
+			const html = `${labelHtml}${detailHtml ? `<span>${detailHtml}</span>` : ""}`;
 			sourceElement!.innerHTML = " ";
-			return { plain: detail ? `${label}  ${detail}` : label, html };
+			return { plain: [label, detail].filter(Boolean).join("  "), html };
 		}
 
 		function emerge() {
