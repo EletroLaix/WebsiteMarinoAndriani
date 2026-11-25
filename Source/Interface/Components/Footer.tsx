@@ -1,3 +1,4 @@
+import { Cookie } from "lucide-react";
 import { openConsentBanner, trackOutbound } from "@/Application/Analytics";
 import { SiteVersion } from "@/Application/SiteVersion";
 import { Profile } from "@/Resources/Content/Profile";
@@ -41,16 +42,23 @@ export function Footer() {
 					))}
 				</div>
 
-				<p className="text-sm text-faint">
-					© {year} {Profile.name} · <span className="font-mono">v{SiteVersion}</span> ·{" "}
+				<div className="flex items-center gap-1 text-sm text-faint">
+					<p>
+						© {year} {Profile.name} · <span className="font-mono">v{SiteVersion}</span>
+					</p>
+					{/* Only the cookie is shown; its name appears on hover and is read by screen readers. */}
 					<button
 						type="button"
 						onClick={openConsentBanner}
-						className="text-muted-foreground underline underline-offset-2 hover:text-foreground"
+						aria-label={t.footer.consent}
+						className="consent-trigger inline-flex h-11 w-11 items-center justify-center text-primary hover:text-accent"
 					>
-						{t.footer.consent}
+						<Cookie className="h-[18px] w-[18px]" aria-hidden="true" />
+						<span className="consent-tip" aria-hidden="true">
+							{t.footer.consentShort}
+						</span>
 					</button>
-				</p>
+				</div>
 			</div>
 		</footer>
 	);

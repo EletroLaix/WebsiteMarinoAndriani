@@ -74,6 +74,7 @@ const it = {
 	footer: {
 		role: "Software engineer · Bari, Puglia",
 		consent: "Preferenze statistiche",
+		consentShort: "Statistiche",
 	},
 	consent: {
 		label: "Statistiche",
@@ -171,6 +172,7 @@ const en: Dictionary = {
 	footer: {
 		role: "Software engineer · Bari, Italy",
 		consent: "Analytics preferences",
+		consentShort: "Analytics",
 	},
 	consent: {
 		label: "Analytics",

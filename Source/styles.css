@@ -554,6 +554,45 @@ html[data-overlay="closed"] .rise {
 	outline-offset: -4px;
 }
 
+/* ---- Cookie in the footer that reopens the analytics choice ---- */
+.consent-trigger {
+	position: relative;
+}
+
+.consent-trigger svg {
+	transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.consent-trigger:hover svg {
+	transform: rotate(-18deg) scale(1.12);
+}
+
+/* Short label above the cookie, on hover and keyboard focus. */
+.consent-tip {
+	position: absolute;
+	right: 0;
+	bottom: calc(100% + 2px);
+	padding: 0.3rem 0.6rem;
+	border: 1px solid var(--color-border);
+	background-color: var(--color-card);
+	color: var(--color-foreground);
+	font-family: var(--font-mono);
+	font-size: 12px;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transform: translateY(4px);
+	transition:
+		opacity 0.2s ease-out,
+		transform 0.2s ease-out;
+}
+
+.consent-trigger:hover .consent-tip,
+.consent-trigger:focus-visible .consent-tip {
+	opacity: 1;
+	transform: none;
+}
+
 /* ---- Line under the current page, sliding between menu links ---- */
 .nav-marker {
 	position: absolute;
