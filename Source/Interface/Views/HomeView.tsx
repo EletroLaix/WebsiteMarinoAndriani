@@ -6,7 +6,6 @@ import type { Lang } from "@/Resources/Content/Localized";
 import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
 import { CareerTimeline } from "@/Interface/Components/CareerTimeline";
-import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
 import { ScrambleText } from "@/Interface/Components/ScrambleText";
 import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
@@ -157,7 +156,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 				</div>
 			</section>
 
-			<section className="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
+			<section className="reveal mx-auto max-w-6xl px-4 pt-16 pb-28 sm:px-6">
 				<div className="flex flex-wrap items-end justify-between gap-4">
 					<h2 className="font-display text-3xl font-bold tracking-tight">
 						{t.home.careerTitle}
@@ -171,26 +170,6 @@ export function HomeView({ lang }: { lang: Lang }) {
 					</TransitionLink>
 				</div>
 				<CareerTimeline roles={milestones} lang={lang} />
-			</section>
-
-			<section className="reveal mx-auto max-w-6xl px-4 pt-16 pb-28 sm:px-6">
-				<div className="flex flex-wrap items-center justify-between gap-8 cut bg-card p-8 sm:p-12">
-					<div>
-						<h2 className="font-display text-3xl font-bold tracking-tight">
-							{t.home.contactTitle}
-						</h2>
-						<p className="mt-2 font-mono text-muted-foreground">{Profile.email}</p>
-					</div>
-					<div className="flex flex-wrap gap-3">
-						<TransitionLink
-							href={pagePath("contact", lang)}
-							className="cut-sm cut-fill inline-flex min-h-12 items-center bg-primary px-6 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
-						>
-							<ScrambleText text={t.home.contactAction} />
-						</TransitionLink>
-						<CopyEmailButton />
-					</div>
-				</div>
 			</section>
 		</>
 	);

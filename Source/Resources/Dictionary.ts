@@ -42,7 +42,6 @@ const it = {
 		],
 		careerTitle: "Carriera",
 		details: "Dettagli",
-		contactTitle: "Contatti",
 	},
 	about: {
 		title: "Carriera",
@@ -140,7 +139,6 @@ const en: Dictionary = {
 		],
 		careerTitle: "Career",
 		details: "Details",
-		contactTitle: "Contact",
 	},
 	about: {
 		title: "Career",
