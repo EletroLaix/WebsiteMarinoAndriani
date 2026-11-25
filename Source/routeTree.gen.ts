@@ -12,11 +12,13 @@ import { Route as rootRouteImport } from './Interface/Routes/__root'
 import { Route as IndexRouteImport } from './Interface/Routes/index'
 import { Route as R404RouteImport } from './Interface/Routes/404'
 import { Route as AboutRouteImport } from './Interface/Routes/about'
+import { Route as CarrieraRouteImport } from './Interface/Routes/carriera'
 import { Route as ChiSonoRouteImport } from './Interface/Routes/chi-sono'
 import { Route as ContactRouteImport } from './Interface/Routes/contact'
 import { Route as ContattiRouteImport } from './Interface/Routes/contatti'
 import { Route as EnIndexRouteImport } from './Interface/Routes/en/index'
 import { Route as EnAboutRouteImport } from './Interface/Routes/en/about'
+import { Route as EnCareerRouteImport } from './Interface/Routes/en/career'
 import { Route as EnContactRouteImport } from './Interface/Routes/en/contact'
 import { Route as PassioniIndexRouteImport } from './Interface/Routes/passioni/index'
 import { Route as PassioniQuotesRouteImport } from './Interface/Routes/passioni/quotes'
@@ -38,6 +40,11 @@ const R404Route = R404RouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarrieraRoute = CarrieraRouteImport.update({
+  id: '/carriera',
+  path: '/carriera',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChiSonoRoute = ChiSonoRouteImport.update({
@@ -63,6 +70,11 @@ const EnIndexRoute = EnIndexRouteImport.update({
 const EnAboutRoute = EnAboutRouteImport.update({
   id: '/en/about',
   path: '/en/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnCareerRoute = EnCareerRouteImport.update({
+  id: '/en/career',
+  path: '/en/career',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnContactRoute = EnContactRouteImport.update({
@@ -105,10 +117,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/carriera': typeof CarrieraRoute
   '/chi-sono': typeof ChiSonoRoute
   '/contact': typeof ContactRoute
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
+  '/en/career': typeof EnCareerRoute
   '/en/contact': typeof EnContactRoute
   '/passioni/citazioni': typeof PassioniQuotesRoute
   '/passioni/trekking': typeof PassioniTrekkingRoute
@@ -122,10 +136,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/carriera': typeof CarrieraRoute
   '/chi-sono': typeof ChiSonoRoute
   '/contact': typeof ContactRoute
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
+  '/en/career': typeof EnCareerRoute
   '/en/contact': typeof EnContactRoute
   '/passioni/citazioni': typeof PassioniQuotesRoute
   '/passioni/trekking': typeof PassioniTrekkingRoute
@@ -140,10 +156,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/carriera': typeof CarrieraRoute
   '/chi-sono': typeof ChiSonoRoute
   '/contact': typeof ContactRoute
   '/contatti': typeof ContattiRoute
   '/en/about': typeof EnAboutRoute
+  '/en/career': typeof EnCareerRoute
   '/en/contact': typeof EnContactRoute
   '/passioni/citazioni': typeof PassioniQuotesRoute
   '/passioni/trekking': typeof PassioniTrekkingRoute
@@ -159,10 +177,12 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
+    | '/carriera'
     | '/chi-sono'
     | '/contact'
     | '/contatti'
     | '/en/about'
+    | '/en/career'
     | '/en/contact'
     | '/passioni/citazioni'
     | '/passioni/trekking'
@@ -176,10 +196,12 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
+    | '/carriera'
     | '/chi-sono'
     | '/contact'
     | '/contatti'
     | '/en/about'
+    | '/en/career'
     | '/en/contact'
     | '/passioni/citazioni'
     | '/passioni/trekking'
@@ -193,10 +215,12 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
+    | '/carriera'
     | '/chi-sono'
     | '/contact'
     | '/contatti'
     | '/en/about'
+    | '/en/career'
     | '/en/contact'
     | '/passioni/citazioni'
     | '/passioni/trekking'
@@ -211,10 +235,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
+  CarrieraRoute: typeof CarrieraRoute
   ChiSonoRoute: typeof ChiSonoRoute
   ContactRoute: typeof ContactRoute
   ContattiRoute: typeof ContattiRoute
   EnAboutRoute: typeof EnAboutRoute
+  EnCareerRoute: typeof EnCareerRoute
   EnContactRoute: typeof EnContactRoute
   PassioniQuotesRoute: typeof PassioniQuotesRoute
   PassioniTrekkingRoute: typeof PassioniTrekkingRoute
@@ -246,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carriera': {
+      id: '/carriera'
+      path: '/carriera'
+      fullPath: '/carriera'
+      preLoaderRoute: typeof CarrieraRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chi-sono': {
@@ -281,6 +314,13 @@ declare module '@tanstack/react-router' {
       path: '/en/about'
       fullPath: '/en/about'
       preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/career': {
+      id: '/en/career'
+      path: '/en/career'
+      fullPath: '/en/career'
+      preLoaderRoute: typeof EnCareerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/contact': {
@@ -339,10 +379,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
   AboutRoute: AboutRoute,
+  CarrieraRoute: CarrieraRoute,
   ChiSonoRoute: ChiSonoRoute,
   ContactRoute: ContactRoute,
   ContattiRoute: ContattiRoute,
   EnAboutRoute: EnAboutRoute,
+  EnCareerRoute: EnCareerRoute,
   EnContactRoute: EnContactRoute,
   PassioniQuotesRoute: PassioniQuotesRoute,
   PassioniTrekkingRoute: PassioniTrekkingRoute,

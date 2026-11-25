@@ -20,12 +20,12 @@ const PageText: Record<PageKey, Record<Lang, SeoText>> = {
 	},
 	about: {
 		it: {
-			title: "Chi sono ed esperienza — Marino Andriani",
+			title: "Carriera — Marino Andriani",
 			description:
 				"Esperienza di Marino Andriani in Roboze e nella community maker di Bari: sistemi embedded, automazione industriale con PLC B&R, IT e coordinamento del team software.",
 		},
 		en: {
-			title: "About and experience — Marino Andriani",
+			title: "Career — Marino Andriani",
 			description:
 				"Marino Andriani's experience at Roboze and in the Bari maker community: embedded systems, industrial automation with B&R PLCs, IT, and software team leadership.",
 		},
