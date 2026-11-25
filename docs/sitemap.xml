@@ -13,16 +13,16 @@
 		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/" />
 	</url>
 	<url>
-		<loc>https://marinoandriani.me/chi-sono/</loc>
-		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/chi-sono/" />
-		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/about/" />
-		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/chi-sono/" />
+		<loc>https://marinoandriani.me/carriera/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/carriera/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/career/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/carriera/" />
 	</url>
 	<url>
-		<loc>https://marinoandriani.me/en/about/</loc>
-		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/chi-sono/" />
-		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/about/" />
-		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/chi-sono/" />
+		<loc>https://marinoandriani.me/en/career/</loc>
+		<xhtml:link rel="alternate" hreflang="it" href="https://marinoandriani.me/carriera/" />
+		<xhtml:link rel="alternate" hreflang="en" href="https://marinoandriani.me/en/career/" />
+		<xhtml:link rel="alternate" hreflang="x-default" href="https://marinoandriani.me/carriera/" />
 	</url>
 	<url>
 		<loc>https://marinoandriani.me/contatti/</loc>

@@ -1,21 +1,19 @@
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { pagePath } from "@/Application/Site";
-import { formatPeriod, rolesByStart } from "@/Resources/Content/Experience";
+import { rolesByStart } from "@/Resources/Content/Experience";
 import type { Lang } from "@/Resources/Content/Localized";
 import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
-import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
+import { CareerTimeline } from "@/Interface/Components/CareerTimeline";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
 import { ScrambleText } from "@/Interface/Components/ScrambleText";
 import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
-import {
-	moveSpotlight,
-	resetTilt,
-	tiltTowardsPointer,
-} from "@/Interface/Components/PointerEffects";
+import { resetTilt, tiltTowardsPointer } from "@/Interface/Components/PointerEffects";
 
 export function HomeView({ lang }: { lang: Lang }) {
 	const t = dictionary(lang);
+	const [activeDomain, setActiveDomain] = useState(0);
 	const milestones = rolesByStart().filter(
 		(role) => role.kind === "work" || role.id === "barimakers",
 	);
@@ -128,31 +126,40 @@ export function HomeView({ lang }: { lang: Lang }) {
 				<h2 className="font-display text-3xl font-bold tracking-tight">
 					{t.home.domainsTitle}
 				</h2>
-				<div className="mt-8 grid gap-5 md:grid-cols-3">
+				{/*
+				 * The card under the pointer, or the last one tapped, stays lit: side by side it
+				 * widens, stacked on small screens it opens while the others close to their title.
+				 */}
+				<div className="mt-8 flex flex-col gap-5 md:flex-row">
 					{t.home.domains.map((domain, index) => (
 						<article
 							key={domain.title}
-							onPointerEnter={moveSpotlight}
-							onPointerMove={moveSpotlight}
-							className="spotlight cut cut-hover flex flex-col gap-3 bg-card p-7 hover:-translate-y-1"
+							onPointerEnter={() => setActiveDomain(index)}
+							onClick={() => setActiveDomain(index)}
+							data-active={index === activeDomain}
+							className="domain-card cut flex flex-col gap-3 p-7"
 						>
-							<p className="font-mono text-xs text-faint">
+							<p className="domain-detail font-mono text-xs">
 								{String(index + 1).padStart(2, "0")}
 							</p>
 							<h3 className="font-display text-2xl font-semibold">{domain.title}</h3>
-							<p className="text-muted-foreground">{domain.text}</p>
-							<p className="mt-auto pt-3 font-mono text-xs text-faint">
-								{domain.tags}
-							</p>
+							<div className="domain-body">
+								<div className="domain-inner flex flex-col gap-3">
+									<p className="domain-text">{domain.text}</p>
+									<p className="domain-detail mt-auto pt-3 font-mono text-xs">
+										{domain.tags}
+									</p>
+								</div>
+							</div>
 						</article>
 					))}
 				</div>
 			</section>
 
-			<section className="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
+			<section className="reveal mx-auto max-w-6xl px-4 pt-16 pb-28 sm:px-6">
 				<div className="flex flex-wrap items-end justify-between gap-4">
 					<h2 className="font-display text-3xl font-bold tracking-tight">
-						{t.home.experienceTitle}
+						{t.home.careerTitle}
 					</h2>
 					<TransitionLink
 						href={pagePath("about", lang)}
@@ -162,54 +169,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 						<ArrowRight className="h-4 w-4" aria-hidden="true" />
 					</TransitionLink>
 				</div>
-				<div className="relative mt-12">
-					<div
-						className="absolute top-[9px] right-0 left-0 hidden h-0.5 bg-gradient-to-r from-ember to-primary sm:block"
-						aria-hidden="true"
-					/>
-					<ol className="relative grid gap-8 sm:grid-cols-5 sm:gap-6">
-						{milestones.map((role) => {
-							const current = !role.end;
-							return (
-								<li key={role.id} className="group">
-									<span
-										className={
-											current && role.id === "head"
-												? "block h-5 w-5 scale-[0.8] rotate-45 border-2 border-primary bg-primary shadow-[0_0_0_6px_oklch(0.7_0.19_47/0.18)]"
-												: "block h-5 w-5 scale-[0.8] rotate-45 border-2 border-primary bg-background transition-colors group-hover:bg-primary"
-										}
-										aria-hidden="true"
-									/>
-									<p className="mt-4 font-mono text-[13px] text-accent">
-										{formatPeriod(role, lang)}
-									</p>
-									<p className="mt-1 font-semibold">{role.title[lang]}</p>
-									<p className="text-sm text-muted-foreground">{role.company}</p>
-								</li>
-							);
-						})}
-					</ol>
-				</div>
-			</section>
-
-			<section className="reveal mx-auto max-w-6xl px-4 pt-16 pb-28 sm:px-6">
-				<div className="flex flex-wrap items-center justify-between gap-8 cut bg-card p-8 sm:p-12">
-					<div>
-						<h2 className="font-display text-3xl font-bold tracking-tight">
-							{t.home.contactTitle}
-						</h2>
-						<p className="mt-2 font-mono text-muted-foreground">{Profile.email}</p>
-					</div>
-					<div className="flex flex-wrap gap-3">
-						<TransitionLink
-							href={pagePath("contact", lang)}
-							className="cut-sm cut-fill inline-flex min-h-12 items-center bg-primary px-6 font-mono text-[13px] font-semibold tracking-wide uppercase text-primary-foreground hover:-translate-y-0.5 hover:bg-primary/90"
-						>
-							<ScrambleText text={t.home.contactAction} />
-						</TransitionLink>
-						<CopyEmailButton />
-					</div>
-				</div>
+				<CareerTimeline roles={milestones} lang={lang} />
 			</section>
 		</>
 	);

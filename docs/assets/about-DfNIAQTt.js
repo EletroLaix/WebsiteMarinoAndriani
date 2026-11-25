@@ -1,0 +1,1 @@
+import{n as e}from"./Dictionary-De-Jf_PY.js";import{t}from"./index-Z1H2RDWH.js";import{t as n}from"./LegacyRedirectView-qhU71IvA.js";var r=e(),i=()=>(0,r.jsx)(n,{to:t});export{i as component};

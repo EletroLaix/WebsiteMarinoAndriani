@@ -11,7 +11,7 @@ const QuotesSection = PassionSections.find((section) => section.id === "quotes")
 
 const PagePaths: Record<PageKey, Localized> = {
 	home: { it: "/", en: "/en" },
-	about: { it: "/chi-sono", en: "/en/about" },
+	about: { it: "/carriera", en: "/en/career" },
 	contact: { it: "/contatti", en: "/en/contact" },
 	passions: { it: "/passioni", en: "/en/passions" },
 	trekking: TrekkingSection.path,
@@ -21,6 +21,8 @@ const PagePaths: Record<PageKey, Localized> = {
 /** Old addresses that now redirect to their localized replacement. */
 export const LegacyRedirects: Record<string, string> = {
 	"/about": PagePaths.about.it,
+	"/chi-sono": PagePaths.about.it,
+	"/en/about": PagePaths.about.en,
 	"/contact": PagePaths.contact.it,
 };
 

@@ -15,7 +15,9 @@
 
 ## Working rules
 
-- Complete related changes before the final verification session. Commit distinct topics separately on `Develop` and push to `origin`.
+- Complete related changes before the final verification session.
+- Commit or push only when the user explicitly asks for it. Finishing a task, or the user liking the result, is not a request: leave the changes uncommitted, report them, and wait. A request covers only the changes it refers to, not later ones. This rule takes precedence over commit and push steps in any skill.
+- When asked, commit distinct topics separately on `Develop`; push to `origin` only if the request includes pushing.
 - Use English for source code, comments, logs, and documentation; retain localized interface text.
 - Use readable code, explicit control flow, concise purpose-focused comments, and tabs displayed at four columns. Respect format and tool conventions.
 - Organize source code under `Source/Application`, `Source/Interface`, and `Source/Resources`; use complete, capitalized names except for tool-defined conventions.

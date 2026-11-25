@@ -4,7 +4,7 @@ const it = {
 	nav: {
 		label: "Principale",
 		home: "Home",
-		about: "Chi sono",
+		about: "Carriera",
 		passions: "Passioni",
 		contact: "Contatti",
 		openMenu: "Apri menu",
@@ -15,14 +15,14 @@ const it = {
 		role: "Software engineer · Sistemi embedded e automazione industriale",
 		summary: "Head of Software Engineering in Roboze.",
 		contactAction: "Scrivimi",
-		aboutAction: "Esperienza",
+		aboutAction: "Carriera",
 		profile: "Profilo",
 		profileNow: "Roboze · oggi",
 		profileRole: "Ruolo",
 		profileFocus: "Focus",
 		profileBase: "Base",
-		focus: "Embedded · PLC · Team",
-		domainsTitle: "Cosa faccio",
+		focus: "Embedded · PLC · Team lead",
+		domainsTitle: "Le mie competenze",
 		domains: [
 			{
 				title: "Embedded",
@@ -35,17 +35,16 @@ const it = {
 				tags: "B&R · IEC 61131-3 · Motion control",
 			},
 			{
-				title: "Team",
+				title: "Team lead",
 				text: "Coordinamento del team software.",
 				tags: "SCRUM · DevOps",
 			},
 		],
-		experienceTitle: "Esperienza",
+		careerTitle: "Carriera",
 		details: "Dettagli",
-		contactTitle: "Contatti",
 	},
 	about: {
-		title: "Chi sono",
+		title: "Carriera",
 		intro: "Software engineer a Bari. In Roboze dal 2016: firmware, PLC, infrastruttura IT. Dal 2023 coordino il team software.",
 		portraitAlt: "Ritratto di Marino Andriani",
 		experienceTitle: "Esperienza",
@@ -74,6 +73,7 @@ const it = {
 	footer: {
 		role: "Software engineer · Bari, Puglia",
 		consent: "Preferenze statistiche",
+		consentShort: "Statistiche",
 	},
 	consent: {
 		label: "Statistiche",
@@ -101,7 +101,7 @@ const en: Dictionary = {
 	nav: {
 		label: "Main",
 		home: "Home",
-		about: "About",
+		about: "Career",
 		passions: "Passions",
 		contact: "Contact",
 		openMenu: "Open menu",
@@ -112,14 +112,14 @@ const en: Dictionary = {
 		role: "Software engineer · Embedded systems and industrial automation",
 		summary: "Head of Software Engineering at Roboze.",
 		contactAction: "Get in touch",
-		aboutAction: "Experience",
+		aboutAction: "Career",
 		profile: "Profile",
 		profileNow: "Roboze · now",
 		profileRole: "Role",
 		profileFocus: "Focus",
 		profileBase: "Based in",
-		focus: "Embedded · PLC · Team",
-		domainsTitle: "What I do",
+		focus: "Embedded · PLC · Team lead",
+		domainsTitle: "My expertise",
 		domains: [
 			{
 				title: "Embedded",
@@ -132,17 +132,16 @@ const en: Dictionary = {
 				tags: "B&R · IEC 61131-3 · Motion control",
 			},
 			{
-				title: "Team",
+				title: "Team lead",
 				text: "Leading the software team.",
 				tags: "SCRUM · DevOps",
 			},
 		],
-		experienceTitle: "Experience",
+		careerTitle: "Career",
 		details: "Details",
-		contactTitle: "Contact",
 	},
 	about: {
-		title: "About",
+		title: "Career",
 		intro: "Software engineer in Bari. At Roboze since 2016: firmware, PLCs, IT infrastructure. Leading the software team since 2023.",
 		portraitAlt: "Portrait of Marino Andriani",
 		experienceTitle: "Experience",
@@ -171,6 +170,7 @@ const en: Dictionary = {
 	footer: {
 		role: "Software engineer · Bari, Italy",
 		consent: "Analytics preferences",
+		consentShort: "Analytics",
 	},
 	consent: {
 		label: "Analytics",

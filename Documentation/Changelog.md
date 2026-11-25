@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.7.0
+
+### Features
+
+- The home page presents the three fields of expertise as cards that widen and turn orange under the pointer, above a smaller career timeline without company names.
+- The career timeline on the home page advances when it comes into view, lighting each role as the line reaches it.
+- On phones, the tapped expertise card opens and turns orange while the others close to their title, and the career timeline climbs from the oldest role at the bottom to the latest at the top.
+- The home page now ends with the career timeline; the contact box at the bottom was removed, and Contact stays in the menu.
+- The third field of expertise on the home page is now called Team lead instead of Team, also in the profile card.
+- The orange line under the current page slides between the links of the top menu.
+- The analytics preferences link in the footer is now an orange cookie icon, with a short label on hover.
+- Renamed the About page to Career, at `/carriera` and `/en/career`; the old addresses redirect to the new ones.
+- Quotes now say where they were found, such as a film, TV series, TV show, book or website, instead of the generic author label; when only a name is known, it is shown without a label.
+
+### Resources
+
+- Sorted the 44 author quotes in `Quotes.json` by kind, with the title and the person in separate fields.
+
+### Known issues
+
+- Six quotes have a name but no known work, and some attributions still need verification.
+- Widening the window from phone to desktop size replays the spark of the home career timeline once.
+
 ## 1.6.0
 
 ### Features

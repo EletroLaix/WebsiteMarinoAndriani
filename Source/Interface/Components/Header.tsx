@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { alternatePath, isPagePublished, normalizePath, pagePath } from "@/Application/Site";
 import { cn } from "@/Application/Utilities";
 import { Profile } from "@/Resources/Content/Profile";
@@ -16,6 +16,26 @@ export function Header() {
 	const [open, setOpen] = useState(false);
 	const [mounted, setMounted] = useState(false);
 	const [closing, setClosing] = useState(false);
+	const navRef = useRef<HTMLElement>(null);
+	// Position of the line under the current page; until measured the link draws its own.
+	const [marker, setMarker] = useState<{ left: number; width: number }>();
+
+	// The header outlives page changes, so moving the marker makes it slide between links.
+	useLayoutEffect(() => {
+		const navElement = navRef.current;
+		if (!navElement) return;
+		const place = () => {
+			const link = navElement.querySelector<HTMLElement>('[aria-current="page"]');
+			// The menu has no size while hidden on small screens.
+			setMarker(
+				link?.offsetWidth ? { left: link.offsetLeft, width: link.offsetWidth } : undefined,
+			);
+		};
+		place();
+		const observer = new ResizeObserver(place);
+		observer.observe(navElement);
+		return () => observer.disconnect();
+	}, [current, lang]);
 
 	const nav = [
 		{ label: t.nav.home, href: pagePath("home", lang) },
@@ -79,7 +99,11 @@ export function Header() {
 						</span>
 					</TransitionLink>
 
-					<nav aria-label={t.nav.label} className="hidden items-center gap-1 md:flex">
+					<nav
+						ref={navRef}
+						aria-label={t.nav.label}
+						className="relative hidden items-center gap-1 md:flex"
+					>
 						{nav.map((item) => (
 							<TransitionLink
 								key={item.href}
@@ -88,13 +112,26 @@ export function Header() {
 								className={cn(
 									"border-b-2 px-3.5 py-2 font-mono text-[13px] font-medium tracking-wide uppercase",
 									isActive(item.href)
-										? "border-primary text-foreground"
-										: "border-transparent text-muted-foreground hover:text-foreground",
+										? "text-foreground"
+										: "text-muted-foreground hover:text-foreground",
+									isActive(item.href) && !marker
+										? "border-primary"
+										: "border-transparent",
 								)}
 							>
 								<ScrambleText text={item.label} />
 							</TransitionLink>
 						))}
+						{marker && (
+							<span
+								className="nav-marker"
+								style={{
+									width: marker.width,
+									transform: `translateX(${marker.left}px)`,
+								}}
+								aria-hidden="true"
+							/>
+						)}
 						<span className="mx-2 h-5 w-px bg-border" aria-hidden="true" />
 						{languageSwitch}
 					</nav>

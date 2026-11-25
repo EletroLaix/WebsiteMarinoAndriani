@@ -554,32 +554,339 @@ html[data-overlay="closed"] .rise {
 	outline-offset: -4px;
 }
 
-/* ---- Pointer effects ---- */
-/* The glow follows the pointer and only shows while the pointer is over the card. */
-.spotlight {
+/* ---- Cookie in the footer that reopens the analytics choice ---- */
+.consent-trigger {
 	position: relative;
-	isolation: isolate;
 }
 
-.spotlight::before {
-	content: "";
+.consent-trigger svg {
+	transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.consent-trigger:hover svg {
+	transform: rotate(-18deg) scale(1.12);
+}
+
+/* Short label above the cookie, on hover and keyboard focus. */
+.consent-tip {
+	position: absolute;
+	right: 0;
+	bottom: calc(100% + 2px);
+	padding: 0.3rem 0.6rem;
+	border: 1px solid var(--color-border);
+	background-color: var(--color-card);
+	color: var(--color-foreground);
+	font-family: var(--font-mono);
+	font-size: 12px;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transform: translateY(4px);
+	transition:
+		opacity 0.2s ease-out,
+		transform 0.2s ease-out;
+}
+
+.consent-trigger:hover .consent-tip,
+.consent-trigger:focus-visible .consent-tip {
+	opacity: 1;
+	transform: none;
+}
+
+/* ---- Line under the current page, sliding between menu links ---- */
+.nav-marker {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	background-color: var(--color-primary);
+	pointer-events: none;
+	transition:
+		transform 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+		width 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---- Career timeline: the line advances and lights every role it reaches ---- */
+.timeline {
+	--run: 2.4s;
+}
+
+.timeline-track {
+	position: absolute;
+	top: 7px;
+	right: 0;
+	left: 0;
+	display: none;
+	height: 1px;
+	background-color: var(--color-border);
+}
+
+.timeline-line {
 	position: absolute;
 	inset: 0;
-	z-index: -1;
-	border-radius: inherit;
-	pointer-events: none;
-	background-image: radial-gradient(
-		320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-		oklch(0.7 0.19 47 / 0.16),
-		transparent 65%
-	);
-	opacity: 0;
-	transition: opacity 0.3s ease-out;
+	background-image: linear-gradient(to right, var(--color-ember), var(--color-primary));
+	transform-origin: left;
 }
 
-@media (hover: hover) {
-	.spotlight:hover::before {
+/* Spark at the tip of the line, gone once the line is complete. */
+.timeline-head {
+	position: absolute;
+	top: -2px;
+	left: 0;
+	width: 40px;
+	height: 5px;
+	margin-left: -40px;
+	background: linear-gradient(to right, transparent, var(--color-accent));
+	filter: drop-shadow(0 0 6px var(--color-primary));
+	opacity: 0;
+}
+
+.timeline-mark {
+	display: block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid var(--color-primary);
+	background-color: var(--color-background);
+	transform: rotate(45deg) scale(0.8);
+	transition: background-color 0.22s ease-out;
+}
+
+.timeline-role:hover .timeline-mark,
+.timeline-role[data-current="true"] .timeline-mark {
+	background-color: var(--color-primary);
+}
+
+.timeline-role[data-current="true"] .timeline-mark {
+	box-shadow: 0 0 0 5px oklch(0.7 0.19 47 / 0.18);
+}
+
+.timeline[data-phase="waiting"] .timeline-line {
+	transform: scaleX(0);
+}
+
+.timeline[data-phase="waiting"] .timeline-mark {
+	border-color: var(--color-border);
+	background-color: var(--color-background);
+	box-shadow: none;
+}
+
+.timeline[data-phase="waiting"] .timeline-label {
+	opacity: 0;
+}
+
+.timeline[data-phase="running"] .timeline-line {
+	animation: timeline-line var(--run) linear both;
+}
+
+.timeline[data-phase="running"] .timeline-head {
+	animation: timeline-head var(--run) linear both;
+}
+
+.timeline[data-phase="running"] .timeline-mark {
+	animation: timeline-mark 0.5s ease-out calc(var(--reached) * var(--run)) backwards;
+}
+
+.timeline[data-phase="running"] .timeline-label {
+	animation: timeline-label 0.5s ease-out calc(var(--reached) * var(--run)) backwards;
+}
+
+/* The current role keeps glowing softly after the line has passed. */
+.timeline[data-phase="running"] .timeline-role[data-current="true"] .timeline-mark {
+	animation:
+		timeline-mark 0.5s ease-out calc(var(--reached) * var(--run)) backwards,
+		timeline-glow 2.6s ease-in-out var(--run) infinite;
+}
+
+@keyframes timeline-line {
+	from {
+		transform: scaleX(0);
+	}
+}
+
+@keyframes timeline-head {
+	0% {
+		left: 0;
 		opacity: 1;
+	}
+	92% {
+		opacity: 1;
+	}
+	100% {
+		left: 100%;
+		opacity: 0;
+	}
+}
+
+@keyframes timeline-mark {
+	0% {
+		border-color: var(--color-border);
+		background-color: var(--color-background);
+		box-shadow: none;
+	}
+	35% {
+		background-color: var(--color-accent);
+		box-shadow: 0 0 14px var(--color-primary);
+		transform: rotate(45deg) scale(1.15);
+	}
+}
+
+@keyframes timeline-label {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+}
+
+@keyframes timeline-glow {
+	50% {
+		box-shadow: 0 0 0 8px oklch(0.7 0.19 47 / 0.1);
+	}
+}
+
+.timeline-roles {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 2rem;
+}
+
+.timeline-role {
+	position: relative;
+	display: grid;
+	grid-template-columns: 14px minmax(0, 1fr);
+	column-gap: 1rem;
+}
+
+.timeline-label > :first-child {
+	margin-top: 0;
+}
+
+/* Stacked roles: each one draws the stretch of line that climbs from the older role below. */
+.timeline-role:not(:first-child)::after {
+	content: "";
+	position: absolute;
+	top: 16px;
+	bottom: -2rem;
+	left: 6px;
+	width: 1px;
+	background-image: linear-gradient(to top, var(--color-ember), var(--color-primary));
+	transform-origin: bottom;
+}
+
+.timeline[data-phase="waiting"] .timeline-role::after {
+	transform: scaleY(0);
+}
+
+.timeline[data-phase="running"] .timeline-role::after {
+	animation: timeline-climb calc(var(--step) * var(--run)) linear
+		calc((var(--reached) - var(--step)) * var(--run)) both;
+}
+
+@keyframes timeline-climb {
+	from {
+		transform: scaleY(0);
+	}
+}
+
+@media (width >= 40rem) {
+	.timeline-track {
+		display: block;
+	}
+
+	.timeline-roles {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 1.5rem;
+	}
+
+	.timeline-role {
+		display: block;
+	}
+
+	.timeline-label > :first-child {
+		margin-top: 0.75rem;
+	}
+
+	.timeline-role::after {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-marker {
+		transition: none;
+	}
+}
+
+/* ---- Domain cards on the home page: the active one widens and fills with the accent ---- */
+.domain-card {
+	--domain-text: var(--color-muted-foreground);
+	--domain-detail: var(--color-faint);
+	min-height: 15rem;
+	min-width: 0;
+	flex: 1 1 0%;
+	background-color: var(--color-card);
+	transition:
+		flex-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+		background-color 0.4s ease-out,
+		color 0.4s ease-out;
+}
+
+.domain-card[data-active="true"] {
+	--edge: var(--color-primary);
+	--domain-text: var(--color-primary-foreground);
+	--domain-detail: var(--color-primary-foreground);
+	flex-grow: 1.45;
+	background-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+}
+
+.domain-text {
+	color: var(--domain-text);
+	transition: color 0.4s ease-out;
+}
+
+.domain-detail {
+	color: var(--domain-detail);
+	transition: color 0.4s ease-out;
+}
+
+.domain-body {
+	display: grid;
+	flex: 1;
+	grid-template-rows: 1fr;
+}
+
+.domain-inner {
+	min-height: 0;
+}
+
+/* Stacked cards: only the active one shows its text, opening and closing smoothly. */
+@media (width < 48rem) {
+	.domain-card {
+		min-height: 0;
+		flex: none;
+		cursor: pointer;
+	}
+
+	.domain-body {
+		grid-template-rows: 0fr;
+		margin-top: -0.75rem;
+		overflow: hidden;
+		transition:
+			grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+			margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.domain-card[data-active="true"] .domain-body {
+		grid-template-rows: 1fr;
+		margin-top: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.domain-card,
+	.domain-body {
+		transition: none;
 	}
 }
 

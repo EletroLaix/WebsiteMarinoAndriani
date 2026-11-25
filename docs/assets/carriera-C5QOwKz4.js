@@ -1,0 +1,1 @@
+import{n as e}from"./Dictionary-De-Jf_PY.js";import{t}from"./AboutView-Db7GMi--.js";var n=e(),r=()=>(0,n.jsx)(t,{lang:`it`});export{r as component};

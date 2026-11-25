@@ -1,0 +1,1 @@
+import{n as e}from"./Dictionary-De-Jf_PY.js";import{t}from"./QuotesView-C0IqSjLN.js";var n=e(),r=()=>(0,n.jsx)(t,{lang:`en`});export{r as component};

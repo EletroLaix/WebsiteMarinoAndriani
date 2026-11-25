@@ -281,19 +281,23 @@
 	},
 	{
 		"id": 35,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Il bello della scienza è che è giusta, che tu ci creda o meno.",
 			"en": "The good thing about science is that it is right, whether or not you believe in it."
 		},
 		"source": {
-			"it": "Attribuita negli appunti a Stephen Hawking · A Brief History of Time (1988)",
-			"en": "Attribuita negli appunti a Stephen Hawking · A Brief History of Time (1988)"
+			"it": "A Brief History of Time",
+			"en": "A Brief History of Time"
+		},
+		"note": {
+			"it": "Attribuita a Stephen Hawking · 1988",
+			"en": "Attributed to Stephen Hawking · 1988"
 		}
 	},
 	{
 		"id": 36,
-		"kind": "author",
+		"kind": "person",
 		"text": {
 			"it": "Quando realizzi i tuoi sogni, l’importante non è quello che ottieni ma la persona che sei diventato per realizzarli.",
 			"en": "When you achieve your dreams, what matters is not what you get but who you have become to achieve them."
@@ -329,31 +333,39 @@
 	},
 	{
 		"id": 39,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "E, beninteso, ogni volta che le masse si impadronivano del potere politico, era la felicità piuttosto che la verità e la bellezza che importava.",
 			"en": "And, of course, whenever the masses seized political power, it was happiness rather than truth and beauty that mattered."
 		},
 		"source": {
-			"it": "Aldous Huxley · Il mondo nuovo",
-			"en": "Aldous Huxley · Il mondo nuovo"
+			"it": "Il mondo nuovo",
+			"en": "Brave New World"
+		},
+		"note": {
+			"it": "Aldous Huxley",
+			"en": "Aldous Huxley"
 		}
 	},
 	{
 		"id": 40,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Una delle funzioni principali di un amico consiste nel subire (in una forma più dolce e simbolica) i castighi che desidereremmo infliggere, ma non possiamo, ai nostri nemici.",
 			"en": "One of the main functions of a friend is to suffer, in a milder and symbolic form, the punishments we would like to inflict on our enemies but cannot."
 		},
 		"source": {
-			"it": "Aldous Huxley · Il mondo nuovo",
-			"en": "Aldous Huxley · Il mondo nuovo"
+			"it": "Il mondo nuovo",
+			"en": "Brave New World"
+		},
+		"note": {
+			"it": "Aldous Huxley",
+			"en": "Aldous Huxley"
 		}
 	},
 	{
 		"id": 41,
-		"kind": "author",
+		"kind": "person",
 		"text": {
 			"it": "Molte volte mi sono scoperto quasi ad amare la confortevole morte…",
 			"en": "Many a time I have been half in love with easeful Death…"
@@ -397,7 +409,7 @@
 	},
 	{
 		"id": 46,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Si incomincia col bruciare un testo sgradito e si finisce con le persone",
 			"en": "It starts with burning an unwelcome book and ends with burning people."
@@ -433,26 +445,34 @@
 	},
 	{
 		"id": 49,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "La sanità mentale era un fatto statistico",
 			"en": "Sanity was a statistical fact."
 		},
 		"source": {
-			"it": "George Orwell · 1984",
-			"en": "George Orwell · 1984"
+			"it": "1984",
+			"en": "1984"
+		},
+		"note": {
+			"it": "George Orwell",
+			"en": "George Orwell"
 		}
 	},
 	{
 		"id": 50,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Morire odiandoli, ecco la libertà",
 			"en": "To die hating them, that was freedom."
 		},
 		"source": {
-			"it": "George Orwell · 1984",
-			"en": "George Orwell · 1984"
+			"it": "1984",
+			"en": "1984"
+		},
+		"note": {
+			"it": "George Orwell",
+			"en": "George Orwell"
 		}
 	},
 	{
@@ -481,7 +501,7 @@
 	},
 	{
 		"id": 53,
-		"kind": "author",
+		"kind": "person",
 		"text": {
 			"it": "Il pessimismo della ragione, l’ottimismo della volontà",
 			"en": "Pessimism of the intellect, optimism of the will."
@@ -493,31 +513,39 @@
 	},
 	{
 		"id": 54,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Perché la mappa di ciò che stiamo combinando è disegnata nel rovescio delle nostre paure.",
 			"en": "Because the map of what we are up to is drawn on the reverse of our fears."
 		},
 		"source": {
-			"it": "Alessandro Baricco · The Game",
-			"en": "Alessandro Baricco · The Game"
+			"it": "The Game",
+			"en": "The Game"
+		},
+		"note": {
+			"it": "Alessandro Baricco",
+			"en": "Alessandro Baricco"
 		}
 	},
 	{
 		"id": 55,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Nessuno che sia nato prima di Google risolverà questi problemi",
 			"en": "No one born before Google will solve these problems."
 		},
 		"source": {
-			"it": "Alessandro Baricco · The Game",
-			"en": "Alessandro Baricco · The Game"
+			"it": "The Game",
+			"en": "The Game"
+		},
+		"note": {
+			"it": "Alessandro Baricco",
+			"en": "Alessandro Baricco"
 		}
 	},
 	{
 		"id": 56,
-		"kind": "author",
+		"kind": "film",
 		"text": {
 			"it": "A volte devi rischiare l’incertezza per avere una certezza",
 			"en": "Sometimes you have to risk uncertainty to gain a certainty."
@@ -529,19 +557,19 @@
 	},
 	{
 		"id": 57,
-		"kind": "author",
+		"kind": "person",
 		"text": {
 			"it": "I miracoli non avvengono in contrapposizione con la natura ma in contrapposizione con ciò che noi sappiamo della natura",
 			"en": "Miracles do not happen in contradiction to nature, but in contradiction to what we know about nature."
 		},
 		"source": {
 			"it": "Sant’Agostino",
-			"en": "Sant’Agostino"
+			"en": "Saint Augustine"
 		}
 	},
 	{
 		"id": 58,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Il grado con cui accettate le responsabilità di tutto ciò che è la vostra vita corrisponde esattamente al grado di potere personale su cui potete contare per cambiare o creare tutto nella vostra vita.",
 			"en": "The degree to which you accept responsibility for everything in your life is exactly the degree of personal power you have to change or create anything in it."
@@ -553,7 +581,7 @@
 	},
 	{
 		"id": 59,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Mentre la colpa determina chi sbaglia nel fare qualcosa, la responsabilità determina chi si impegna a migliorare la cosa.",
 			"en": "While blame decides who got something wrong, responsibility decides who commits to making it better."
@@ -565,7 +593,7 @@
 	},
 	{
 		"id": 60,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Pensieri suicidi si facevano costantemente strada nel mio cervello, anche se non credo sarei riuscito mai ad assecondarli. Il pensiero di quanto la cosa avrebbe distrutto mamma e papà era sufficiente a farmi stringere i denti e andare avanti.",
 			"en": "Suicidal thoughts kept making their way into my mind, though I don’t think I would ever have acted on them. The thought of how it would have destroyed Mum and Dad was enough to make me grit my teeth and keep going."
@@ -577,7 +605,7 @@
 	},
 	{
 		"id": 61,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Il livello di successo che potete raggiungere raramente supera il livello di sviluppo personale, perché il successo è qualcosa che voi attraete in virtù della persona che diventate.",
 			"en": "Your level of success will rarely exceed your level of personal development, because success is something you attract by the person you become."
@@ -589,7 +617,7 @@
 	},
 	{
 		"id": 62,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "La mediocrità non ha nulla a che fare con il modo in cui vi paragonate agli altri: è semplicemente il risultato di non impegnarsi a imparare, crescere e migliorare se stessi in continuità e costanza.",
 			"en": "Mediocrity has nothing to do with how you compare to others: it is simply the result of not committing to learn, grow and improve yourself, continuously and consistently."
@@ -601,14 +629,18 @@
 	},
 	{
 		"id": 63,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "L’idea, per quanto possa essere cervellotica, è che il miglior modo per aiutare i poveri è aiutare i ricchi a moltiplicare il denaro: qualcosa finirà in tasca anche ai poveri.",
 			"en": "The idea, however convoluted, is that the best way to help the poor is to help the rich multiply their money: some of it will end up in the pockets of the poor too."
 		},
 		"source": {
-			"it": "Alessandro Baricco · Next",
-			"en": "Alessandro Baricco · Next"
+			"it": "Next",
+			"en": "Next"
+		},
+		"note": {
+			"it": "Alessandro Baricco",
+			"en": "Alessandro Baricco"
 		}
 	},
 	{
@@ -621,7 +653,7 @@
 	},
 	{
 		"id": 65,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Un saggio comincia sempre dai perché",
 			"en": "A wise man always starts from the whys."
@@ -633,19 +665,19 @@
 	},
 	{
 		"id": 66,
-		"kind": "author",
+		"kind": "film",
 		"text": {
 			"it": "Quelli che non cambiano mai idea non cambiano mai niente",
 			"en": "Those who never change their minds never change anything."
 		},
 		"source": {
 			"it": "L’ora più buia",
-			"en": "L’ora più buia"
+			"en": "Darkest Hour"
 		}
 	},
 	{
 		"id": 67,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Comprare con i soldi che non si sono guadagnati cose di cui non abbiamo bisogno per fare una buona impressione — che non durerà — a persone di cui non ci importa nulla. Questa, più o meno, è la logica del nostro tempo.",
 			"en": "Buying things we don’t need, with money we haven’t earned, to impress, for a while, people we don’t care about. That, more or less, is the logic of our time."
@@ -657,7 +689,7 @@
 	},
 	{
 		"id": 68,
-		"kind": "author",
+		"kind": "series",
 		"text": {
 			"it": "Il mondo è un posto pericoloso non per colpa di chi perpetra il male ma per chi sta a guardare",
 			"en": "The world is a dangerous place, not because of those who do evil, but because of those who look on and do nothing."
@@ -669,19 +701,19 @@
 	},
 	{
 		"id": 69,
-		"kind": "author",
+		"kind": "series",
 		"text": {
 			"it": "La vita è quello che ti capita mentre sei impegnato a fare altri progetti, non va mai come progetti",
 			"en": "Life is what happens to you while you are busy making other plans; it never goes as planned."
 		},
 		"source": {
 			"it": "Come vendere droga online (in fretta)",
-			"en": "Come vendere droga online (in fretta)"
+			"en": "How to Sell Drugs Online (Fast)"
 		}
 	},
 	{
 		"id": 70,
-		"kind": "author",
+		"kind": "series",
 		"text": {
 			"it": "Perché difendere a tutti i costi una legalità che non punisce i criminali e non protegge i cittadini? Perché non è la legge che deve proteggere la gente ma la gente che deve proteggere la legge…",
 			"en": "Why defend at all costs a legality that does not punish criminals and does not protect citizens? Because it is not the law that must protect people, but people who must protect the law…"
@@ -693,14 +725,18 @@
 	},
 	{
 		"id": 71,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Una volta Ernest Hemingway ha scritto: «Non c’è nulla di nobile nell’essere superiore ai vostri simili, la vera nobiltà è essere superiore a quello che sei stato».",
 			"en": "Ernest Hemingway once wrote: “There is nothing noble in being superior to your fellow man; true nobility is being superior to your former self.”"
 		},
 		"source": {
-			"it": "Tommaso Ebhardt · Sergio Marchionne",
-			"en": "Tommaso Ebhardt · Sergio Marchionne"
+			"it": "Sergio Marchionne",
+			"en": "Sergio Marchionne"
+		},
+		"note": {
+			"it": "Tommaso Ebhardt",
+			"en": "Tommaso Ebhardt"
 		}
 	},
 	{
@@ -713,7 +749,7 @@
 	},
 	{
 		"id": 73,
-		"kind": "author",
+		"kind": "person",
 		"text": {
 			"it": "Cercare di piacere a tutti è un segnale di mediocrità",
 			"en": "Trying to please everyone is a sign of mediocrity."
@@ -725,7 +761,7 @@
 	},
 	{
 		"id": 74,
-		"kind": "author",
+		"kind": "person",
 		"text": {
 			"it": "Se c’è un problema allora c’è una soluzione, se il problema non ha soluzione allora non è più un problema, è un dato di fatto.",
 			"en": "If there is a problem, there is a solution; if the problem has no solution, it is no longer a problem, it is a fact."
@@ -737,55 +773,59 @@
 	},
 	{
 		"id": 75,
-		"kind": "author",
+		"kind": "film",
 		"text": {
 			"it": "Di se stessi bisogna decidere da se stessi",
 			"en": "Who you are is something you must decide for yourself."
 		},
 		"source": {
 			"it": "Il castello errante di Howl",
-			"en": "Il castello errante di Howl"
+			"en": "Howl’s Moving Castle"
 		}
 	},
 	{
 		"id": 76,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Le argomentazioni suonavano bene e i quattro uomini erano entusiasti. L’unico ostacolo era la realtà.",
 			"en": "The arguments sounded good and the four men were enthusiastic. The only obstacle was reality."
 		},
 		"source": {
 			"it": "Elon Musk. Tesla, SpaceX e la sfida per un futuro fantastico",
-			"en": "Elon Musk. Tesla, SpaceX e la sfida per un futuro fantastico"
+			"en": "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"
 		}
 	},
 	{
 		"id": 77,
-		"kind": "author",
+		"kind": "web",
 		"text": {
 			"it": "Fate ogni cosa che vi sentite di fare, date i baci che vi sentite di dare. E gridate tutti quei «mi manchi» che nascondete. Fate tutto adesso, prima che sia troppo tardi. La vita, a volte, ci stravolge i piani e non ci dà la possibilità di scegliere.",
 			"en": "Do everything you feel like doing, give the kisses you feel like giving, and shout all the “I miss you”s you keep hidden. Do it all now, before it is too late. Life sometimes upsets our plans and does not give us the chance to choose."
 		},
 		"source": {
-			"it": "https://t.co/prct1bRfR4",
-			"en": "https://t.co/prct1bRfR4"
+			"it": "t.co/prct1bRfR4",
+			"en": "t.co/prct1bRfR4"
 		}
 	},
 	{
 		"id": 78,
-		"kind": "author",
+		"kind": "tv",
 		"text": {
 			"it": "La violenza non c’entra niente con la forza",
 			"en": "Violence has nothing to do with strength."
 		},
 		"source": {
-			"it": "Karmab · Propaganda Live, 29/10/2021",
-			"en": "Karmab · Propaganda Live, 29/10/2021"
+			"it": "Propaganda Live",
+			"en": "Propaganda Live"
+		},
+		"note": {
+			"it": "Karmab · 29/10/2021",
+			"en": "Karmab · 29 October 2021"
 		}
 	},
 	{
 		"id": 79,
-		"kind": "author",
+		"kind": "film",
 		"text": {
 			"it": "Viviamo in un mondo dove un albero dal punto di vista finanziario vale più da morto che da vivo, un mondo in cui una balena vale più da morta che da viva. Finché la nostra economia funziona così e le aziende non saranno normate, continueranno a distruggere alberi e a uccidere balene.",
 			"en": "We live in a world where, financially, a tree is worth more dead than alive, a world where a whale is worth more dead than alive. As long as our economy works this way and companies are not regulated, they will keep destroying trees and killing whales."
@@ -797,19 +837,19 @@
 	},
 	{
 		"id": 80,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "La vita assomiglia all’andare in palestra, il momento più difficile è quello in cui si prende la decisione, dopodiché il passo è facile.",
 			"en": "Life is like going to the gym: the hardest moment is making the decision; after that, the step is easy."
 		},
 		"source": {
 			"it": "Padre ricco padre povero",
-			"en": "Padre ricco padre povero"
+			"en": "Rich Dad Poor Dad"
 		}
 	},
 	{
 		"id": 81,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Se puoi distruggere una cosa hai il completo controllo su di essa",
 			"en": "If you can destroy something, you have complete control over it."
@@ -821,79 +861,99 @@
 	},
 	{
 		"id": 82,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Possedere una viva intelligenza non basta, la cosa più importante è applicarla bene.",
 			"en": "Having a lively mind is not enough; what matters most is applying it well."
 		},
 		"source": {
-			"it": "Cartesio · Il metodo Warren Buffett",
-			"en": "Cartesio · Il metodo Warren Buffett"
+			"it": "Il metodo Warren Buffett",
+			"en": "The Warren Buffett Way"
+		},
+		"note": {
+			"it": "Cartesio",
+			"en": "Descartes"
 		}
 	},
 	{
 		"id": 83,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Io attribuisco un grande valore alla «certezza». Se si sceglie di fare così, l’idea stessa di fattore di rischio per me non ha senso. Il rischio nasce quando non si sa quello che si sta facendo.",
 			"en": "I place great value on certainty. If you choose to work that way, the very idea of a risk factor makes no sense to me. Risk comes from not knowing what you are doing."
 		},
 		"source": {
-			"it": "Warren Buffett · Il metodo Warren Buffett",
-			"en": "Warren Buffett · Il metodo Warren Buffett"
+			"it": "Il metodo Warren Buffett",
+			"en": "The Warren Buffett Way"
+		},
+		"note": {
+			"it": "Warren Buffett",
+			"en": "Warren Buffett"
 		}
 	},
 	{
 		"id": 84,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "«Successo» non è sinonimo di «infallibilità». Significa piuttosto fare più cose giuste che cose sbagliate.",
 			"en": "“Success” does not mean “infallibility”. It means doing more right things than wrong ones."
 		},
 		"source": {
-			"it": "Warren Buffett · Il metodo Warren Buffett",
-			"en": "Warren Buffett · Il metodo Warren Buffett"
+			"it": "Il metodo Warren Buffett",
+			"en": "The Warren Buffett Way"
+		},
+		"note": {
+			"it": "Warren Buffett",
+			"en": "Warren Buffett"
 		}
 	},
 	{
 		"id": 85,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "«Se non sa dirmi come vorrebbe che vadano le cose», ha detto, «significa che non ha ancora un problema. Si sta solo lamentando. Un problema esiste soltanto quando c’è differenza tra quello che sta accadendo e quello che vorremmo che accadesse».",
 			"en": "“If you can’t tell me how you would like things to go,” he said, “you don’t have a problem yet. You are just complaining. A problem only exists when there is a gap between what is happening and what we would like to happen.”"
 		},
 		"source": {
 			"it": "Il nuovo One Minute Manager",
-			"en": "Il nuovo One Minute Manager"
+			"en": "The New One Minute Manager"
 		}
 	},
 	{
 		"id": 86,
-		"kind": "author",
+		"kind": "film",
 		"text": {
 			"it": "Non è necessario vedersi quando ci si vuole bene.",
 			"en": "You don’t need to see each other when you love each other."
 		},
 		"source": {
-			"it": "Ferzan Özpetek · Diamanti (2024)",
-			"en": "Ferzan Özpetek · Diamanti (2024)"
+			"it": "Diamanti",
+			"en": "Diamonds"
+		},
+		"note": {
+			"it": "Ferzan Özpetek · 2024",
+			"en": "Ferzan Özpetek · 2024"
 		}
 	},
 	{
 		"id": 87,
-		"kind": "author",
+		"kind": "web",
 		"text": {
 			"it": "La tecnologia esiste a prescindere dalla nostra capacità di risolvere i problemi etici che presenta e crea… Noi stessi esistiamo a prescindere dalla nostra capacità di risolvere i problemi etici.",
 			"en": "Technology exists regardless of our ability to solve the ethical problems it raises and creates… We ourselves exist regardless of our ability to solve ethical problems."
 		},
 		"source": {
-			"it": "Geopop · Trolley problem e intelligenza artificiale",
-			"en": "Geopop · Trolley problem e intelligenza artificiale"
+			"it": "Geopop",
+			"en": "Geopop"
+		},
+		"note": {
+			"it": "Trolley problem e intelligenza artificiale",
+			"en": "Trolley problem and artificial intelligence"
 		}
 	},
 	{
 		"id": 88,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Tra cinque anni non sarai nient’altro che il risultato delle abitudini che da oggi deciderai di adottare",
 			"en": "Five years from now you will be nothing more than the result of the habits you decide to adopt today."
@@ -905,7 +965,7 @@
 	},
 	{
 		"id": 89,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "La vera vittoria negli scacchi come nella vita è sviluppare al massimo le proprie potenzialità",
 			"en": "True victory, in chess as in life, is developing your potential to the fullest."
@@ -917,7 +977,7 @@
 	},
 	{
 		"id": 90,
-		"kind": "author",
+		"kind": "book",
 		"text": {
 			"it": "Preferisco essere felice piuttosto che aver ragione",
 			"en": "I would rather be happy than be right."

@@ -1,1 +1,0 @@
-import{n as e}from"./Dictionary-R_9kPuOv.js";import{t}from"./ContactView-D01oZVMn.js";var n=e(),r=()=>(0,n.jsx)(t,{lang:`en`});export{r as component};
