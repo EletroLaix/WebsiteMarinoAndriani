@@ -743,9 +743,71 @@ html[data-overlay="closed"] .rise {
 	}
 }
 
+.timeline-roles {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 2rem;
+}
+
+.timeline-role {
+	position: relative;
+	display: grid;
+	grid-template-columns: 14px minmax(0, 1fr);
+	column-gap: 1rem;
+}
+
+.timeline-label > :first-child {
+	margin-top: 0;
+}
+
+/* Stacked roles: each one draws the stretch of line that climbs from the older role below. */
+.timeline-role:not(:first-child)::after {
+	content: "";
+	position: absolute;
+	top: 16px;
+	bottom: -2rem;
+	left: 6px;
+	width: 1px;
+	background-image: linear-gradient(to top, var(--color-ember), var(--color-primary));
+	transform-origin: bottom;
+}
+
+.timeline[data-phase="waiting"] .timeline-role::after {
+	transform: scaleY(0);
+}
+
+.timeline[data-phase="running"] .timeline-role::after {
+	animation: timeline-climb calc(var(--step) * var(--run)) linear
+		calc((var(--reached) - var(--step)) * var(--run)) both;
+}
+
+@keyframes timeline-climb {
+	from {
+		transform: scaleY(0);
+	}
+}
+
 @media (width >= 40rem) {
 	.timeline-track {
 		display: block;
+	}
+
+	.timeline-roles {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 1.5rem;
+	}
+
+	.timeline-role {
+		display: block;
+	}
+
+	.timeline-label > :first-child {
+		margin-top: 0.75rem;
+	}
+
+	.timeline-role::after {
+		display: none;
 	}
 }
 

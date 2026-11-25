@@ -6,7 +6,11 @@ import { usePageTransition } from "@/Interface/Components/PageTransition";
 /** Without scripts or motion the timeline stays in its final state. */
 type Phase = "still" | "waiting" | "running";
 
-/** Roles along a line that advances once on screen, lighting every role it reaches. */
+/**
+ * Roles along a line that advances once on screen, lighting every role it reaches.
+ * Side by side the line runs left to right; on small screens it climbs from the oldest
+ * role at the bottom to the latest at the top.
+ */
 export function CareerTimeline({ roles, lang }: { roles: Role[]; lang: Lang }) {
 	const { bootComplete } = usePageTransition();
 	const rootRef = useRef<HTMLDivElement>(null);
@@ -35,13 +39,18 @@ export function CareerTimeline({ roles, lang }: { roles: Role[]; lang: Lang }) {
 				<span className="timeline-line" />
 				<span className="timeline-head" />
 			</div>
-			<ol className="relative grid gap-8 sm:grid-cols-5 sm:gap-6">
+			<ol className="timeline-roles relative">
 				{roles.map((role, index) => (
 					<li
 						key={role.id}
 						className="timeline-role"
 						data-current={index === roles.length - 1}
-						style={{ "--reached": index / roles.length } as CSSProperties}
+						style={
+							{
+								"--reached": index / roles.length,
+								"--step": 1 / roles.length,
+							} as CSSProperties
+						}
 					>
 						<span className="timeline-mark" aria-hidden="true" />
 						<div className="timeline-label">
