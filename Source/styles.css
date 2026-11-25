@@ -554,32 +554,50 @@ html[data-overlay="closed"] .rise {
 	outline-offset: -4px;
 }
 
-/* ---- Pointer effects ---- */
-/* The glow follows the pointer and only shows while the pointer is over the card. */
-.spotlight {
-	position: relative;
-	isolation: isolate;
+/* ---- Domain cards on the home page: the active one widens and fills with the accent ---- */
+.domain-card {
+	--domain-text: var(--color-muted-foreground);
+	--domain-detail: var(--color-faint);
+	min-height: 15rem;
+	min-width: 0;
+	flex: 1 1 0%;
+	background-color: var(--color-card);
+	transition:
+		flex-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+		background-color 0.4s ease-out,
+		color 0.4s ease-out;
 }
 
-.spotlight::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: -1;
-	border-radius: inherit;
-	pointer-events: none;
-	background-image: radial-gradient(
-		320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-		oklch(0.7 0.19 47 / 0.16),
-		transparent 65%
-	);
-	opacity: 0;
-	transition: opacity 0.3s ease-out;
+.domain-card[data-active="true"] {
+	--edge: var(--color-primary);
+	--domain-text: var(--color-primary-foreground);
+	--domain-detail: var(--color-primary-foreground);
+	flex-grow: 1.45;
+	background-color: var(--color-primary);
+	color: var(--color-primary-foreground);
 }
 
-@media (hover: hover) {
-	.spotlight:hover::before {
-		opacity: 1;
+.domain-text {
+	color: var(--domain-text);
+	transition: color 0.4s ease-out;
+}
+
+.domain-detail {
+	color: var(--domain-detail);
+	transition: color 0.4s ease-out;
+}
+
+/* Stacked cards keep the height of their content. */
+@media (width < 48rem) {
+	.domain-card {
+		min-height: 0;
+		flex: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.domain-card {
+		transition: none;
 	}
 }
 

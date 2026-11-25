@@ -1,13 +1,5 @@
 import type { PointerEvent } from "react";
 
-/** Moves the `.spotlight` glow to the pointer without re-rendering. */
-export function moveSpotlight(event: PointerEvent<HTMLElement>) {
-	const target = event.currentTarget;
-	const rect = target.getBoundingClientRect();
-	target.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
-	target.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
-}
-
 /** Tilts a `.tilt` element towards the pointer (mouse only). */
 export function tiltTowardsPointer(event: PointerEvent<HTMLElement>) {
 	if (event.pointerType !== "mouse") return;

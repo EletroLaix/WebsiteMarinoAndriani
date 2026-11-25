@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { pagePath } from "@/Application/Site";
 import { formatPeriod, rolesByStart } from "@/Resources/Content/Experience";
@@ -8,14 +9,11 @@ import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
 import { ScrambleText } from "@/Interface/Components/ScrambleText";
 import { PixelatedImage } from "@/Interface/Components/PixelatedImage";
-import {
-	moveSpotlight,
-	resetTilt,
-	tiltTowardsPointer,
-} from "@/Interface/Components/PointerEffects";
+import { resetTilt, tiltTowardsPointer } from "@/Interface/Components/PointerEffects";
 
 export function HomeView({ lang }: { lang: Lang }) {
 	const t = dictionary(lang);
+	const [activeDomain, setActiveDomain] = useState(0);
 	const milestones = rolesByStart().filter(
 		(role) => role.kind === "work" || role.id === "barimakers",
 	);
@@ -128,20 +126,21 @@ export function HomeView({ lang }: { lang: Lang }) {
 				<h2 className="font-display text-3xl font-bold tracking-tight">
 					{t.home.domainsTitle}
 				</h2>
-				<div className="mt-8 grid gap-5 md:grid-cols-3">
+				{/* The card under the pointer widens and stays lit until another one is reached. */}
+				<div className="mt-8 flex flex-col gap-5 md:flex-row">
 					{t.home.domains.map((domain, index) => (
 						<article
 							key={domain.title}
-							onPointerEnter={moveSpotlight}
-							onPointerMove={moveSpotlight}
-							className="spotlight cut cut-hover flex flex-col gap-3 bg-card p-7 hover:-translate-y-1"
+							onPointerEnter={() => setActiveDomain(index)}
+							data-active={index === activeDomain}
+							className="domain-card cut flex flex-col gap-3 p-7"
 						>
-							<p className="font-mono text-xs text-faint">
+							<p className="domain-detail font-mono text-xs">
 								{String(index + 1).padStart(2, "0")}
 							</p>
 							<h3 className="font-display text-2xl font-semibold">{domain.title}</h3>
-							<p className="text-muted-foreground">{domain.text}</p>
-							<p className="mt-auto pt-3 font-mono text-xs text-faint">
+							<p className="domain-text">{domain.text}</p>
+							<p className="domain-detail mt-auto pt-3 font-mono text-xs">
 								{domain.tags}
 							</p>
 						</article>
@@ -152,7 +151,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 			<section className="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6">
 				<div className="flex flex-wrap items-end justify-between gap-4">
 					<h2 className="font-display text-3xl font-bold tracking-tight">
-						{t.home.experienceTitle}
+						{t.home.careerTitle}
 					</h2>
 					<TransitionLink
 						href={pagePath("about", lang)}
@@ -162,9 +161,9 @@ export function HomeView({ lang }: { lang: Lang }) {
 						<ArrowRight className="h-4 w-4" aria-hidden="true" />
 					</TransitionLink>
 				</div>
-				<div className="relative mt-12">
+				<div className="relative mt-10">
 					<div
-						className="absolute top-[9px] right-0 left-0 hidden h-0.5 bg-gradient-to-r from-ember to-primary sm:block"
+						className="absolute top-[7px] right-0 left-0 hidden h-px bg-gradient-to-r from-ember to-primary sm:block"
 						aria-hidden="true"
 					/>
 					<ol className="relative grid gap-8 sm:grid-cols-5 sm:gap-6">
@@ -175,16 +174,15 @@ export function HomeView({ lang }: { lang: Lang }) {
 									<span
 										className={
 											current && role.id === "head"
-												? "block h-5 w-5 scale-[0.8] rotate-45 border-2 border-primary bg-primary shadow-[0_0_0_6px_oklch(0.7_0.19_47/0.18)]"
-												: "block h-5 w-5 scale-[0.8] rotate-45 border-2 border-primary bg-background transition-colors group-hover:bg-primary"
+												? "block h-3.5 w-3.5 scale-[0.8] rotate-45 border-2 border-primary bg-primary shadow-[0_0_0_5px_oklch(0.7_0.19_47/0.18)]"
+												: "block h-3.5 w-3.5 scale-[0.8] rotate-45 border-2 border-primary bg-background transition-colors group-hover:bg-primary"
 										}
 										aria-hidden="true"
 									/>
-									<p className="mt-4 font-mono text-[13px] text-accent">
+									<p className="mt-3 font-mono text-xs text-accent">
 										{formatPeriod(role, lang)}
 									</p>
-									<p className="mt-1 font-semibold">{role.title[lang]}</p>
-									<p className="text-sm text-muted-foreground">{role.company}</p>
+									<p className="mt-1 text-sm font-medium">{role.title[lang]}</p>
 								</li>
 							);
 						})}
