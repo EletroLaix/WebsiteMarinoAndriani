@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Quotes now say where they were found, such as a film, TV series, TV show, book or website, instead of the generic author label; when only a name is known, it is shown without a label.
+
+### Resources
+
+- Sorted the 44 author quotes in `Quotes.json` by kind, with the title and the person in separate fields.
+
+### Known issues
+
+- Six quotes have a name but no known work, and some attributions still need verification.
+
 ## 1.6.0
 
 ### Features
