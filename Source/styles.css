@@ -554,6 +554,25 @@ html[data-overlay="closed"] .rise {
 	outline-offset: -4px;
 }
 
+/* ---- Line under the current page, sliding between menu links ---- */
+.nav-marker {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	background-color: var(--color-primary);
+	pointer-events: none;
+	transition:
+		transform 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+		width 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-marker {
+		transition: none;
+	}
+}
+
 /* ---- Domain cards on the home page: the active one widens and fills with the accent ---- */
 .domain-card {
 	--domain-text: var(--color-muted-foreground);
