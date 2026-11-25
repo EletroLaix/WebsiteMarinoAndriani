@@ -21,7 +21,7 @@ const it = {
 		profileRole: "Ruolo",
 		profileFocus: "Focus",
 		profileBase: "Base",
-		focus: "Embedded · PLC · Team",
+		focus: "Embedded · PLC · Team lead",
 		domainsTitle: "Le mie competenze",
 		domains: [
 			{
@@ -35,7 +35,7 @@ const it = {
 				tags: "B&R · IEC 61131-3 · Motion control",
 			},
 			{
-				title: "Team",
+				title: "Team lead",
 				text: "Coordinamento del team software.",
 				tags: "SCRUM · DevOps",
 			},
@@ -119,7 +119,7 @@ const en: Dictionary = {
 		profileRole: "Role",
 		profileFocus: "Focus",
 		profileBase: "Based in",
-		focus: "Embedded · PLC · Team",
+		focus: "Embedded · PLC · Team lead",
 		domainsTitle: "My expertise",
 		domains: [
 			{
@@ -133,7 +133,7 @@ const en: Dictionary = {
 				tags: "B&R · IEC 61131-3 · Motion control",
 			},
 			{
-				title: "Team",
+				title: "Team lead",
 				text: "Leading the software team.",
 				tags: "SCRUM · DevOps",
 			},
