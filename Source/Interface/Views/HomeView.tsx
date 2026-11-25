@@ -127,12 +127,16 @@ export function HomeView({ lang }: { lang: Lang }) {
 				<h2 className="font-display text-3xl font-bold tracking-tight">
 					{t.home.domainsTitle}
 				</h2>
-				{/* The card under the pointer widens and stays lit until another one is reached. */}
+				{/*
+				 * The card under the pointer, or the last one tapped, stays lit: side by side it
+				 * widens, stacked on small screens it opens while the others close to their title.
+				 */}
 				<div className="mt-8 flex flex-col gap-5 md:flex-row">
 					{t.home.domains.map((domain, index) => (
 						<article
 							key={domain.title}
 							onPointerEnter={() => setActiveDomain(index)}
+							onClick={() => setActiveDomain(index)}
 							data-active={index === activeDomain}
 							className="domain-card cut flex flex-col gap-3 p-7"
 						>
@@ -140,10 +144,14 @@ export function HomeView({ lang }: { lang: Lang }) {
 								{String(index + 1).padStart(2, "0")}
 							</p>
 							<h3 className="font-display text-2xl font-semibold">{domain.title}</h3>
-							<p className="domain-text">{domain.text}</p>
-							<p className="domain-detail mt-auto pt-3 font-mono text-xs">
-								{domain.tags}
-							</p>
+							<div className="domain-body">
+								<div className="domain-inner flex flex-col gap-3">
+									<p className="domain-text">{domain.text}</p>
+									<p className="domain-detail mt-auto pt-3 font-mono text-xs">
+										{domain.tags}
+									</p>
+								</div>
+							</div>
 						</article>
 					))}
 				</div>
