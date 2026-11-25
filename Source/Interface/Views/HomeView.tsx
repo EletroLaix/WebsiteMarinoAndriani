@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { pagePath } from "@/Application/Site";
-import { formatPeriod, rolesByStart } from "@/Resources/Content/Experience";
+import { rolesByStart } from "@/Resources/Content/Experience";
 import type { Lang } from "@/Resources/Content/Localized";
 import { Profile } from "@/Resources/Content/Profile";
 import { dictionary } from "@/Resources/Dictionary";
+import { CareerTimeline } from "@/Interface/Components/CareerTimeline";
 import { CopyEmailButton } from "@/Interface/Components/CopyEmailButton";
 import { TransitionLink } from "@/Interface/Components/PageTransition";
 import { ScrambleText } from "@/Interface/Components/ScrambleText";
@@ -161,33 +162,7 @@ export function HomeView({ lang }: { lang: Lang }) {
 						<ArrowRight className="h-4 w-4" aria-hidden="true" />
 					</TransitionLink>
 				</div>
-				<div className="relative mt-10">
-					<div
-						className="absolute top-[7px] right-0 left-0 hidden h-px bg-gradient-to-r from-ember to-primary sm:block"
-						aria-hidden="true"
-					/>
-					<ol className="relative grid gap-8 sm:grid-cols-5 sm:gap-6">
-						{milestones.map((role) => {
-							const current = !role.end;
-							return (
-								<li key={role.id} className="group">
-									<span
-										className={
-											current && role.id === "head"
-												? "block h-3.5 w-3.5 scale-[0.8] rotate-45 border-2 border-primary bg-primary shadow-[0_0_0_5px_oklch(0.7_0.19_47/0.18)]"
-												: "block h-3.5 w-3.5 scale-[0.8] rotate-45 border-2 border-primary bg-background transition-colors group-hover:bg-primary"
-										}
-										aria-hidden="true"
-									/>
-									<p className="mt-3 font-mono text-xs text-accent">
-										{formatPeriod(role, lang)}
-									</p>
-									<p className="mt-1 text-sm font-medium">{role.title[lang]}</p>
-								</li>
-							);
-						})}
-					</ol>
-				</div>
+				<CareerTimeline roles={milestones} lang={lang} />
 			</section>
 
 			<section className="reveal mx-auto max-w-6xl px-4 pt-16 pb-28 sm:px-6">

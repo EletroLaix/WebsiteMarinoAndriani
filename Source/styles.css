@@ -567,6 +567,149 @@ html[data-overlay="closed"] .rise {
 		width 0.55s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* ---- Career timeline: the line advances and lights every role it reaches ---- */
+.timeline {
+	--run: 2.4s;
+}
+
+.timeline-track {
+	position: absolute;
+	top: 7px;
+	right: 0;
+	left: 0;
+	display: none;
+	height: 1px;
+	background-color: var(--color-border);
+}
+
+.timeline-line {
+	position: absolute;
+	inset: 0;
+	background-image: linear-gradient(to right, var(--color-ember), var(--color-primary));
+	transform-origin: left;
+}
+
+/* Spark at the tip of the line, gone once the line is complete. */
+.timeline-head {
+	position: absolute;
+	top: -2px;
+	left: 0;
+	width: 40px;
+	height: 5px;
+	margin-left: -40px;
+	background: linear-gradient(to right, transparent, var(--color-accent));
+	filter: drop-shadow(0 0 6px var(--color-primary));
+	opacity: 0;
+}
+
+.timeline-mark {
+	display: block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid var(--color-primary);
+	background-color: var(--color-background);
+	transform: rotate(45deg) scale(0.8);
+	transition: background-color 0.22s ease-out;
+}
+
+.timeline-role:hover .timeline-mark,
+.timeline-role[data-current="true"] .timeline-mark {
+	background-color: var(--color-primary);
+}
+
+.timeline-role[data-current="true"] .timeline-mark {
+	box-shadow: 0 0 0 5px oklch(0.7 0.19 47 / 0.18);
+}
+
+.timeline[data-phase="waiting"] .timeline-line {
+	transform: scaleX(0);
+}
+
+.timeline[data-phase="waiting"] .timeline-mark {
+	border-color: var(--color-border);
+	background-color: var(--color-background);
+	box-shadow: none;
+}
+
+.timeline[data-phase="waiting"] .timeline-label {
+	opacity: 0;
+}
+
+.timeline[data-phase="running"] .timeline-line {
+	animation: timeline-line var(--run) linear both;
+}
+
+.timeline[data-phase="running"] .timeline-head {
+	animation: timeline-head var(--run) linear both;
+}
+
+.timeline[data-phase="running"] .timeline-mark {
+	animation: timeline-mark 0.5s ease-out calc(var(--reached) * var(--run)) backwards;
+}
+
+.timeline[data-phase="running"] .timeline-label {
+	animation: timeline-label 0.5s ease-out calc(var(--reached) * var(--run)) backwards;
+}
+
+/* The current role keeps glowing softly after the line has passed. */
+.timeline[data-phase="running"] .timeline-role[data-current="true"] .timeline-mark {
+	animation:
+		timeline-mark 0.5s ease-out calc(var(--reached) * var(--run)) backwards,
+		timeline-glow 2.6s ease-in-out var(--run) infinite;
+}
+
+@keyframes timeline-line {
+	from {
+		transform: scaleX(0);
+	}
+}
+
+@keyframes timeline-head {
+	0% {
+		left: 0;
+		opacity: 1;
+	}
+	92% {
+		opacity: 1;
+	}
+	100% {
+		left: 100%;
+		opacity: 0;
+	}
+}
+
+@keyframes timeline-mark {
+	0% {
+		border-color: var(--color-border);
+		background-color: var(--color-background);
+		box-shadow: none;
+	}
+	35% {
+		background-color: var(--color-accent);
+		box-shadow: 0 0 14px var(--color-primary);
+		transform: rotate(45deg) scale(1.15);
+	}
+}
+
+@keyframes timeline-label {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+}
+
+@keyframes timeline-glow {
+	50% {
+		box-shadow: 0 0 0 8px oklch(0.7 0.19 47 / 0.1);
+	}
+}
+
+@media (width >= 40rem) {
+	.timeline-track {
+		display: block;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.nav-marker {
 		transition: none;
