@@ -6,8 +6,8 @@
 import { readFileSync } from "node:fs";
 
 const QuotesFile = "Source/Resources/Quotes/Quotes.json";
-const Kinds = ["personal", "film", "book", "music", "author", "unknown"];
-const KindsWithSource = ["film", "book", "music", "author"];
+const Kinds = ["personal", "film", "series", "tv", "book", "music", "web", "person", "unknown"];
+const KindsWithSource = ["film", "series", "tv", "book", "music", "web", "person"];
 const SimilarityThreshold = 0.5;
 
 function normalize(text) {

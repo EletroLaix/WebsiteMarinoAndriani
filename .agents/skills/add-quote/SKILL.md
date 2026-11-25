@@ -21,16 +21,19 @@ Do these checks first and report what you find to the user before inserting.
 
 2. **What kind is it, and from where?** Decide one `kind`:
 
-    | kind       | When                                            | `source`          |
-    | ---------- | ----------------------------------------------- | ----------------- |
-    | `personal` | Written by Marino                               | none              |
-    | `film`     | Said in a film or series                        | title             |
-    | `book`     | Written in a book or essay                      | title             |
-    | `music`    | From a song                                     | song title        |
-    | `author`   | Said or written by a known person, work unknown | the person's name |
-    | `unknown`  | Nobody knows who said it                        | none              |
+    | kind       | When                                              | `source`             |
+    | ---------- | ------------------------------------------------- | -------------------- |
+    | `personal` | Written by Marino                                 | none                 |
+    | `film`     | Said in a film or documentary                     | title                |
+    | `series`   | Said in a TV or streaming series                  | title                |
+    | `tv`       | Said in a TV programme                            | title                |
+    | `book`     | Written in a book or essay                        | title                |
+    | `music`    | From a song                                       | song title           |
+    | `web`      | From a website, video or social post              | site or channel name |
+    | `person`   | Known person, work unknown; shown without a label | the person's name    |
+    | `unknown`  | Nobody knows who said it                          | none                 |
 
-    Ask the user when the source is unclear, and do not invent one. A popular attribution that cannot be confirmed goes under `author` with a note such as "attribuita" / "attributed", or under `unknown`.
+    Ask the user when the source is unclear, and do not invent one. A popular attribution that cannot be confirmed keeps its work or name, with a note such as "attribuita" / "attributed"; otherwise use `unknown`.
 
 3. **Is there an English version?** Every quote needs both languages.
     - For public-domain works, use the well-known English wording.
@@ -55,8 +58,8 @@ Append one entry at the end of the array, with the next id from step 1. Never re
 ```
 
 - `text`: required, both `it` and `en`.
-- `source`: required for `film`, `book`, `music` and `author`; omitted for `personal` and `unknown`. A name stays the same in both languages.
-- `note`: optional, for the character, a book's author, a chapter or a year, joined with `·`.
+- `source`: required for every other kind; omitted for `personal` and `unknown`. Put the title here and the person in `note`. A name stays the same in both languages.
+- `note`: optional, for the author, character, a chapter or a year, joined with `·`.
 - Typography: Italian uses the curly apostrophe `’`, the ellipsis `…` and `« »` for quotes inside a quote; English uses `’`, `…` and `“ ”`. Keep the original wording apart from these marks.
 - The file is indented with tabs, as Prettier formats it.
 
